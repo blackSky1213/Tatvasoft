@@ -1,0 +1,409 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Navbar  */
+body{
+    margin:0;
+    padding:0;
+
+}
+a:hover{
+    color:#ffff !important;
+}
+
+nav{
+    padding:6px 15px 4px 15px;
+    font-family: "Robo";
+    background-color: #757575;
+    position:sticky !important;
+    top:0;
+    left:0;
+    right:0;
+    z-index: 10;
+   
+}
+
+.nav-link{
+    display: inline-block !important;
+}
+
+.navbar li a{
+    font-size:16px;
+    font-weight: normal;
+    color:#FFFFFF;
+    text-decoration: none;
+}
+
+.button{
+    border:solid .2px #FFFFFF80;
+    border-radius: 20px;
+    text-align: center;
+    background-color: #29626D;
+    opacity: 100%;
+
+}
+.navbar li{
+    margin:6px 5px 8px 5px;
+}
+.book-btn{
+    width:111px;
+    height:40px;
+}
+
+.login-btn{
+    width:83px;
+    height:40px;
+
+}
+.helper-btn{
+    width:161px;
+    height:40px;
+
+}
+
+.service-btn{
+    border:solid .2px #FFFFFF80;
+    border-radius: 20px;
+    text-align: center;
+    height:40px;
+    width:161px;
+}
+
+.header-img{
+    width:100%;
+}
+
+
+/* price  */
+
+#price{
+    padding:2%;
+}
+
+.faq-title{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.line{
+    display:inline-block;
+    background-color: #CCCCCC;
+    width:62px;
+    margin:0 9px;
+    height:2px;
+
+}
+
+.faq-title h2{
+    font-size: 35.95px;
+    font-weight: bold;
+    color:#4F4F4F;
+}
+
+.price-card{
+
+    max-width:553px;
+    width:100%;
+    border: solid 1px #B0C9CE;
+    border-radius: 0 !important;
+    margin-top:43px;
+    
+    
+}
+.price-card h3{
+
+    font-size: 28px;
+    color:#FFFFFF;
+    font-weight: bold;
+    margin:auto;
+}
+
+#price .card-header{
+    background-color: #29626D;
+    border-radius:0 !important;
+    height:59px;
+   
+}
+
+#price .card-title{
+    color:#646464;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+#price .card-body{
+    text-align: center;
+    
+}
+.price-feature{
+  display: inline-block;
+  text-align: left;
+  color:#646464;
+  font-size: 16px;
+}
+
+.price-feature li{
+    list-style-image:url('../image/forma_1_5.png');
+    text-align: left;
+    margin:12px 0;
+}
+
+/* divider */
+
+.section-divder{
+    width:80%;
+    margin:51px auto 41px auto;
+    background-color:#DCDCDC;
+    border:solid 1px;
+}
+
+/* Extra service */
+
+
+#extraService .row{
+    text-align: center;
+}
+
+.service-icon{
+    width:108px;
+    height:108px;
+    border-radius: 100%;
+    border:solid 1px #B0C9CE;
+    margin:39px auto 14px auto;
+}
+
+#icon-1{
+    margin: 30px 35px 30px 36px;
+}
+
+#icon-2{
+    margin:24px 40px 28px 40px;
+}
+
+#icon-3{
+    margin:38px 28px;
+}
+
+#icon-4{
+    margin:31px 34px 31px 35px;
+}
+
+#icon-5{
+    margin:31px 30px 30px 31px;
+}
+
+.icon-text{
+    font-size: 16px;
+    color:#646464;
+    display:inline;
+}
+
+.timeing-service{
+
+    margin-top:5px;
+    font-size: 18px;
+    color:#1D7A8C;
+    font-weight: bold;
+}
+
+/* what we provide */
+
+#whatweprovide{
+    margin-top:56px;
+    background-color: #F6F6F6;
+}
+
+
+
+#whatweprovide .card{
+    border-radius: none !important;
+    border: none;
+    max-width:360px;
+    margin:0 auto 81px auto;
+
+}
+
+#whatweprovide .card-title{
+    font-size: 18px;
+    color:#4F4F4F;
+    font-weight: bold;
+    text-align: left;
+    margin-top:20px;
+}
+
+#whatweprovide li{
+    list-style:none;
+    color:#4F4F4F;
+    font-size:16px;
+    margin:7px 0;
+   
+ 
+    
+}
+
+#whatweprovide .card-body{
+
+    padding:0 !important;
+    background-color: #F6F6F6;
+
+}
+
+
+#whatweprovide ul{
+    display: inline-block;
+    text-align: left;
+    padding-left: 0;
+    background-color: #F6F6F6;
+
+    
+}
+
+#whatweprovide li img{
+   
+    margin:2px 10px 5px 0;
+}
+
+
+
+/* why us */
+
+.reason1{
+    text-align: right;
+    max-width: 300px;
+    margin-left:auto;
+}
+
+.reason2{
+    text-align: left;
+    max-width: 300px;
+    margin-right:auto;
+}
+
+.reason1 h3, .reason2 h3{
+    font-size: 20px;
+    color:#646464;
+}
+.reason1 p, .reason2 p{
+    font-size: 14px;
+    color:#646464;
+}
+
+
+@media (max-width:987px){
+    .reason1{
+        margin:auto;
+        text-align: center;
+    }
+    .reason2{
+        margin:auto;
+        text-align: center;
+    }
+}
+
+
+/* newsetter */
+
+#newuser{
+    text-align: center;
+    margin-top:54px;
+    margin-bottom:53px;
+    }
+    
+    #newuser h3{
+        font-size: 18px;
+        color:#353548;
+        margin-bottom:16px;
+    }
+    
+    
+    
+    .newsetter{
+    border-radius: 20px;
+    border: solid .3px #565656;
+    height: 40px;
+    width: 233px;
+    padding: 13px;
+    font-size: 13px;
+    margin-bottom:10px;
+    }
+    
+    .btn-submit{
+    background-color: #FF7B6D;
+    border-radius: 20px;
+    border: none;
+    color: white;
+    font-weight: normal;
+    font-size: 15px;
+    width: 88px;
+    height: 40px;
+    margin-left: 11px;
+    }
+    
+
+    /*  Footer  */
+
+#footer{
+    background-color: #111111;
+    color:#F1F1F1;
+    padding-top:20px;
+    text-align: center;
+    padding-bottom:10px;
+
+}
+.footer-menu{
+    text-align: center;
+    padding:0;
+    margin:15px 0;
+
+}
+.footer-menu li{
+    list-style: none;
+    display: inline-block;
+    margin:6px;
+}
+
+@media (max-width:503px){
+    .footer-menu li{
+        display:block;
+        text-align: center;
+        padding:5px;
+
+    }
+}
+
+.policy{
+    color:#9BA0A3;
+    font-size: 14px;
+    font-weight: normal;
+
+}
+
+a{
+    color:#9BA0A3;
+    text-decoration: none;
+}
+
+#scrollToTop {
+    position: fixed;
+    bottom: 70px;
+    left: 70px;
+    height: 48px;
+    width: 48px;
+    background: #525252;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+.messageBot {
+    position: fixed;
+    bottom: 70px;
+    right: 71px;
+}
