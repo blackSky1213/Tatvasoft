@@ -96,6 +96,19 @@
               </li>
             </ul>
           </div>
+
+          <div class="pincode-check">
+            <form action="/" method="post">
+              <label class="pin-label" for="pincode">
+                Please enter your zip code:
+              </label>
+              <br>
+              <input class="pincode-input-box" type="text" name="pincode" placeholder="Postal code">
+              <input class="pin-btn" type="submit" value="check availability">
+            </form>
+          </div>
+
+
           <div class="schedule-plan">
             <form action="/" method="post">
               <label for="selectRoomAndBath">
@@ -188,7 +201,91 @@
                 <input type="checkbox" name="have a pat" > <label class="have-pet">I have pets at home</label>
               </div>
 
-              <input id="continue" type="submit" name="submit" value="Continue">
+              <div style="text-align: right;"><input id="continue" type="submit" name="submit" value="Continue"></div>
+
+            </form>
+          </div>
+
+          <div id="address-list">
+            <form action="">
+              <label for="Address">
+                Enter your details, so we can serve you in  better way!
+              </label>
+              <div class="address-check-box">
+                <span><input type="radio" name="address1"></span>
+                <span><p><strong>Address: </strong> jankinagar 112, chitra, bhavnagar 364004</p>
+                  <p><strong>Phone number: </strong>9456315431</p>
+                </span>
+              </div>
+
+              <div class="address-check-box">
+                <span><input type="radio" name="address1"></span>
+                <span><p><strong>Address: </strong> jankinagar 112, chitra, bhavnagar 364004</p>
+                  <p><strong>Phone number: </strong>9456315431</p>
+                </span>
+              </div>
+              
+              <button type="button" class="add-address-btn">+ Add New Address</button>
+              <div class="add-address-box">
+                <div class="address-taker-box">
+                  <div>
+                    <label for="streetname">
+                      Street name
+                    </label>
+                    <br>
+                    <input type="text" name="streetname" placeholder="Street name" >
+                  </div>
+                  <div>
+                    <label for="housename">
+                      House number
+                    </label>
+                    <br>
+
+                    <input type="text" name="housename" placeholder="House name">
+                  </div>
+                </div>
+                <div class="address-taker-box">
+                  <div>
+                    <label for="postalcode">
+                      Postal code
+                    </label>
+                    <br>
+                    <input type="text" name="postalcode" placeholder="Postal code">
+
+                  </div>
+                  <div>
+                    <label for="city">
+                      City
+                    </label>
+                    <br>
+                    <input type="text" name="city" placeholder="City">
+                  </div>
+                </div>
+                <div class="address-taker-box tel">
+                  <div>
+                    <label for="phonenumber">
+                      Phone number
+                    </label>
+                    <br>
+                    <div class="tel-box">
+                      <span class="tel-icon">
+                        +49
+                      </span>
+                      <input type="tel" name="phonenumber" placeholder="Phone number">
+                    </div>
+                  </div>
+                </div>
+                <button class="save-btn">Save</button>
+                <button class="clear-btn">Cancel</button>
+              </div>
+              <h4 class="favourite-title">Your Favourite Service Providers</h4>
+              <div class="favourite-box">
+                <label for="comment">
+                  Your can choose your favourite service provider from the below list
+                </label>
+                
+              </div>
+              <div style="text-align: right;"><input id="continue" type="submit" name="submit" value="Continue"></div>
 
             </form>
           </div>
@@ -463,6 +560,40 @@
           
 
         });
+          var pincode_check=document.getElementsByClassName("pincode-check")[0];
+          var schedule_plan=document.getElementsByClassName("schedule-plan")[0];
+          var address_list=document.getElementById("address-list");
+
+        var setup_service=document.getElementById("1");
+          setup_service.addEventListener("click",()=>{
+
+              pincode_check.style.display="block";
+              schedule_plan.style.display="none";
+              address_list.style.display="none";
+
+
+          });
+
+          var schedule=document.getElementById("2");
+          schedule.addEventListener("click",()=>{
+            pincode_check.style.display="none";
+              schedule_plan.style.display="block";
+              address_list.style.display="none";
+          });
+          var address=document.getElementById("3");
+          address.addEventListener("click",()=>{
+            pincode_check.style.display="none";
+              schedule_plan.style.display="none";
+              address_list.style.display="block";
+          });
+
+
+          var add_address_btn=document.getElementsByClassName("add-address-btn")[0];
+          add_address_btn.addEventListener("click",()=>{
+            document.getElementsByClassName("add-address-box")[0].style.display="block";
+            add_address_btn.style.display="none";
+          });
+
     </script>
   </body>
 </html>
