@@ -76,33 +76,62 @@ nav {
   flex-wrap: wrap;
 }
 
-.setup-options {
-  width: fit-content;
+.setup-left{
+  width:50%;
+}
+
+.setup-options{
+  width:100%;
 }
 .setup-options ul {
+  display: flex;
+  width:100%;
   padding: 0;
   background: #f3f3f3;
   margin: 0;
+  
+}
+.add-color{
+  background:#1D7A8C;
+  color:white !important;
+}
+.add-color-noarrow{
+  background-color: #1D7A8C;
+  color:white !important;
 }
 .setup-options li {
+  width:25%;
   position: relative;
   list-style: none;
   display: inline-block;
   padding: 21px 9px 21px 9px;
   font-size: 18px;
   color: #646464;
+  border-right:solid 1px white;
 }
-.add-color{
-  background:#1D7A8C;
-  color:white;
+.favourite-worker{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top:20px;
+  
 }
 
+
+.favourite-worker-img{
+  border:solid 1px #C8C8C8;
+  border-radius: 60px;
+  padding:20px;
+  width:71px;
+  height:71px;
+  background-color:#f1f1f1;
+}
 
 .add::after{
   content: '';
   position: absolute;
-  top:62px;
-  right: 70px;
+  right:40px;
+   bottom:-10px;
   width: 20px;
   height: 20px;
   background-color:#1D7A8C;
@@ -151,6 +180,7 @@ nav {
 /* Address box */
 
 #address-list{
+  display: none;
   color:#4f4f4f;
   text-align: left;
   margin-top:20px;
@@ -200,7 +230,6 @@ nav {
 }
 
 .favourite-box{
-  
   padding-top:30px;
   padding-bottom:30px;
   border-bottom: solid 1px #C8C8C8;
@@ -220,6 +249,7 @@ nav {
 }
 
 .schedule-plan {
+  display: none;
   text-align: left;
   margin-top: 30px;
   height: fit-content;
@@ -329,6 +359,19 @@ border:none;
  text-align: center;
 }
 
+.complete{
+  background: #1D7A8C;
+  color:#ffff;
+  margin-top:20px;
+border:none;
+ border-radius: 23px;
+ padding:10px 31px 12px 29px;
+ 
+ font-weight: bold;
+ height:46px;
+ text-align:center;
+}
+
 #custom-checkboxes{
   display: flex;
   flex-wrap: wrap;
@@ -411,13 +454,11 @@ transform: scale(1);
   color:#646464;
   
 }
-.tel{
-  justify-content: flex-start;
-  padding-left:10px;
+
+#tel2{
+  width:300px;
 }
-.address-taker-box div:first-child{
-  margin-right:20px;
-}
+
 
 .address-taker-box input{
   width:300px;
@@ -454,7 +495,7 @@ transform: scale(1);
   padding-right:20px;
   border:none;
   color:white;
-  margin-left:30px;
+  margin-left:50px;
   margin-bottom:20px;
   margin-right:10px;
 }
@@ -469,6 +510,48 @@ transform: scale(1);
   padding-right:20px;
 }
 
+
+/* make payment */
+
+
+#make-payment{
+  margin-top:20px;
+  display: none;
+}
+
+#make-payment h4{
+  color:#4F4F4F;
+  font-size: 18px;
+  text-align: left;
+}
+
+.make-payment-input{
+  border-top:none;
+  border-left:none;
+  border-right:none;
+  margin-top:20px;
+  margin-bottom:20px;
+  border-radius: 0;
+}
+
+.payment-condition input[type="checkbox"]{
+  margin-top:5px;
+  margin-right:10px;
+}
+
+.payment-condition{
+  text-align: left;
+  width:100%;
+  display:flex;
+  align-items: flex-start;
+  font-size:18px;
+  padding-bottom:20px;
+  border-bottom:solid 1px #8d8d8d;
+}
+
+.payment-condition a{
+  color:#1d7a8c;
+}
 
 /* setup right  */
 
@@ -616,7 +699,6 @@ transform: scale(1);
 }
 
 .right-icon {
-  transform: rotate(180deg);
   /* margin-bottom: 5px; */
   margin-right: 7px;
 }
@@ -708,11 +790,190 @@ a {
   text-decoration: none;
 }
 
+#responsivePaySum{
+  display: none;
+  position: fixed;
+  bottom: -1px;
+  z-index: 20;
+  width: 100%;
+  text-align: center;
+}
+
+#responsivePaySum button{
+  padding: 15px 30px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #1d7a8c;
+  border-radius: 50px 50px 0 0;
+  border: 0;
+}
+
+#PS-modal-head{
+  background-color: #1d7a8c;
+  padding: 20px 15px;
+}
+
+#PSLabel{
+  color: #fff;
+}
+#modal-timeandbed{
+  display: block;
+  margin:0 0 25px;
+}
+
+#modal-timeandbed p{
+  margin: 2px 0;
+}
+
+#modal-total-time{
+  border-top: 1px solid #00000022;
+  padding-top: 5px;
+}
+
+#modal-service-cost{
+  border: 1px solid #00000059;
+  border-left: 0;
+  border-right: 0;
+}
+
+#modal-call-modal{
+  padding:0 22px;
+  background-color: #F3F3F3;
+  
+}
+
+#modal-call-modal a{
+  color: #8d8d8d;
+  line-height: 46px;
+}
+
+#modal-question-title h3{
+  font-size: 20px;
+  text-align: center;
+}
+#modal-question-title{
+  padding-top: 20px;
+}
+
+#book-questions #question-main{
+  margin-top: 5px;
+}
+
+#book-questions #question-main .faq-qa{
+  padding: 17px 0;
+  margin: 0;
+  border-bottom: 1px solid #00000022;
+}
+
+#book-questions #question-main .faq-qa p{
+  margin: 0;
+  padding-left: 18px;
+}
+
+#book-questions #question-main .faq-ans{
+  padding:17px 0 0 17px;
+}
+#modal-book-questions .faq-ans{
+  padding: 0;
+}
+
+#modal-book-questions p{
+  padding-left: 7px;
+}
+
+#paymentSummaryModal .modal-header{
+  background-color: #1d7a8c;
+  padding: 20px;
+}
+
+#paymentSummaryModal .modal-header h5{
+  color: #fff;
+  font-size: 20px;
+}
+
+#for-more-help {
+  margin-top: 18px;
+}
+
+#for-more-help a{
+  font-size: 16px;
+  color: #1D7A8C;
+  font-weight: 600;
+}
+
+#modal-book-questions .faq-qa{
+  margin-top: 15px;
+}
+
+#modal-datetime div, #modal-service div, #modal-invoice div{
+  display: flex;
+  flex-direction: column;
+  width: 47%;
+  margin-bottom: 10px;
+}
+
+.flex-column{
+  display: flex;
+}
+.flex-column div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2px;
+}
+
+#modal-datetime, #modal-service, #modal-invoice{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}
+
+.flex-column{
+  display: flex;
+  padding: 22px 0;
+}
+
+.flex-column b{
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #646464;
+}
+
+.collapse.show {
+  background-color:white;
+}
+
 @media (max-width:1030px){
   .setup-right{
     display: none;
   }
+  .setup{
+    width:80%;
+    margin:20px auto;
+  }
+  #responsivePaySum{
+    display: block;
+  }
+  #total-pay{
+    color: #1D7A8C;
+    font-size: 20px;
+    font-weight: 500;
 }
+#amount{
+  color: #1D7A8C;
+  font-size: 42px;
+  font-weight: 700;
+}
+
+
+  .setup-left{
+    width:100%;
+    
+  }
+}
+
+
 
 @media (max-width:687px){
   .setup-options{
@@ -729,21 +990,22 @@ a {
   }
 }
 
-@media (max-width:403px){
-  .setup-options li{
-    display:block;
+@media (max-width:658px){
+  .setup-options li span{
+    display: none;
   }
+    
+  
 
-  .selectRoomAndBath{
-    display:block;
-   
-  }
-  .schedule-plan{
-    padding-left:20px;
-  }
+  
+ 
+    .Button{
+      text-align: center;
+    }
 
-  .totalTime{
-    margin: 0;
-  }
  
 }
+
+
+
+
