@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\kbsar\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\kbsar\\.nuget\\packages"
+    ]
+  }
+}
