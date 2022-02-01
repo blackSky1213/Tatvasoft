@@ -77,10 +77,7 @@ namespace HelperLand.Controllers
 
         }
 
-        public IActionResult BecomePro()
-        {
-            return PartialView();
-        }
+       
 
         
 
