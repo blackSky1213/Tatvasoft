@@ -27,6 +27,7 @@ namespace HelperLand
         {
             services.AddControllersWithViews();
             services.AddDbContext<HelperlandContext>();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +36,8 @@ namespace HelperLand
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                
             }
             else
             {
@@ -44,6 +47,7 @@ namespace HelperLand
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();
 

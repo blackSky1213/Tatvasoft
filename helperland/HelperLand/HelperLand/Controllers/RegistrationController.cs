@@ -1,5 +1,6 @@
 ﻿using HelperLand.Data;
 using HelperLand.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -65,7 +66,7 @@ namespace HelperLand.Controllers
                     user.ModifiedDate = DateTime.Now;
                     user.IsRegisteredUser = true;
                     user.ModifiedBy = 123;
-
+                      
                     _db.Users.Add(user);
                     _db.SaveChanges();
                     return RedirectToAction("Index", "Home");
@@ -80,6 +81,43 @@ namespace HelperLand.Controllers
 
            
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(AuthLogin user)
+        {
+            if (ModelState.IsValid)
+            {
+                if (_db.Users.Where(x => x.Email == user.username && x.Password == user.password).Count() > 0)
+                {
+
+                    var U = _db.Users.FirstOrDefault(x => x.Email == user.username);
+                    HttpContext.Session.SetInt32("id",U.UserId);
+                   
+                    return RedirectToAction("CustomerServiceHistory", "Customer");
+                }
+                else
+                {
+                    TempData["add"] = "alert show";
+                    TempData["fail"] = "username and password are invalid";
+                    return RedirectToAction("Index", "Home", new { loginModal = "true" });
+
+                }
+            }
+
+            return RedirectToAction("Index", "Home", new { loginModal = "true" });
+
+
+
+
+
+        }
+        
+        public IActionResult CustomerServiceHistory()
+        {
+            return PartialView();
+        }
+
 
 
     }

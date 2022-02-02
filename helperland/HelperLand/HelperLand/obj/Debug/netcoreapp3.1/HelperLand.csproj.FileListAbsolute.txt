@@ -428,3 +428,5 @@ C:\Users\kbsar\source\repos\HelperLand\HelperLand\bin\Debug\netcoreapp3.1\runtim
 C:\Users\kbsar\source\repos\HelperLand\HelperLand\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Registration\SignUp.cshtml.g.cs
 C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Registration\BecomePro.cshtml.g.cs
+C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Shared\fogetPass.cshtml.g.cs
+C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Customer\CustomerServiceHistory.cshtml.g.cs
