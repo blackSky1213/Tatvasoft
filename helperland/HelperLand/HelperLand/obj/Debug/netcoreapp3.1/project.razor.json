@@ -14437,6 +14437,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\fogetPass.cshtml",
+      "TargetPath": "Views\\Shared\\fogetPass.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"
@@ -14454,6 +14459,11 @@
     {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Customer\\CustomerServiceHistory.cshtml",
+      "TargetPath": "Views\\Customer\\CustomerServiceHistory.cshtml",
       "FileKind": "mvc"
     },
     {

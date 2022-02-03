@@ -430,3 +430,4 @@ C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\
 C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Registration\BecomePro.cshtml.g.cs
 C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Shared\fogetPass.cshtml.g.cs
 C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Customer\CustomerServiceHistory.cshtml.g.cs
+C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Registration\ResetPassword.cshtml.g.cs

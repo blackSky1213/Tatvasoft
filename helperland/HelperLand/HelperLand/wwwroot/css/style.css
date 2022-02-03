@@ -82,8 +82,9 @@ a.nav-link:hover{
 
   .modal-body{
     width: fit-content;
-    margin:20px;
+    margin:0 20px 20px 20px;
     color:#646464;
+    padding:0;
   }
   .modal-header,
   .modal-footer {
@@ -91,7 +92,7 @@ a.nav-link:hover{
   }
   .inner-addon {
     position: relative;
-    margin-bottom:15px;
+    margin-bottom:10px;
     width:300px;
     height:46px;
 
@@ -99,13 +100,16 @@ a.nav-link:hover{
   .inner-addon input{
     padding:10px;
   }
-
-  /* style icon */
-  .inner-addon img {
+.alert{
+    width:300px;
+  
+}
+/* style icon */
+.inner-addon img {
     position: absolute;
     padding: 10px;
     pointer-events: none;
-  }
+}
 
   /* align icon */
   
