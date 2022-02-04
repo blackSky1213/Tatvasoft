@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using HelperLand;
 using HelperLand.Models;
 
 #nullable disable
@@ -266,6 +267,10 @@ namespace HelperLand.Data
                 entity.Property(e => e.FirstName)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.Property(e => e.ForgetPass)
+                    .HasMaxLength(100)
+                    .HasColumnName("forgetPass");
 
                 entity.Property(e => e.LastName)
                     .IsRequired()

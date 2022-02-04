@@ -25,7 +25,11 @@ namespace HelperLand.Controllers
                 ViewBag.Name = obj.FirstName;
                 return PartialView();
             }
-            else
+            else if(Request.Cookies["userid"]!=null){
+                var obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
+                ViewBag.Name = obj.FirstName;
+                return PartialView();
+            }
             {
                 return RedirectToAction("Index", "Home", new { loginModel = "true" });
             }

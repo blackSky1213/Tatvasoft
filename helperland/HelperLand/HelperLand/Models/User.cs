@@ -58,6 +58,7 @@ namespace HelperLand.Models
         public int? Status { get; set; }
         public string BankTokenId { get; set; }
         public string TaxNo { get; set; }
+        public string ForgetPass { get; set; }
 
         public virtual ICollection<FavoriteAndBlocked> FavoriteAndBlockedTargetUsers { get; set; }
         public virtual ICollection<FavoriteAndBlocked> FavoriteAndBlockedUsers { get; set; }
@@ -66,5 +67,6 @@ namespace HelperLand.Models
         public virtual ICollection<ServiceRequest> ServiceRequestServiceProviders { get; set; }
         public virtual ICollection<ServiceRequest> ServiceRequestUsers { get; set; }
         public virtual ICollection<UserAddress> UserAddresses { get; set; }
+        
     }
 }

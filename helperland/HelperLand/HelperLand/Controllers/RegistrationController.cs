@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace HelperLand.Controllers
 {
@@ -31,11 +32,13 @@ namespace HelperLand.Controllers
                 {
                 if (_db.Users.Where(x => x.Email == user.Email).Count() == 0 && _db.Users.Where(x => x.Mobile == user.Mobile).Count() == 0)
                 {
+                    string HashPass = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                    user.Password = HashPass;
                     user.CreatedDate = DateTime.Now;
                     user.ModifiedDate = DateTime.Now;
                     user.IsRegisteredUser = true;
                     user.ModifiedBy = 123;
-
+                    user.ForgetPass = "false";
                     _db.Users.Add(user);
                     _db.SaveChanges();
                     return RedirectToAction("Index", "Home");
@@ -63,10 +66,13 @@ namespace HelperLand.Controllers
             {
                 if ((_db.Users.Where(x => x.Email == user.Email).Count() == 0 && _db.Users.Where(x => x.Mobile == user.Mobile).Count() == 0) )
                 {
+                    string HashPass = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                    user.Password = HashPass;
                     user.CreatedDate = DateTime.Now;
                     user.ModifiedDate = DateTime.Now;
                     user.IsRegisteredUser = true;
                     user.ModifiedBy = 123;
+                    user.ForgetPass = "false";
                       
                     _db.Users.Add(user);
                     _db.SaveChanges();
@@ -87,15 +93,45 @@ namespace HelperLand.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(AuthLogin user)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-                if (_db.Users.Where(x => x.Email == user.username && x.Password == user.password).Count() > 0)
+                
+                if (_db.Users.Where(x => x.Email == user.username).Count() > 0)
                 {
-
-                    var U = _db.Users.FirstOrDefault(x => x.Email == user.username);
-                    HttpContext.Session.SetInt32("id",U.UserId);
                    
-                    return RedirectToAction("CustomerServiceHistory", "Customer");
+
+                    User U = _db.Users.FirstOrDefault(x => x.Email == user.username);
+                    bool IsPassValid = BCrypt.Net.BCrypt.Verify(user.password, U.Password);
+                    if (IsPassValid)
+                    {
+                        if (user.remember == true)
+                        {
+                            CookieOptions MyCookie = new CookieOptions();
+                            MyCookie.Expires = DateTime.Now.AddSeconds(30);
+                            Response.Cookies.Append("userid", Convert.ToString(U.UserId),MyCookie);
+                            
+
+                        }
+
+
+                        HttpContext.Session.SetInt32("id", U.UserId);
+
+
+                        if (U.UserTypeId == 1)
+                        {
+                            return RedirectToAction("CustomerServiceHistory", "Customer");
+                        }
+                        else if (U.UserTypeId == 2)
+                        {
+                            return RedirectToAction("UpcomingService", "ServiceProvider");
+
+                        }
+                        else if (U.UserTypeId == 3)
+                        {
+                            return RedirectToAction("UserDetailsTable", "Admin");
+                        }
+                    }
+                    
                 }
                 else
                 {
@@ -105,19 +141,13 @@ namespace HelperLand.Controllers
 
                 }
             }
-
-            return RedirectToAction("Index", "Home", new { loginModal = "true" });
-
-
-
-
+                       
+                return RedirectToAction("Index", "Home", new { loginModal = "true" });
+ 
 
         }
         
-        public IActionResult CustomerServiceHistory()
-        {
-            return PartialView();
-        }
+     
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -125,11 +155,15 @@ namespace HelperLand.Controllers
         {
             if(_db.Users.Where(x=> x.Email == user.email).Count() > 0)
             {
-                int Id = _db.Users.FirstOrDefault(x => x.Email == user.email).UserId;
+                User Id = _db.Users.FirstOrDefault(x => x.Email == user.email);
+                Id.ForgetPass = "true";
+                _db.Users.Update(Id);
+                _db.SaveChanges();
                 string to = user.email;
+                string token = BCrypt.Net.BCrypt.HashPassword(user.email);
                 string subject = "Reset password";
                 string body = "<p>Reset your password by click below link " +
-                    "<a href='" + Url.Action("ResetPassword", "Registration",new { userid=Id} , "https") + "'>Reset Password</a></p>"; 
+                    "<a href='" + Url.Action("ResetPassword", "Registration",new { userid=Id.UserId,token=token}, "https") + "'>Reset Password</a></p>"; 
                 MailMessage mm = new MailMessage();
                 mm.To.Add(to);
                 mm.Subject = subject;
@@ -140,7 +174,7 @@ namespace HelperLand.Controllers
                 setup.Port = 587;
                 setup.UseDefaultCredentials = true;
                 setup.EnableSsl = true;
-                setup.Credentials = new System.Net.NetworkCredential("User_name", "Password");
+                setup.Credentials = new System.Net.NetworkCredential("username", "password");
                 setup.Send(mm);
 
                 TempData["add"] = "alert show alert-success";
@@ -159,27 +193,47 @@ namespace HelperLand.Controllers
         }
 
         [HttpGet]
-        public IActionResult ResetPassword(int userid)
+        public IActionResult ResetPassword(int userid,string token)
         {
             TempData["id"] = userid;
-            return PartialView();
+            User user = _db.Users.FirstOrDefault(x => x.UserId == userid);
+            bool isValidId = BCrypt.Net.BCrypt.Verify(user.Email, token);
+            
+            if (isValidId && user.ForgetPass=="true")
+            {
+                
+                return PartialView();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ResetPassword(resetPass user)
+        public IActionResult ResetPassword(resetPass user)      
         {
-            var User = new User() { UserId = user.userid, Password = user.newPassword ,ModifiedDate=DateTime.Now};
-            _db.Users.Attach(User);
-            _db.Entry(User).Property(x => x.Password).IsModified = true;
-            _db.Entry(User).Property(x => x.ModifiedDate).IsModified = true;
+            User u = _db.Users.FirstOrDefault(x => x.UserId == user.userid);
+            string HashPass = BCrypt.Net.BCrypt.HashPassword(user.newPassword);
+            u.Password = HashPass;
+            u.ModifiedDate = DateTime.Now;
+            u.ForgetPass = "false";
+            _db.Users.Update(u);
             _db.SaveChanges();
 
 
             return PartialView();
         }
         
+       
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home", new { loginModal = "true" });
+        }
 
     }
 }

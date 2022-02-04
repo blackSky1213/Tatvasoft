@@ -14417,6 +14417,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Registration\\ResetPassword.cshtml",
+      "TargetPath": "Views\\Registration\\ResetPassword.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Home\\Price.cshtml",
       "TargetPath": "Views\\Home\\Price.cshtml",
       "FileKind": "mvc"

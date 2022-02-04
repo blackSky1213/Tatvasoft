@@ -26,40 +26,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg boader">
-        <a href="#" class="navbar-brand"><img src="/image/logo-small.png" /></a>
-        <button class="navbar-toggler text-white"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon" style="border: none">
-                <i class="fas fa-bars"></i>
-            </span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav text-center ms-auto">
-                <li class="nav-item">
-                    <a href="" class="button book-btn nav-link">Book now</a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link service-btn">Prices & services</a>
-                </li>
-                <li class="nav-item"><a href="" class="nav-link">Warranty</a></li>
-                <li class="nav-item"><a href="" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a asp-controller="Home" asp-action="Contact" class="nav-link">Contact</a></li>
-                <li class="nav-item">
-                    <a asp-controller="Home" asp-action="Index" class="button login-btn nav-link">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="button helper-btn nav-link">Become a Helper</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
+    @await Html.PartialAsync("Navbar2")
 
     <section id="contact">
         <h2>Create Account</h2>
@@ -127,7 +94,6 @@
 
                     <input type="password"
                            id="re-enter-password"
-                          
                            class="form-control"
                            placeholder="Re-enter Password" />
                     <span id="re-enter-pwd-message" asp-validation-for="Password" class="text-danger"></span>
@@ -149,45 +115,7 @@
 
 
 
-    <section id="footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 col-lg-2"
-                     style="margin: auto; text-align: center; padding-bottom: 20px">
-                    <img src="/image/logo-large.png"
-                         width="120px"
-                         height="92px"
-                         alt="logo" />
-                </div>
-                <div class="col-12 col-lg-8">
-                    <ul class="footer-menu">
-                        <li>HOME</li>
-                        <li>ABOUT</li>
-                        <li>TESTIMONIALS</li>
-                        <li>FAQS</li>
-                        <li>INSURANCE</li>
-                        <li>POLICY</li>
-                        <li>IMPRESSUM</li>
-                    </ul>
-                </div>
-                <div class="col-12 col-lg-2"
-                     style="text-align: center; padding-top: 5px; margin-top: 15px">
-                    <a class="px-2" href="#">
-                        <i style="color: white" class="fab fa-facebook-f"></i>
-                    </a>
-                    <a class="px-2" href="#">
-                        <i style="color: white" class="fab fa-instagram"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <hr class="section-divder"
-            style="background-color: #424242; margin-top: 0;margin-bottom:20px" />
-        <p class="policy">
-            ©2018 Helperland. All rights reserved.
-            <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a>
-        </p>
-    </section>
+    @await Html.PartialAsync("footer")
 
     <!-- bootstrap js cdn  -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -197,13 +125,13 @@
         var pwd = document.getElementById("password");
         var conf = document.getElementById("re-enter-password");
         var submit = document.getElementById("registered");
-        var re_pwd_message=document.getElementById("re-enter-pwd-message");
+        var re_pwd_message = document.getElementById("re-enter-pwd-message");
 
         conf.addEventListener("change", function () {
 
             if (pwd.value != conf.value) {
                 submit.disabled = true;
-                re_pwd_message.textContent="password not match!"
+                re_pwd_message.textContent = "password not match!"
             }
             else {
                 submit.disabled = false;

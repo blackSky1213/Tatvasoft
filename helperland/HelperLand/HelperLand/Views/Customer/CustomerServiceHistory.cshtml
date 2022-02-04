@@ -39,7 +39,7 @@
 
 <body>
     <nav class="main-nav navbar navbar-expand-lg boader">
-        <a href="#" class="navbar-brand"><img src="/image/logo-small.png" /></a>
+        <a asp-controller="Home" asp-action="Index" class="navbar-brand"><img src="/image/logo-small.png" /></a>
         <button class="navbar-toggler text-white"
                 type="button"
                 data-bs-toggle="collapse"
@@ -80,11 +80,11 @@
             <a href="" class="book-btn nav-link">Book now</a>
         </li>
         <li class="nav-item">
-            <a href="" class="nav-link service-btn">Prices & services</a>
+            <a asp-controller="Home" asp-action="Price" class="nav-link service-btn">Prices & services</a>
         </li>
         <li class="nav-item"><a href="" class="nav-link">Warranty</a></li>
         <li class="nav-item"><a href="" class="nav-link">Blog</a></li>
-        <li class="nav-item"><a href="" class="nav-link">Contact</a></li>
+        <li class="nav-item"><a asp-controller="Home" asp-action="Contact" class="nav-link">Contact</a></li>
         <li class="nav-item">
             <a href="" class="button nav-link">
                 <img src="/image/icon-notification.png"
@@ -108,19 +108,13 @@
             <ul class="dropdown-menu dropdown-menu-end"
                 aria-labelledby="navbarDropdown">
                 <li>
-                    <a class="dropdown-item" href="#">
-                        <img src="" alt="" /> <span>India</span>
-                    </a>
+                    <a class="dropdown-item text-black-50" href="#">Dashboard </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#">
-                        <img src="/image/admin-user.png" alt="" /> <span>U.K.</span>
-                    </a>
+                    <a class="dropdown-item text-black-50" href="#">My Setting </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#">
-                        <img src="/image/admin-user.png" alt="" /> <span>U.S.A.</span>
-                    </a>
+                    <a class="dropdown-item text-black-50" asp-controller="Registration" asp-action="Logout">Log out </a>
                 </li>
             </ul>
         </li>
@@ -180,8 +174,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -208,8 +202,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -236,8 +230,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -264,8 +258,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -292,8 +286,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -320,8 +314,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -348,8 +342,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -376,8 +370,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -404,8 +398,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -432,8 +426,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -460,8 +454,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -488,8 +482,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -516,8 +510,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -544,8 +538,8 @@
                                     Lyum Watson
                                     <span style="width:100px">
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" />
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" />
                                     </span>
                                 </div>
                             </div>
@@ -572,8 +566,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -600,8 +594,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -628,8 +622,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -656,8 +650,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -684,8 +678,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -712,8 +706,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -740,8 +734,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -768,8 +762,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -796,8 +790,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -824,8 +818,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -854,8 +848,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -882,8 +876,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -910,8 +904,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -938,8 +932,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -966,8 +960,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -994,8 +988,8 @@
                                     Lyum Watson
                                     <span>
                                         <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                     alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                               alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                                                                      alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                 alt="star" /><img src="/image/star2.png" alt="star" /> 4
                                     </span>
                                 </div>
                             </div>
@@ -1011,45 +1005,7 @@
         </div>
     </section>
 
-    <section id="footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 col-lg-2"
-                     style="margin: auto; text-align: center; padding-bottom: 20px">
-                    <img src="/image/logo-large.png"
-                         width="120px"
-                         height="92px"
-                         alt="logo" />
-                </div>
-                <div class="col-12 col-lg-8">
-                    <ul class="footer-menu">
-                        <li>HOME</li>
-                        <li>ABOUT</li>
-                        <li>TESTIMONIALS</li>
-                        <li>FAQS</li>
-                        <li>INSURANCE</li>
-                        <li>POLICY</li>
-                        <li>IMPRESSUM</li>
-                    </ul>
-                </div>
-                <div class="col-12 col-lg-2"
-                     style="text-align: center; padding-top: 5px; margin-top: 15px">
-                    <a class="px-2" href="#">
-                        <i style="color: white" class="fab fa-facebook-f"></i>
-                    </a>
-                    <a class="px-2" href="#">
-                        <i style="color: white" class="fab fa-instagram"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <hr class="section-divder"
-            style="background-color: #424242; margin-top: 0; margin-bottom: 20px" />
-        <p class="policy">
-            ©2018 Helperland. All rights reserved.
-            <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a>
-        </p>
-    </section>
+    @await Html.PartialAsync("footer")
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
@@ -1063,45 +1019,44 @@
 
 
     <script>
-      $(document).ready(function () {
-        $("#mytable").DataTable();
-      });
+        $(document).ready(function () {
+            $("#mytable").DataTable();
+        });
 
-      const dt = new DataTable("#mytable", {
-        dom: 't<"table-bottom paging d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
-        responsive: true,
-        pagingType: "full_numbers",
-        language: {
-          paginate: {
-            first: '<img src="/image/first-page.png" alt="first" style= />',
-            previous: '<img src="/image/previous.png" alt="previous" />',
-            next: '<img src="/image/previous.png" alt="next" style="transform: rotate(180deg)" />',
-            last: "<img src='/image/first-page.png' alt='first' style='transform: rotate(180deg)' />",
-          },
-          info: "Total Record: _MAX_",
-          lengthMenu: "Show_MENU_Entries",
-        },
-        buttons: ["excel"],
-        columnDefs: [{ orderable: false, targets: 4 }],
-      });
+        const dt = new DataTable("#mytable", {
+            dom: 't<"table-bottom paging d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
+            responsive: true,
+            pagingType: "full_numbers",
+            language: {
+                paginate: {
+                    first: '<img src="/image/first-page.png" alt="first" style= />',
+                    previous: '<img src="/image/previous.png" alt="previous" />',
+                    next: '<img src="/image/previous.png" alt="next" style="transform: rotate(180deg)" />',
+                    last: "<img src='/image/first-page.png' alt='first' style='transform: rotate(180deg)' />",
+                },
+                info: "Total Record: _MAX_",
+                lengthMenu: "Show_MENU_Entries",
+            },
+            buttons: ["excel"],
+            columnDefs: [{ orderable: false, targets: 4 }],
+        });
 
 
-function html_table_to_excel(type)
-    {
-        var data = document.getElementById('mytable');
+        function html_table_to_excel(type) {
+            var data = document.getElementById('mytable');
 
-        var file = XLSX.utils.table_to_book(data, {sheet: "sheet1"});
+            var file = XLSX.utils.table_to_book(data, { sheet: "sheet1" });
 
-        XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
+            XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
 
-        XLSX.writeFile(file, 'file.' + type);
-    }
+            XLSX.writeFile(file, 'file.' + type);
+        }
 
-    const export_button = document.getElementById('export');
+        const export_button = document.getElementById('export');
 
-    export_button.addEventListener('click', () =>  {
-        html_table_to_excel('xlsx');
-    });
+        export_button.addEventListener('click', () => {
+            html_table_to_excel('xlsx');
+        });
 
 
     </script>

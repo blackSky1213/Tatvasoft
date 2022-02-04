@@ -1,6 +1,7 @@
 ﻿using HelperLand.Data;
 using HelperLand.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -32,34 +33,92 @@ namespace HelperLand.Controllers
 
         public IActionResult Index()
         {
+            var Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                ViewBag.Name = Id;
+            }else if (Request.Cookies["userid"] != null)
+            {
+                var obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
+                ViewBag.Name = obj.FirstName;
+                return PartialView();
+            }
+
             return PartialView();
         }
 
         public IActionResult About()
         {
+            var Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                ViewBag.Name = Id;
+            }else if (Request.Cookies["userid"] != null)
+            {
+                var obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
+                ViewBag.Name = obj.FirstName;
+                return PartialView();
+            }
             return PartialView();
         }
 
         public IActionResult Price()
         {
+            var Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                ViewBag.Name = Id;
+            }
+            else if (Request.Cookies["userid"] != null)
+            {
+                var obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
+                ViewBag.Name = obj.FirstName;
+                return PartialView();
+            }
             return PartialView();
         }
 
         public IActionResult Faq()
         {
+            var Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                ViewBag.Name = Id;
+            }
+            else if (Request.Cookies["userid"] != null)
+            {
+                var obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
+                ViewBag.Name = obj.FirstName;
+                return PartialView();
+            }
             return PartialView();
         }
 
         public IActionResult Contact()
         {
-            ContactU contactU = new ContactU();
-            return PartialView(contactU);
+            var Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                ViewBag.Name = Id;
+            }
+            else if (Request.Cookies["userid"] != null)
+            {
+                var obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
+                ViewBag.Name = obj.FirstName;
+                return PartialView();
+            }
+            return PartialView();
         }
 
         [HttpPost]
         public IActionResult Contact(ContactU contactU)
         {
-                if(contactU.AttechmentFile != null)
+            var Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                ViewBag.Name = Id;
+            }
+            if (contactU.AttechmentFile != null)
             {
                 string folder = "ContactUsFile/";
                 folder += Guid.NewGuid().ToString()+"_"+ contactU.AttechmentFile.FileName;

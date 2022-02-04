@@ -1,9 +1,4 @@
-﻿
-@{
-    ViewData["Title"] = "Faq";
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -19,34 +14,15 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <link rel="stylesheet" href="/css/faqstyle.css">
+    <link rel="stylesheet" href="/css/commonStyle.css" />
     <title>FAQ</title>
 </head>
 
 <body>
-    <section id="header" class='p-boader'>
-        <nav class="navbar navbar-expand-lg boader fixed-top">
-            <a asp-action="Index" class="navbar-brand"><img src="/image/logo-small.png"></a>
-            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" style="border:none;"><i class="fas fa-bars"></i></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto text-center">
-                    <li class="nav-item"><a href="" class="button book-btn nav-link">Book now</a></li>
-                    <li class="nav-item"><a asp-action="Price" class="nav-link">Prices & services</a></li>
-                    <li class="nav-item"><a href="" class="nav-link">Warranty</a></li>
-                    <li class="nav-item"><a href="" class="nav-link">Blog</a></li>
-                    <li class="nav-item"><a asp-action="Contanct" class="nav-link">Contact</a></li>
-                    <li class="nav-item"><a asp-controller="Home" asp-action="Index" asp-route-loginModal="true" class="button login-btn nav-link">Login</a></li>
-                    <li class="nav-item"><a href="" class="button helper-btn nav-link">Become a Helper</a></li>
-                </ul>
-            </div>
-        </nav>
-        <img class="header-img" src="/image/faq-banner.png">
+    @await Html.PartialAsync("Navbar2")
+    <section id="header" class="p-boader">
+        <img class="header-img" src="/image/faq-banner.png" />
     </section>
-
-
 
 
 
@@ -326,46 +302,7 @@
     </section>
 
 
-    <footer style="background-color: #111111;" id="faqfooter">
-
-        <div class="d-flex flex-wrap justify-content-center justify-content-md-between align-items-center py-3 footerborder"
-             id="faq-footer">
-            <div>
-                <img width="100px" src="/image/logo-large.png" alt="">
-            </div>
-
-            <div class="d-flex flex-column flex-md-row flex-nowrap flex-md-wrap text-center justify-content-center"
-                 style="color: white;" id="faq-footer-links">
-                <a asp-action="Index">HOME</a>
-                <a asp-action="About">ABOUT</a>
-                <a href="#">TESTIMONIALS</a>
-                <a asp-action="Faq">FAQS</a>
-                <a href="#">INSURRANCE POLICY</a>
-                <a href="#">IMPRESSUM</a>
-            </div>
-
-            <div>
-                <a class="px-2" href="#"><i style="color: white;" class="fab fa-facebook-f"></i></a>
-
-                <a class="px-2" href="#"><i style="color: white;" class="fab fa-instagram"></i></a>
-            </div>
-
-        </div>
-
-
-        <div class="text-center mb-0 py-2" style="position:relative; color:#9BA0A3; background-color: #111111">
-            <p class="mb-0 py-2 d-inline" style="color: #9BA0A3;">
-                &copy;2018 Helperland. All rights reserved.
-                <a href="#" style="color: #9BA0A3;">Terms and Conditions </a>|
-                <a href="#" style="color: #9BA0A3;"> Privacy Policy</a>
-            </p>
-        </div>
-    </footer>
-
-
-
-
-
+    @await Html.PartialAsync("footer")
 
     <script>
         var customer = document.getElementsByClassName("customer")[0];
@@ -375,15 +312,15 @@
 
             document.getElementsByClassName("service")[0].classList.remove("active");
             document.getElementsByClassName("customer")[0].classList.add("active");
-            document.getElementById("need").style.display="block";
-            document.getElementById("helper").style.display="none";
+            document.getElementById("need").style.display = "block";
+            document.getElementById("helper").style.display = "none";
 
 
         });
         service.addEventListener("click", () => {
 
-            document.getElementById("need").style.display="none";
-            document.getElementById("helper").style.display="block";
+            document.getElementById("need").style.display = "none";
+            document.getElementById("helper").style.display = "block";
             document.getElementsByClassName("service")[0].classList.add("active");
             document.getElementsByClassName("customer")[0].classList.remove("active");
 
@@ -400,4 +337,3 @@
 </body>
 
 </html>
-

@@ -1,0 +1,31 @@
+﻿.Button {
+    border-left: solid .2px #FFFFFF80;
+    border-right: solid .2px #FFFFFF80;
+    text-align: center;
+    height: 40px;
+    display: inline-block !important;
+    position: relative;
+}
+.Badge {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 2px 5px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+}
+#upcoming-menu-collapse{
+    display:none;
+}
+@media (max-width:991px) {
+    #upcoming-menu-collapse {
+        display: block;
+        border-bottom: solid 1px white;
+    }
+}
+
+
+.dropdown-item:focus, .dropdown-item:hover {
+    background-color: #4F4F4F;
+}

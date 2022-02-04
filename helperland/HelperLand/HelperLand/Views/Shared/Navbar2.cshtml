@@ -1,0 +1,103 @@
+﻿
+<nav class="navbar navbar-expand-lg boader">
+    <a asp-controller="Home" asp-action="Index" class="navbar-brand"><img src="/image/logo-small.png" /></a>
+    <button class="navbar-toggler text-white"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" style="border: none">
+            <i class="fas fa-bars"></i>
+        </span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav text-center ms-auto">
+            @if (@ViewBag.Name != null)
+            {
+             <div id="upcoming-menu-collapse">
+                <li class="nav-item">
+                    <a class="nav-link nav-padding" href="#">Dashbord</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-padding" href="#">New Service Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-padding" href="#">Upcoming Service</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-padding" href="#">Service Schedule</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-padding" href="#">Service History</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-padding" href="#">My Ratings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-padding" href="#">Block Customer</a>
+                </li>
+            </div>
+
+            }
+            <li class="nav-item">
+                <a href="" class="button book-btn nav-link">Book now</a>
+            </li>
+            <li class="nav-item">
+                <a asp-controller="Home" asp-action="Price" class="nav-link service-btn">Prices & services</a>
+            </li>
+            <li class="nav-item"><a href="" class="nav-link">Warranty</a></li>
+            <li class="nav-item"><a href="" class="nav-link">Blog</a></li>
+            <li class="nav-item"><a asp-controller="Home" asp-action="Contact" class="nav-link">Contact</a></li>
+            @if (@ViewBag.Name == null)
+            {
+                <li class="nav-item">
+                    <a asp-controller="Home" asp-action="Index" asp-route-loginModal="true" class="button login-btn nav-link">Login</a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a asp-controller="Registration" asp-action="BecomePro" class="button helper-btn nav-link">Become a Helper</a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a href="" class="Button nav-link">
+                        <img src="/image/icon-notification.png"
+                             width="27px"
+                             height="30px"
+                             alt="" /><span class="badge Badge">3</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       id="navbarDropdown"
+                       role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <img style="vertical-align: baseline"
+                             width="27px"
+                             src="/image/admin-user.png"
+                             alt="" />
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end"
+                        aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item text-black-50" href="#">Dashboard </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-black-50" href="#">My Setting </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-black-50" asp-controller="Registration" asp-action="Logout">Log out </a>
+                        </li>
+                    </ul>
+                </li>
+            }
+
+            </ul>
+            </div>
+        </nav>
