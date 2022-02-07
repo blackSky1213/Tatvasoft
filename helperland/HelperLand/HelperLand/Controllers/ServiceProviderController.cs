@@ -21,14 +21,29 @@ namespace HelperLand.Controllers
             if (Id != null)
             {
                 var obj = _db.Users.FirstOrDefault(x => x.UserId == Id);
-                ViewBag.Name = obj.FirstName;
-                return PartialView();
+                if (obj.UserTypeId == 2)
+                {
+                    ViewBag.Name = obj.FirstName;
+                    return PartialView();
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else if (Request.Cookies["userid"] != null)
             {
                 var obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
-                ViewBag.Name = obj.FirstName;
-                return PartialView();
+                if (obj.UserTypeId == 2)
+                {
+                    ViewBag.Name = obj.FirstName;
+                    return PartialView();
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+               
             }
             else
             {
