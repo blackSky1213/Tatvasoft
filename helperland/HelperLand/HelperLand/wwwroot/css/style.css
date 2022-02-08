@@ -141,6 +141,43 @@ nav {
     font-weight: bold;
 }
 
+.done-box {
+    margin: 10px auto;
+    width: fit-content;
+}
+
+#done-tick {
+    fill: #67B644;
+    width: 90px;
+    height: 90px;
+}
+
+.done-box2 {
+    text-align: center;
+}
+
+.expired-message {
+    font-size: 24px;
+    font-weight: normal;
+    margin-bottom: 30px;
+}
+
+.done-btn:hover {
+    color: white;
+}
+
+.done-btn {
+    display: inline-block;
+    text-align: center;
+    background-color: #1d7a8c;
+    color: white;
+    text-decoration: none;
+    width: 80px;
+    height: 40px;
+    padding: 8px;
+    border-radius: 22px;
+}
+
 .forget-password-link {
     color: #1d7a8c;
     text-decoration: none;

@@ -873,3 +873,7 @@ E:\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\HelperLand.dll
 E:\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\HelperLand.pdb
 E:\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\HelperLand.genruntimeconfig.cache
 C:\Users\kbsar\source\repos\HelperLand\HelperLand\bin\Debug\netcoreapp3.1\BCrypt.Net-Next.dll
+C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Customer\BookService.cshtml.g.cs
+C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Navbar3.cshtml.g.cs
+C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Shared\LogoutPage.cshtml.g.cs
+C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Shared\ContactDone.cshtml.g.cs

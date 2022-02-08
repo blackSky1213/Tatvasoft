@@ -14432,6 +14432,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\ContactDone.cshtml",
+      "TargetPath": "Views\\Shared\\ContactDone.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\Navbar3.cshtml",
+      "TargetPath": "Views\\Shared\\Navbar3.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Home\\About.cshtml",
       "TargetPath": "Views\\Home\\About.cshtml",
       "FileKind": "mvc"
@@ -14442,8 +14452,28 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\footer.cshtml",
+      "TargetPath": "Views\\Shared\\footer.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\fogetPass.cshtml",
       "TargetPath": "Views\\Shared\\fogetPass.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\LogoutPage.cshtml",
+      "TargetPath": "Views\\Shared\\LogoutPage.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Customer\\BookService.cshtml",
+      "TargetPath": "Views\\Customer\\BookService.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\Navbar2.cshtml",
+      "TargetPath": "Views\\Shared\\Navbar2.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14467,6 +14497,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\ServiceProvider\\UpcomingService.cshtml",
+      "TargetPath": "Views\\ServiceProvider\\UpcomingService.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Customer\\CustomerServiceHistory.cshtml",
       "TargetPath": "Views\\Customer\\CustomerServiceHistory.cshtml",
       "FileKind": "mvc"
@@ -14482,8 +14517,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\Navbar1.cshtml",
+      "TargetPath": "Views\\Shared\\Navbar1.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Admin\\UserDetailsTable.cshtml",
+      "TargetPath": "Views\\Admin\\UserDetailsTable.cshtml",
       "FileKind": "mvc"
     }
   ],

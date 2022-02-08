@@ -33,14 +33,16 @@ namespace HelperLand.Controllers
 
         public IActionResult Index()
         {
-            var Id = HttpContext.Session.GetInt32("id");
+            int? Id = HttpContext.Session.GetInt32("id");
             if (Id != null)
             {
-                ViewBag.Name = Id;
+                User obj = _db.Users.FirstOrDefault(x => x.UserId == Id);
+                ViewBag.Name = obj;
+               
             }else if (Request.Cookies["userid"] != null)
             {
-                var obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
-                ViewBag.Name = obj.FirstName;
+                User obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
+                ViewBag.Name = obj;
                 return PartialView();
             }
 
@@ -49,14 +51,17 @@ namespace HelperLand.Controllers
 
         public IActionResult About()
         {
-            var Id = HttpContext.Session.GetInt32("id");
+            int? Id = HttpContext.Session.GetInt32("id");
             if (Id != null)
             {
-                ViewBag.Name = Id;
-            }else if (Request.Cookies["userid"] != null)
+                User obj = _db.Users.FirstOrDefault(x => x.UserId == Id);
+                ViewBag.Name = obj;
+
+            }
+            else if (Request.Cookies["userid"] != null)
             {
-                var obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
-                ViewBag.Name = obj.FirstName;
+                User obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
+                ViewBag.Name = obj;
                 return PartialView();
             }
             return PartialView();
@@ -64,15 +69,17 @@ namespace HelperLand.Controllers
 
         public IActionResult Price()
         {
-            var Id = HttpContext.Session.GetInt32("id");
+            int? Id = HttpContext.Session.GetInt32("id");
             if (Id != null)
             {
-                ViewBag.Name = Id;
+                User obj = _db.Users.FirstOrDefault(x => x.UserId == Id);
+                ViewBag.Name = obj;
+
             }
             else if (Request.Cookies["userid"] != null)
             {
-                var obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
-                ViewBag.Name = obj.FirstName;
+                User obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
+                ViewBag.Name = obj;
                 return PartialView();
             }
             return PartialView();
@@ -80,15 +87,17 @@ namespace HelperLand.Controllers
 
         public IActionResult Faq()
         {
-            var Id = HttpContext.Session.GetInt32("id");
+            int? Id = HttpContext.Session.GetInt32("id");
             if (Id != null)
             {
-                ViewBag.Name = Id;
+                User obj = _db.Users.FirstOrDefault(x => x.UserId == Id);
+                ViewBag.Name = obj;
+
             }
             else if (Request.Cookies["userid"] != null)
             {
-                var obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
-                ViewBag.Name = obj.FirstName;
+                User obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
+                ViewBag.Name = obj;
                 return PartialView();
             }
             return PartialView();
@@ -96,44 +105,58 @@ namespace HelperLand.Controllers
 
         public IActionResult Contact()
         {
-            var Id = HttpContext.Session.GetInt32("id");
-            if (Id != null)
-            {
-                ViewBag.Name = Id;
-            }
-            else if (Request.Cookies["userid"] != null)
-            {
-                var obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
-                ViewBag.Name = obj.FirstName;
+            
+                int? Id = HttpContext.Session.GetInt32("id");
+                if (Id != null)
+                {
+                    User obj = _db.Users.FirstOrDefault(x => x.UserId == Id);
+                    ViewBag.Name = obj;
+
+                }
+                else if (Request.Cookies["userid"] != null)
+                {
+                    User obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
+                    ViewBag.Name = obj;
+                    return PartialView();
+                }
+           
                 return PartialView();
-            }
-            return PartialView();
+            
+            
+           
         }
 
         [HttpPost]
         public IActionResult Contact(ContactU contactU)
         {
-            var Id = HttpContext.Session.GetInt32("id");
-            if (Id != null)
+            if (ModelState.IsValid)
             {
-                ViewBag.Name = Id;
+                var Id = HttpContext.Session.GetInt32("id");
+                if (Id != null)
+                {
+                    ViewBag.Name = Id;
+                }
+                if (contactU.AttechmentFile != null)
+                {
+                    string folder = "ContactUsFile/";
+                    folder += Guid.NewGuid().ToString() + "_" + contactU.AttechmentFile.FileName;
+                    string serverFolder = Path.Combine(_WebHostEnvironment.WebRootPath, folder);
+                    contactU.AttechmentFile.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+                    contactU.FileName = folder;
+                }
+
+
+                contactU.CreatedOn = DateTime.Now;
+                _db.ContactUs.Add(contactU);
+                _db.SaveChanges();
+                return RedirectToAction("Contact","Home",new {ContactModal = "true"});
+
+
             }
-            if (contactU.AttechmentFile != null)
+            else
             {
-                string folder = "ContactUsFile/";
-                folder += Guid.NewGuid().ToString()+"_"+ contactU.AttechmentFile.FileName;
-                string serverFolder =Path.Combine(_WebHostEnvironment.WebRootPath,folder);
-                contactU.AttechmentFile.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
-                contactU.FileName = folder;
+                return PartialView();
             }
-
-
-            contactU.CreatedOn = DateTime.Now;
-            _db.ContactUs.Add(contactU);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
-
-
         }
 
        

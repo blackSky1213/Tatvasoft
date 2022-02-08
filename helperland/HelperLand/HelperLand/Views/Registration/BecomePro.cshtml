@@ -12,6 +12,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
@@ -31,7 +32,7 @@
 
 <body>
     <section id="header">
-       @await Html.PartialAsync("Navbar1"); 
+       @await Html.PartialAsync("Navbar3"); 
 
         <form class="service-provider" asp-controller="Registration" asp-action="BecomePro" method="post">
 
@@ -39,13 +40,14 @@
             <span class="text-danger">
                 @ViewBag.message
             </span>
-
-            <input type="text" asp-for="FirstName" placeholder="First name" class="form-control">
             <span asp-validation-for="FirstName" class="text-danger"></span>
-            <input type="text" asp-for="LastName" placeholder="Last name" class="form-control">
+            <input type="text" asp-for="FirstName" placeholder="First name" class="form-control">
             <span asp-validation-for="LastName" class="text-danger"></span>
-            <input type="email" asp-for="Email" placeholder="Email Address" id="" class="form-control">
+            <input type="text" asp-for="LastName" placeholder="Last name" class="form-control">
             <span asp-validation-for="Email" class="text-danger"></span>
+            <input type="email" asp-for="Email" placeholder="Email Address" id="" class="form-control">
+            
+            <span asp-validation-for="Mobile" class="text-danger"></span>
             <div class="input-group">
                 <span class="input-group-text" style="color:#4F4F4F;margin-bottom:15px" id="basic-addon1">+49</span>
                 <input type="tel"
@@ -53,13 +55,14 @@
                        asp-for="Mobile"
                        placeholder="Mobile number" />
             </div>
-            <span asp-validation-for="Mobile" class="text-danger"></span>
-            <input type="hidden" asp-for="UserTypeId" value="2" />
-            <input type="password" id="password" asp-for="Password" placeholder="Password" class="form-control">
-            <span asp-validation-for="Password" class="text-danger"></span>
 
-            <input type="password" id="re-enter-password" placeholder="Confirm Password" class="form-control">
+            <input type="hidden" asp-for="UserTypeId" value="2" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+            <input type="password" id="password" asp-for="Password" placeholder="Password" class="form-control">
+            
             <span id="re-enter-pwd-message" class="text-danger"></span>
+            <input type="password" id="re-enter-password" placeholder="Confirm Password" class="form-control">
+
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                 <label class="form-check-label " for="flexCheckDefault">

@@ -123,7 +123,7 @@ nav {
 }
 
     #with-us form {
-        width: 650px;
+        max-width: 650px;
         margin: auto;
         padding: 5px;
     }
@@ -288,4 +288,107 @@ a {
     position: fixed;
     bottom: 70px;
     right: 71px;
+}
+
+
+
+/* login model */
+.login-title {
+    color: #646464;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.modal-dialog {
+    text-align: left;
+    width: fit-content;
+    height: fit-content;
+}
+
+.modal-body {
+    width: fit-content;
+    margin: 20px;
+    color: #646464;
+}
+
+.modal-header,
+.modal-footer {
+    border: none;
+}
+
+.inner-addon {
+    position: relative;
+    margin-bottom: 15px;
+    width: 300px;
+    height: 46px;
+}
+
+    .inner-addon input {
+        padding: 10px;
+    }
+
+    /* style icon */
+    .inner-addon img {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+    }
+
+/* align icon */
+
+.right-addon img {
+    right: 0px;
+}
+
+/* add padding  */
+.right-addon input {
+    padding-right: 30px;
+}
+
+.modal-body .Login-btn {
+    background-color: #1d7a8c;
+    border: none;
+    font-size: 18px;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 50px;
+    width: 100%;
+    font-weight: bold;
+}
+
+.done-box {
+    margin: 10px auto;
+    width: fit-content;
+}
+
+#done-tick {
+    fill: #67B644;
+    width: 90px;
+    height: 90px;
+}
+
+.done-box2 {
+    text-align: center;
+}
+
+.expired-message {
+    font-size: 24px;
+    font-weight: normal;
+    margin-bottom: 30px;
+}
+
+.done-btn:hover {
+    color: white;
+}
+
+.done-btn {
+    display: inline-block;
+    text-align: center;
+    background-color: #1d7a8c;
+    color: white;
+    text-decoration: none;
+    width: 80px;
+    height: 40px;
+    padding: 8px;
+    border-radius: 22px;
 }

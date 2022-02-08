@@ -1,5 +1,5 @@
 ﻿
-<nav class="navbar navbar-expand-lg boader">
+<nav class="navbar navbar-expand-lg">
     <a id="logout" class="d-none" data-bs-toggle="modal"
        data-bs-target="#staticBackdrop2" data-bs-dismiss="modal"></a>
     <a asp-controller="Home" asp-action="Index" class="navbar-brand"><img src="/image/logo-small.png" /></a>
@@ -15,7 +15,7 @@
         </span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav text-center ms-auto">
+        <ul class="navbar-nav ms-auto text-center">
             @if (ViewBag.Name != null)
             {
                 if (ViewBag.Name.UserTypeId == 2)
@@ -73,26 +73,15 @@
 
     }
             <li class="nav-item">
-                <a href="" class="button book-btn nav-link">Book now</a>
+                <a href="" class="button book-btn nav-link">Book a Cleaner</a>
             </li>
             <li class="nav-item">
-                <a asp-controller="Home" asp-action="Price" class="nav-link service-btn">Prices & services</a>
+                <a asp-controller="Home" asp-action="Price" class="nav-link service-btn">Prices</a>
             </li>
-            <li class="nav-item"><a href="" class="nav-link">Warranty</a></li>
+            <li class="nav-item"><a href="" class="nav-link">Our Guarantee</a></li>
             <li class="nav-item"><a href="" class="nav-link">Blog</a></li>
-            <li class="nav-item"><a asp-controller="Home" asp-action="Contact" class="nav-link">Contact</a></li>
-            @if (ViewBag.Name == null)
-            {
-                <li class="nav-item">
-                    <a asp-controller="Home" asp-action="Index" asp-route-loginModal="true" class="button login-btn nav-link">Login</a>
-                </li>
-
-
-                <li class="nav-item">
-                    <a asp-controller="Registration" asp-action="BecomePro" class="button helper-btn nav-link">Become a Helper</a>
-                </li>
-            }
-            else
+            <li asp class="nav-item"><a asp-controller="Home" asp-action="Contact" class="nav-link">Contact us</a></li>
+            @if (@ViewBag.Name != null)
             {
                 <li class="nav-item">
                     <a href="" class="Button nav-link">
@@ -127,8 +116,27 @@
                         </li>
                     </ul>
                 </li>
-            }
 
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a id="Login" asp-controller="Home" asp-action="Index" asp-route-loginModal="true" class="button login-btn nav-link">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Registration" asp-action="BecomePro" class="button helper-btn nav-link">Become a Helper</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img style="vertical-align: baseline;" src="image/flag.png" alt="">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#"><img src="" alt=""> <span>India</span> </a></li>
+                        <li><a class="dropdown-item" href="#"><img src="image/flag.png" alt=""> <span>U.K.</span> </a></li>
+                        <li><a class="dropdown-item" href="#"><img src="image/flag.png" alt=""> <span>U.S.A.</span> </a></li>
+                    </ul>
+                </li>
+            }
             </ul>
             </div>
         </nav>

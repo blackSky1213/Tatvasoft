@@ -1,4 +1,5 @@
 ﻿using HelperLand.Data;
+using HelperLand.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,13 +19,13 @@ namespace HelperLand.Controllers
 
         public IActionResult CustomerServiceHistory()
         {
-            var Id = HttpContext.Session.GetInt32("id");
+            int? Id = HttpContext.Session.GetInt32("id");
             if (Id!=null)
             {
-                var obj = _db.Users.FirstOrDefault(x => x.UserId == Id);
+                User obj = _db.Users.FirstOrDefault(x => x.UserId == Id);
                 if (obj.UserTypeId == 1)
                 {
-                    ViewBag.Name = obj.FirstName;
+                    ViewBag.Name = obj;
                     return PartialView();
                 }
                 else
@@ -33,10 +34,10 @@ namespace HelperLand.Controllers
                 }
             }
             else if(Request.Cookies["userid"]!=null){
-                var obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
+                User obj = _db.Users.FirstOrDefault(x => x.UserId == Convert.ToInt32(Request.Cookies["userid"]));
                 if (obj.UserTypeId == 1)
                 {
-                    ViewBag.Name = obj.FirstName;
+                    ViewBag.Name = obj;
                     return PartialView();
                 }
                 else
@@ -48,6 +49,11 @@ namespace HelperLand.Controllers
                 return RedirectToAction("Index", "Home", new { loginModel = "true" });
             }
          
+        }
+
+        public IActionResult BookService()
+        {
+            return PartialView();
         }
     }
 }

@@ -19,6 +19,9 @@ namespace HelperLand.Controllers
         {
             _db = db;
         }
+
+      
+
         public IActionResult SignUp()
         {
             return PartialView();
@@ -98,7 +101,7 @@ namespace HelperLand.Controllers
                 
                 if (_db.Users.Where(x => x.Email == user.username).Count() > 0)
                 {
-                   
+
 
                     User U = _db.Users.FirstOrDefault(x => x.Email == user.username);
                     bool IsPassValid = BCrypt.Net.BCrypt.Verify(user.password, U.Password);
@@ -131,7 +134,15 @@ namespace HelperLand.Controllers
                             return RedirectToAction("UserDetailsTable", "Admin");
                         }
                     }
-                    
+                    else
+                    {
+                        TempData["add"] = "alert show";
+                        TempData["fail"] = "username and password are invalid";
+                        return RedirectToAction("Index", "Home", new { loginModal = "true" });
+
+                    }
+
+
                 }
                 else
                 {
@@ -174,7 +185,7 @@ namespace HelperLand.Controllers
                 setup.Port = 587;
                 setup.UseDefaultCredentials = true;
                 setup.EnableSsl = true;
-                setup.Credentials = new System.Net.NetworkCredential("username", "password");
+                setup.Credentials = new System.Net.NetworkCredential("kripcsarvaiya@gmail.com", "9825106734");
                 setup.Send(mm);
 
                 TempData["add"] = "alert show alert-success";
@@ -216,24 +227,36 @@ namespace HelperLand.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ResetPassword(resetPass user)      
         {
-            User u = _db.Users.FirstOrDefault(x => x.UserId == user.userid);
-            string HashPass = BCrypt.Net.BCrypt.HashPassword(user.newPassword);
-            u.Password = HashPass;
-            u.ModifiedDate = DateTime.Now;
-            u.ForgetPass = "false";
-            _db.Users.Update(u);
-            _db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                User u = _db.Users.FirstOrDefault(x => x.UserId == user.userid);
+                string HashPass = BCrypt.Net.BCrypt.HashPassword(user.newPassword);
+                u.Password = HashPass;
+                u.ModifiedDate = DateTime.Now;
+                u.ForgetPass = "false";
+                _db.Users.Update(u);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Home");
 
+            }
+            else
+            {
+                return PartialView();
+            }
 
-            return PartialView();
+            
         }
         
        
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("Index", "Home", new { loginModal = "true" });
+            Response.Cookies.Delete("userid");
+            return RedirectToAction("Index", "Home", new { LogoutModal = "true" });
         }
+
+
+       
 
     }
 }
