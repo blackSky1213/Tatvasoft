@@ -1,0 +1,15 @@
+﻿@model HelperLand.Models.setupService
+
+<div class="pincode-check">
+    <form asp-controller="Customer" asp-action="ValidZipcode" method="post">
+        <label class="pin-label" for="pincode">
+            Please enter your zip code:
+        </label>
+        <br />
+        <input class="pincode-input-box"
+               type="text"
+               asp-for="postalCode" 
+               placeholder="Postal code" />
+        <input class="pin-btn" type="submit" value="check availability" />
+    </form>
+</div>

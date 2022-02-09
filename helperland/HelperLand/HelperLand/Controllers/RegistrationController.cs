@@ -3,6 +3,7 @@ using HelperLand.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -122,6 +123,8 @@ namespace HelperLand.Controllers
 
                         if (U.UserTypeId == 1)
                         {
+                            
+                            
                             return RedirectToAction("CustomerServiceHistory", "Customer");
                         }
                         else if (U.UserTypeId == 2)
@@ -252,6 +255,7 @@ namespace HelperLand.Controllers
         {
             HttpContext.Session.Clear();
             Response.Cookies.Delete("userid");
+            
             return RedirectToAction("Index", "Home", new { LogoutModal = "true" });
         }
 

@@ -320,8 +320,10 @@
             </p>
 
         </div>
+        @if (ViewBag.Name == null) {
         @await Html.PartialAsync("fogetPass")
         @await Html.PartialAsync("LogoutPage") 
+        }
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
                 crossorigin="anonymous"></script>
@@ -344,7 +346,7 @@
             var forgetbtn = document.getElementById("forget");
             var logoutbtn = document.getElementById("logout");
             const urlSearchParams = new URLSearchParams(window.location.search);
-            if (urlSearchParams == "loginModal=true") {
+            if (urlSearchParams == "loginModal=true" || urlSearchParams == "loginModel=true&gothere=true") {
                 loginbtn.click();
             }
 

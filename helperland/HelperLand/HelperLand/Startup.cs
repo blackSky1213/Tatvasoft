@@ -28,6 +28,9 @@ namespace HelperLand
             services.AddControllersWithViews();
             services.AddDbContext<HelperlandContext>();
             services.AddSession();
+            services.AddHttpContextAccessor();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +55,7 @@ namespace HelperLand
             app.UseRouting();
 
             app.UseAuthorization();
+          
 
             app.UseEndpoints(endpoints =>
             {

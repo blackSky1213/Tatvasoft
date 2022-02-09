@@ -286,7 +286,7 @@ nav {
 
 .selectRoomAndBath {
     display: flex;
-    border-top: solid 1px #e1e1e1;
+   
     border-bottom: solid 1px #e1e1e1;
     margin-top: 30px;
     padding-top: 35px;
@@ -356,7 +356,7 @@ nav {
 #continue {
     background: #1d7a8c;
     color: #ffff;
-    margin-top: 20px;
+   
     border: none;
     border-radius: 23px;
     padding: 10px 31px 12px 29px;
@@ -425,21 +425,17 @@ input[type="checkbox"].htmlcheckbox {
     display: none;
 }
 
-:checked + label {
+#custom-checkboxes :checked + label {
     border: 3px solid #1d7a8c !important;
 }
 
-    :checked + label:before {
-        content: "✓";
-        background-color: #1d7a8c;
-        transform: scale(1);
-    }
 
-    :checked + label img {
-        transform: scale(0.9);
-        /* box-shadow: 0 0 5px #333; */
-        z-index: -1;
-    }
+
+custom-checkboxes :checked + label img {
+    transform: scale(0.9);
+    /* box-shadow: 0 0 5px #333; */
+    z-index: -1;
+}
 
 /* add address  */
 
@@ -1015,4 +1011,68 @@ a {
         text-align: center;
     }
 }
-a
+
+
+/* login model */
+.login-title {
+    color: #646464;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.modal-dialog {
+    text-align: left;
+    width: fit-content;
+    height: fit-content;
+}
+
+.modal-body {
+    width: fit-content;
+    margin: 20px;
+    color: #646464;
+}
+
+.modal-header,
+.modal-footer {
+    border: none;
+}
+
+.inner-addon {
+    position: relative;
+    margin-bottom: 15px;
+    width: 300px;
+    height: 46px;
+}
+
+    .inner-addon input {
+        padding: 10px;
+    }
+
+    /* style icon */
+    .inner-addon img {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+    }
+
+/* align icon */
+
+.right-addon img {
+    right: 0px;
+}
+
+/* add padding  */
+.right-addon input {
+    padding-right: 30px;
+}
+
+.modal-body .Login-btn {
+    background-color: #1d7a8c;
+    border: none;
+    font-size: 18px;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 50px;
+    width: 100%;
+    font-weight: bold;
+}

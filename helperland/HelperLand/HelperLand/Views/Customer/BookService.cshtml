@@ -23,43 +23,12 @@
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
           crossorigin="anonymous" />
     <link rel="stylesheet" href="/css/bookServiceStyle.css" />
+    <link rel="stylesheet" href="/css/commonStyle.css" />
     <title>Book service</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg boader">
-        <a href="#" class="navbar-brand"><img src="/image/logo-small.png" /></a>
-        <button class="navbar-toggler text-white"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon" style="border: none">
-                <i class="fas fa-bars"></i>
-            </span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto text-center">
-                <li class="nav-item">
-                    <a href="" class="button book-btn nav-link">Book now</a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">Prices & services</a>
-                </li>
-                <li class="nav-item"><a href="" class="nav-link">Warranty</a></li>
-                <li class="nav-item"><a href="" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="" class="nav-link">Contact</a></li>
-                <li class="nav-item">
-                    <a href="" class="button login-btn nav-link">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="button helper-btn nav-link">Become a Helper</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+   @await Html.PartialAsync("Navbar2") 
     <section id="header" class="p-boader">
         <img class="header-img" src="/image/book-service-banner.jpg" />
     </section>
@@ -95,289 +64,22 @@
                     </ul>
                 </div>
 
-                <div class="pincode-check">
-                    <form action="/" method="post">
-                        <label class="pin-label" for="pincode">
-                            Please enter your zip code:
-                        </label>
-                        <br />
-                        <input class="pincode-input-box"
-                               type="text"
-                               name="pincode"
-                               placeholder="Postal code" />
-                        <input class="pin-btn" type="submit" value="check availability" />
-                    </form>
-                </div>
+               @*pin code view *@
+                @await Html.PartialAsync("setupService") 
+                
 
-                <div class="schedule-plan">
-                    <form action="/" method="post">
-                        <label for="selectRoomAndBath">
-                            Select number of rooms and bath
-                        </label>
-                        <br />
-                        <div>
-                            <select name="numberOfRoom" id="">
-                                <option value="1">1 bed</option>
-                                <option value="1">2 bed</option>
-                                <option value="1">3 bed</option>
-                                <option value="1">4 bed</option>
-                                <option value="1">5 bed</option>
-                            </select>
-                            <select name="numberOfBath" id="">
-                                <option value="1">1 bath</option>
-                                <option value="1">1 bath</option>
-                                <option value="1">1 bath</option>
-                                <option value="1">1 bath</option>
-                                <option value="1">1 bath</option>
-                            </select>
-                        </div>
-                        <div class="selectRoomAndBath">
-                            <div>
-                                <label for="dateAndtime"> When do you need cleaner? </label>
-                                <div style="display: flex">
-                                    <div class="date-input">
-                                        <img src="/image/calendar.png" alt="calender" />
-                                        <input type="date" name="date" />
-                                    </div>
-                                    <input type="time" name="time" id="" />
-                                </div>
-                            </div>
-                            <div class="totalTime">
-                                <label for="dateAndtime"> When do you need cleaner? </label>
-                                <br />
-                                <select name="range" id="">
-                                    <option value="1">1.0 Hrs</option>
-                                    <option value="1">1.0 Hrs</option>
-                                    <option value="1">1.0 Hrs</option>
-                                    <option value="1">1.0 Hrs</option>
-                                    <option value="1">1.0 Hrs</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="extraService-checkbox">
-                            <h4>Extra services</h4>
-                            <div id="custom-checkboxes">
-                                <div class="checkbox">
-                                    <input type="checkbox"
-                                           name="insideCabinet"
-                                           id="insideCabinetCheck"
-                                           class="htmlcheckbox"
-                                           onclick="onInsideCabinet();" />
-                                    <label for="insideCabinetCheck" onclick="onInsideCabinet();">
-                                        <img src="/image/3.png" id="insideCabinetImg" alt="" />
-                                    </label>
-                                    <p>inside cabinets</p>
-                                </div>
+                @*schedule service*@
 
-                                <div class="checkbox">
-                                    <input type="checkbox"
-                                           id="insideFridgeCheck"
-                                           name="insideFridge"
-                                           class="htmlcheckbox"
-                                           onclick="onInsideFridge();" />
-                                    <label for="insideFridgeCheck">
-                                        <img src="/image/5.png"
-                                             id="insideFridgeImg"
-                                             alt=""
-                                             onclick="onInsideFridge();" />
-                                    </label>
-                                    <p>inside Fridge</p>
-                                </div>
+                @await Html.PartialAsync("scheduleService") 
 
-                                <div class="checkbox">
-                                    <input type="checkbox"
-                                           name="insideOven"
-                                           id="insideOvenCheck"
-                                           class="htmlcheckbox"
-                                           onclick="onInsideOven();" />
-                                    <label for="insideOvenCheck" onclick="onInsideOven();">
-                                        <img src="/image/4.png" id="insideOvenImg" alt="" />
-                                    </label>
-                                    <p>inside Oven</p>
-                                </div>
+                @*Address details*@
 
-                                <div class="checkbox">
-                                    <input type="checkbox"
-                                           id="laundryCheck"
-                                           name="laundry"
-                                           class="htmlcheckbox"
-                                           onclick="onLaundry();" />
-                                    <label for="laundryCheck" onclick="onLaundry();">
-                                        <img src="/image/2.png" id="laundryImg" alt="" />
-                                    </label>
-                                    <p>Laundry Wash & Dry</p>
-                                </div>
+                @await Html.PartialAsync("AddressDetails") 
+               
+                @*payment*@
 
-                                <div class="checkbox">
-                                    <input type="checkbox"
-                                           id="interiorCheck"
-                                           name="interior"
-                                           class="htmlcheckbox"
-                                           onclick="onInterior();" />
-                                    <label for="interiorCheck" onclick="onInterior();">
-                                        <img src="/image/1.png" id="interiorImg" alt="" />
-                                    </label>
-                                    <p>interior Windows</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment-box">
-                            <label for="comment"> Comments </label>
-                            <br />
-                            <textarea name="comment"
-                                      id="comment"
-                                      cols="30"
-                                      rows="10"></textarea>
-                            <br />
-                            <input type="checkbox" name="have a pat" />
-                            <label class="have-pet">I have pets at home</label>
-                        </div>
-
-                        <div style="text-align: right">
-                            <input id="continue"
-                                   type="submit"
-                                   name="submit"
-                                   value="Continue" />
-                        </div>
-                    </form>
-                </div>
-
-                <div id="address-list">
-                    <form action="">
-                        <label for="Address">
-                            Enter your details, so we can serve you in better way!
-                        </label>
-                        <div class="address-check-box">
-                            <div><input type="radio" name="address1" /></div>
-                            <div>
-                                <p>
-                                    <strong>Address: </strong> jankinagar 112, chitra, bhavnagar
-                                    364004
-                                </p>
-                                <p><strong>Phone number: </strong>9456315431</p>
-                            </div>
-                        </div>
-
-                        <div class="address-check-box">
-                            <div><input type="radio" name="address1" /></div>
-                            <div>
-                                <p>
-                                    <strong>Address: </strong> jankinagar 112, chitra, bhavnagar
-                                    364004
-                                </p>
-                                <p><strong>Phone number: </strong>9456315431</p>
-                            </div>
-                        </div>
-
-                        <button type="button" class="add-address-btn">
-                            + Add New Address
-                        </button>
-                        <div class="add-address-box">
-                            <div class="address-taker-box">
-                                <div>
-                                    <label for="streetname"> Street name </label>
-                                    <br />
-                                    <input type="text"
-                                           name="streetname"
-                                           placeholder="Street name" />
-                                </div>
-                                <div>
-                                    <label for="housename"> House number </label>
-                                    <br />
-
-                                    <input type="text"
-                                           name="housename"
-                                           placeholder="House name" />
-                                </div>
-                            </div>
-                            <div class="address-taker-box">
-                                <div>
-                                    <label for="postalcode"> Postal code </label>
-                                    <br />
-                                    <input type="text"
-                                           name="postalcode"
-                                           placeholder="Postal code" />
-                                </div>
-                                <div>
-                                    <label for="city"> City </label>
-                                    <br />
-                                    <input type="text" name="city" placeholder="City" />
-                                </div>
-                            </div>
-                            <div class="address-taker-box tel">
-                                <div>
-                                    <label for="phonenumber"> Phone number </label>
-                                    <br />
-                                    <div class="tel-box">
-                                        <span class="tel-icon"> +49 </span>
-                                        <input type="tel"
-                                               name="phonenumber"
-                                               placeholder="Phone number" />
-                                    </div>
-                                </div>
-                                <div id="tel2"></div>
-                            </div>
-                            <div class="Button">
-                                <button class="save-btn">Save</button>
-                                <button class="clear-btn">Cancel</button>
-                            </div>
-                        </div>
-                        <h4 class="favourite-title">Your Favourite Service Providers</h4>
-                        <div class="favourite-box">
-                            <label for="comment">
-                                Your can choose your favourite service provider from the below
-                                list
-                            </label>
-                            <div class="favourite-worker">
-                                <div style="text-align: center; width: 20%">
-                                    <img class="favourite-worker-img"
-                                         src="/image/cap.png"
-                                         alt="cap" />
-                                    <p class="mb-2">Sandip Patel</p>
-                                    <button class="btn btn-outline-secondary" type="button">
-                                        Select
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="text-align: right">
-                            <input id="continue"
-                                   type="submit"
-                                   name="submit"
-                                   value="Continue" />
-                        </div>
-                    </form>
-                </div>
-
-                <div id="make-payment">
-                    <h4>Pay sechurely with Helperland payment gateway!</h4>
-
-                    <form action="/" method="post">
-                        <input class="form-control make-payment-input"
-                               type="text"
-                               placeholder="card number" />
-
-                        <div class="payment-condition">
-                            <input type="checkbox"
-                                   name="acceptPrivacyPolicy"
-                                   id="acceptPrivacyPolicy" />
-                            <label for="acceptPrivacyPolicy">
-                                I accepted <a href="">terms and conditions</a>, the
-                                cancellation policy and the <a href="">privacy policy</a>. I
-                                confirm that Helperland starts to execute the contract before
-                                the expiry of the withdrawal period and I lose my right of
-                                withdrawal as a consumer with full performance of the
-                                contract.
-                            </label>
-                        </div>
-
-                        <div style="text-align: right">
-                            <input type="submit"
-                                   class="complete"
-                                   value="Complete Booking" />
-                        </div>
-                    </form>
-                </div>
+                @await Html.PartialAsync("payment") 
+                
             </div>
             <div class="setup-right">
                 <div class="price-card">
@@ -927,39 +629,49 @@
       var img3 = document.getElementById("img3");
       var img4 = document.getElementById("img4");
 
-      setup_service.addEventListener("click", () => {
-        pincode_check.style.display = "block";
-        schedule_plan.style.display = "none";
-        address_list.style.display = "none";
-        make_payment.style.display = "none";
+        schedule.style.pointerEvents = "none";
+        address.style.pointerEvents = "none";
+        payment.style.pointerEvents = "none";
 
-        setup_service.classList.add("add");
-        schedule.classList.remove("add");
-        address.classList.remove("add");
-        payment.classList.remove("add");
 
-        setup_service.classList.add("add-color");
-        schedule.classList.remove("add-color");
-        address.classList.remove("add-color");
-        payment.classList.remove("add-color");
 
-        setup_service.style.color = "white";
-        schedule.style.color = "#646464";
-        address.style.color = "#646464";
-        payment.style.color = "#646464";
+        function form1() {
+            pincode_check.style.display = "block";
+            schedule_plan.style.display = "none";
+            address_list.style.display = "none";
+            make_payment.style.display = "none";
 
-        setup_service.classList.remove("add-color-noarrow");
-        schedule.classList.remove("add-color-noarrow");
-        address.classList.remove("add-color-noarrow");
-        payment.classList.remove("add-color-noarrow");
+            setup_service.classList.add("add");
+            schedule.classList.remove("add");
+            address.classList.remove("add");
+            payment.classList.remove("add");
 
-        img1.src = "/image/setup-service-white.png";
-        img2.src = "/image/schedule.png";
-        img3.src = "/image/details.png";
-        img4.src = "/image/payment.png";
-      });
+            setup_service.classList.add("add-color");
+            schedule.classList.remove("add-color");
+            address.classList.remove("add-color");
+            payment.classList.remove("add-color");
 
-      schedule.addEventListener("click", () => {
+            setup_service.style.color = "white";
+            schedule.style.color = "#646464";
+            address.style.color = "#646464";
+            payment.style.color = "#646464";
+
+            setup_service.classList.remove("add-color-noarrow");
+            schedule.classList.remove("add-color-noarrow");
+            address.classList.remove("add-color-noarrow");
+            payment.classList.remove("add-color-noarrow");
+
+            img1.src = "/image/setup-service-white.png";
+            img2.src = "/image/schedule.png";
+            img3.src = "/image/details.png";
+            img4.src = "/image/payment.png";
+
+            schedule.style.pointerEvents = "none";
+            address.style.pointerEvents = "none";
+            payment.style.pointerEvents = "none";
+        }
+
+      function form2(){
         pincode_check.style.display = "none";
         schedule_plan.style.display = "block";
         address_list.style.display = "none";
@@ -988,10 +700,13 @@
         img1.src = "/image/setup-service-white.png";
         img2.src = "/image/schedule-white.png";
         img3.src = "/image/details.png";
-        img4.src = "/image/payment.png";
-      });
+          img4.src = "/image/payment.png";
 
-      address.addEventListener("click", () => {
+          address.style.pointerEvents = "none";
+          payment.style.pointerEvents = "none";
+      }
+
+      function form3(){
         pincode_check.style.display = "none";
         schedule_plan.style.display = "none";
         address_list.style.display = "block";
@@ -1020,10 +735,12 @@
         img1.src = "/image/setup-service-white.png";
         img2.src = "/image/schedule-white.png";
         img3.src = "/image/details-white.png";
-        img4.src = "/image/payment.png";
-      });
+          img4.src = "/image/payment.png";
 
-      payment.addEventListener("click", () => {
+          payment.style.pointerEvents = "none";
+      }
+
+      function form4(){
         pincode_check.style.display = "none";
         schedule_plan.style.display = "none";
         address_list.style.display = "none";
@@ -1052,8 +769,10 @@
         img1.src = "/image/setup-service-white.png";
         img2.src = "/image/schedule-white.png";
         img3.src = "/image/details-white.png";
-        img4.src = "/image/payment-white.png";
-      });
+          img4.src = "/image/payment-white.png";
+
+          
+      }
 
       var add_address_btn =
         document.getElementsByClassName("add-address-btn")[0];
@@ -1062,6 +781,15 @@
           "block";
         add_address_btn.style.display = "none";
       });
+
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        if (urlSearchParams == "scheduleService=true") {
+            form2();
+        }
+
+        if (urlSearchParams == "address=true") {
+            form3();
+        }
 
     </script>
 </body>

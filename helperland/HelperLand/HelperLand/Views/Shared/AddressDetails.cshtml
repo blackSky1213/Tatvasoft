@@ -1,0 +1,107 @@
+﻿
+<div id="address-list">
+    <form action="">
+        <label for="Address">
+            Enter your details, so we can serve you in better way!
+        </label>
+        <div class="address-check-box">
+            <div><input type="radio" name="address1" /></div>
+            <div>
+                <p>
+                    <strong>Address: </strong> jankinagar 112, chitra, bhavnagar
+                    364004
+                </p>
+                <p><strong>Phone number: </strong>9456315431</p>
+            </div>
+        </div>
+
+        <div class="address-check-box">
+            <div><input type="radio" name="address1" /></div>
+            <div>
+                <p>
+                    <strong>Address: </strong> jankinagar 112, chitra, bhavnagar
+                    364004
+                </p>
+                <p><strong>Phone number: </strong>9456315431</p>
+            </div>
+        </div>
+
+        <button type="button" class="add-address-btn">
+            + Add New Address
+        </button>
+        <div class="add-address-box">
+            <div class="address-taker-box">
+                <div>
+                    <label for="streetname"> Street name </label>
+                    <br />
+                    <input type="text"
+                           name="streetname"
+                           placeholder="Street name" />
+                </div>
+                <div>
+                    <label for="housename"> House number </label>
+                    <br />
+
+                    <input type="text"
+                           name="housename"
+                           placeholder="House name" />
+                </div>
+            </div>
+            <div class="address-taker-box">
+                <div>
+                    <label for="postalcode"> Postal code </label>
+                    <br />
+                    <input type="text"
+                           name="postalcode"
+                           placeholder="Postal code" />
+                </div>
+                <div>
+                    <label for="city"> City </label>
+                    <br />
+                    <input type="text" name="city" placeholder="City" />
+                </div>
+            </div>
+            <div class="address-taker-box tel">
+                <div>
+                    <label for="phonenumber"> Phone number </label>
+                    <br />
+                    <div class="tel-box">
+                        <span class="tel-icon"> +49 </span>
+                        <input type="tel"
+                               name="phonenumber"
+                               placeholder="Phone number" />
+                    </div>
+                </div>
+                <div id="tel2"></div>
+            </div>
+            <div class="Button">
+                <button class="save-btn">Save</button>
+                <button class="clear-btn">Cancel</button>
+            </div>
+        </div>
+        <h4 class="favourite-title">Your Favourite Service Providers</h4>
+        <div class="favourite-box">
+            <label for="comment">
+                Your can choose your favourite service provider from the below
+                list
+            </label>
+            <div class="favourite-worker">
+                <div style="text-align: center; width: 20%">
+                    <img class="favourite-worker-img"
+                         src="/image/cap.png"
+                         alt="cap" />
+                    <p class="mb-2">Sandip Patel</p>
+                    <button class="btn btn-outline-secondary" type="button">
+                        Select
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: right">
+            <input id="continue"
+                   type="submit"
+                   name="submit"
+                   value="Continue" />
+        </div>
+    </form>
+</div>
