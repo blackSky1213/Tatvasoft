@@ -23,91 +23,12 @@
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
           crossorigin="anonymous" />
     <link rel="stylesheet" href="/css/upcomingServiceStyle.css" />
+    <link rel="stylesheet" href="/css/commonStyle.css" />
     <title>Upcoming Service</title>
 </head>
 
 <body>
-    <nav class="main-nav navbar navbar-expand-lg boader">
-        <a href="#" class="navbar-brand"><img src="/image/logo-small.png" /></a>
-        <button class="navbar-toggler text-white"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon" style="border: none">
-                <i class="fas fa-bars"></i>
-            </span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav text-center ms-auto">
-                <div id="upcoming-menu-collapse">
-                <li class="nav-item">
-                    <a class="nav-link nav-padding" href="#">Dashbord</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-padding" href="#">New Service Requests</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-padding" href="#">Upcoming Service</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-padding" href="#">Service Schedule</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-padding" href="#">Service History</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-padding" href="#">My Ratings</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-padding" href="#">Block Customer</a>
-                </li>
-        </div>
-        <li class="nav-item">
-            <a href="" class="nav-link service-btn">Prices & services</a>
-        </li>
-        <li class="nav-item"><a href="" class="nav-link">Warranty</a></li>
-        <li class="nav-item"><a href="" class="nav-link">Blog</a></li>
-        <li class="nav-item"><a href="" class="nav-link">Contact</a></li>
-        <li class="nav-item">
-            <a href="" class="button nav-link">
-                <img src="/image/icon-notification.png"
-                     width="27px"
-                     height="30px"
-                     alt="" /><span class="badge">3</span>
-            </a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle"
-               href="#"
-               id="navbarDropdown"
-               role="button"
-               data-bs-toggle="dropdown"
-               aria-expanded="false">
-                <img style="vertical-align: baseline"
-                     width="27px"
-                     src="/image/admin-user.png"
-                     alt="" />
-            </a>
-            <ul class="dropdown-menu  dropdown-menu-end"
-                aria-labelledby="navbarDropdown" style="background-color: #424242;">
-                <li>
-                    <a class="dropdown-item" href="#">
-                        Setting
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" asp-controller="Registration" asp-action="Logout">
-                        Log out
-                    </a>
-                </li>
-            </ul>
-        </li>
-        </ul>
-        </div>
-    </nav>
+    @await Html.PartialAsync("Navbar2") 
     <section id="header">
         <h1>Welcome, <strong>@ViewBag.Name.FirstName</strong></h1>
     </section>

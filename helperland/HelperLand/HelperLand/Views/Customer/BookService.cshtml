@@ -28,7 +28,7 @@
 </head>
 
 <body>
-   @await Html.PartialAsync("Navbar2") 
+    @await Html.PartialAsync("Navbar2")
     <section id="header" class="p-boader">
         <img class="header-img" src="/image/book-service-banner.jpg" />
     </section>
@@ -43,43 +43,43 @@
             <div class="setup-left">
                 <div class="setup-options">
                     <ul>
-                        <li id="1" class="add add-color">
+                        <li id="1" class="add add-color" onclick="form1()">
                             <img id="img1"
                                  src="/image/setup-service-white.png"
                                  alt="setupService" />
                             <span> Setup Service </span>
                         </li>
-                        <li id="2">
+                        <li id="2" onclick="form2()">
                             <img id="img2" src="/image/schedule.png" alt="schedule" />
                             <span>Schedule & Plan</span>
                         </li>
-                        <li id="3">
+                        <li id="3" onclick="form3()">
                             <img id="img3" src="/image/details.png" alt="details" />
                             <span>Your Details</span>
                         </li>
-                        <li id="4">
+                        <li id="4" onclick="form4()">
                             <img id="img4" src="/image/payment.png" alt="make payment" />
                             <span>Make Payment</span>
                         </li>
                     </ul>
                 </div>
 
-               @*pin code view *@
-                @await Html.PartialAsync("setupService") 
-                
+                @*pin code view *@
+                @await Html.PartialAsync("setupService")
+
 
                 @*schedule service*@
 
-                @await Html.PartialAsync("scheduleService") 
+                @await Html.PartialAsync("scheduleService")
 
                 @*Address details*@
 
-                @await Html.PartialAsync("AddressDetails") 
-               
+                @await Html.PartialAsync("AddressDetails")
+
                 @*payment*@
 
-                @await Html.PartialAsync("payment") 
-                
+                @await Html.PartialAsync("payment")
+
             </div>
             <div class="setup-right">
                 <div class="price-card">
@@ -393,7 +393,7 @@
                     <div id="modal-booknow-side">
                         <div id="modal-paymentSummary">
                             <div id="modal-payment-questiondiv">
-                               
+
                                 <div id="modal-service-time" class="flex-column">
                                     <div id="modal-timeandbed">
                                         <p>01/01/2022@4:00pm</p>
@@ -547,249 +547,119 @@
                         </div>
                     </div>
                 </div>
-               
+
             </div>
         </div>
     </div>
 
     <!-- PS modal ends -->
-   @await Html.PartialAsync("footer") 
-        <hr class="section-divder"
-            style="background-color: #424242; margin-top: 0; margin-bottom: 20px" />
-        <p class="policy">
-            ©2018 Helperland. All rights reserved.
-            <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a>
-        </p>
-    </section>
+    @await Html.PartialAsync("footer")
+   
 
     <!-- bootstrap js cdn  -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/js/bookServiceScript.js"></script>
+
     <script>
-      var insideCabinet = document.getElementById("insideCabinetCheck");
-      var insideFridge = document.getElementById("insideFridgeCheck");
-      var insideOven = document.getElementById("insideOvenCheck");
-      var laundry = document.getElementById("laundryCheck");
-      var interior = document.getElementById("interiorCheck");
 
-      function onInsideCabinet() {
-        if (insideCabinet.checked) {
-          document.getElementById("insideCabinetImg").src = "/image/3-green.png";
-        } else {
-          document.getElementById("insideCabinetImg").src = "/image/3.png";
-        }
-      }
+        function checkZipcode() {
+            var zip = $("#zipform");
+            var jsonInput = zip.serialize();
 
-      function onInsideFridge() {
-        if (insideFridge.checked) {
-          document.getElementById("insideFridgeImg").src = "/image/5-green.png";
-        } else {
-          document.getElementById("insideFridgeImg").src = "/image/5.png";
-        }
-      }
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '/Customer/IsValidZipcode',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: jsonInput,
+                    success:
+                        function (response) {
+                            if (response.value == "true") {
+                                form2();
+                            } else {
 
-      function onInsideOven() {
-        if (insideOven.checked) {
-          document.getElementById("insideOvenImg").src = "/image/4-green.png";
-        } else {
-          document.getElementById("insideOvenImg").src = "/image/4.png";
-        }
-      }
-
-      function onLaundry() {
-        if (laundry.checked) {
-          document.getElementById("laundryImg").src = "/image/2-green.png";
-        } else {
-          document.getElementById("laundryImg").src = "/image/2.png";
-        }
-      }
-
-      function onInterior() {
-        if (interior.checked) {
-          document.getElementById("interiorImg").src = "/image/1-green.png";
-        } else {
-          document.getElementById("interiorImg").src = "/image/1.png";
-        }
-      }
-
-     
-      var pincode_check = document.getElementsByClassName("pincode-check")[0];
-      var schedule_plan = document.getElementsByClassName("schedule-plan")[0];
-      var address_list = document.getElementById("address-list");
-      var make_payment = document.getElementById("make-payment");
-
-      var setup_service = document.getElementById("1");
-      var schedule = document.getElementById("2");
-      var address = document.getElementById("3");
-      var payment = document.getElementById("4");
-
-      var img1 = document.getElementById("img1");
-      var img2 = document.getElementById("img2");
-      var img3 = document.getElementById("img3");
-      var img4 = document.getElementById("img4");
-
-        schedule.style.pointerEvents = "none";
-        address.style.pointerEvents = "none";
-        payment.style.pointerEvents = "none";
+                                alert("fails");
+                            }
 
 
+                        },
+                    error:
+                        function (response) {
+                            console.error(response);
+                            alert("fail");
+                        }
+                });
 
-        function form1() {
-            pincode_check.style.display = "block";
-            schedule_plan.style.display = "none";
-            address_list.style.display = "none";
-            make_payment.style.display = "none";
-
-            setup_service.classList.add("add");
-            schedule.classList.remove("add");
-            address.classList.remove("add");
-            payment.classList.remove("add");
-
-            setup_service.classList.add("add-color");
-            schedule.classList.remove("add-color");
-            address.classList.remove("add-color");
-            payment.classList.remove("add-color");
-
-            setup_service.style.color = "white";
-            schedule.style.color = "#646464";
-            address.style.color = "#646464";
-            payment.style.color = "#646464";
-
-            setup_service.classList.remove("add-color-noarrow");
-            schedule.classList.remove("add-color-noarrow");
-            address.classList.remove("add-color-noarrow");
-            payment.classList.remove("add-color-noarrow");
-
-            img1.src = "/image/setup-service-white.png";
-            img2.src = "/image/schedule.png";
-            img3.src = "/image/details.png";
-            img4.src = "/image/payment.png";
-
-            schedule.style.pointerEvents = "none";
-            address.style.pointerEvents = "none";
-            payment.style.pointerEvents = "none";
         }
 
-      function form2(){
-        pincode_check.style.display = "none";
-        schedule_plan.style.display = "block";
-        address_list.style.display = "none";
-        make_payment.style.display = "none";
 
-        setup_service.classList.remove("add");
-        schedule.classList.add("add");
-        address.classList.remove("add");
-        payment.classList.remove("add");
+        function getServiceDetails() {
 
-        setup_service.classList.remove("add-color");
-        schedule.classList.add("add-color");
-        address.classList.remove("add-color");
-        payment.classList.remove("add-color");
+            var servicedetails = $("#scheduleService");
+            var jsonInput = servicedetails.serialize();
 
-        setup_service.classList.add("add-color-noarrow");
-        schedule.classList.remove("add-color-noarrow");
-        address.classList.remove("add-color-noarrow");
-        payment.classList.remove("add-color-noarrow");
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '/Customer/getScheduleServiceDetails',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: jsonInput,
+                    success:
+                        function (response) {
+                            if (response.value == "true") {
+                                form3();
+                            } else {
 
-        setup_service.style.color = "#646464";
-        schedule.style.color = "white";
-        address.style.color = "#646464";
-        payment.style.color = "#646464";
+                                alert("fails");
+                            }
 
-        img1.src = "/image/setup-service-white.png";
-        img2.src = "/image/schedule-white.png";
-        img3.src = "/image/details.png";
-          img4.src = "/image/payment.png";
 
-          address.style.pointerEvents = "none";
-          payment.style.pointerEvents = "none";
-      }
+                        },
+                    error:
+                        function (response) {
+                            console.error(response);
+                            alert("fail");
+                        }
+                });
 
-      function form3(){
-        pincode_check.style.display = "none";
-        schedule_plan.style.display = "none";
-        address_list.style.display = "block";
-        make_payment.style.display = "none";
 
-        setup_service.classList.remove("add");
-        schedule.classList.remove("add");
-        address.classList.add("add");
-        payment.classList.remove("add");
 
-        setup_service.classList.remove("add-color");
-        schedule.classList.remove("add-color");
-        address.classList.add("add-color");
-        payment.classList.remove("add-color");
-
-        setup_service.classList.add("add-color-noarrow");
-        schedule.classList.add("add-color-noarrow");
-        address.classList.remove("add-color-noarrow");
-        payment.classList.remove("add-color-noarrow");
-
-        setup_service.style.color = "#646464";
-        schedule.style.color = "#646464";
-        address.style.color = "white";
-        payment.style.color = "#646464";
-
-        img1.src = "/image/setup-service-white.png";
-        img2.src = "/image/schedule-white.png";
-        img3.src = "/image/details-white.png";
-          img4.src = "/image/payment.png";
-
-          payment.style.pointerEvents = "none";
-      }
-
-      function form4(){
-        pincode_check.style.display = "none";
-        schedule_plan.style.display = "none";
-        address_list.style.display = "none";
-        make_payment.style.display = "block";
-
-        setup_service.classList.remove("add");
-        schedule.classList.remove("add");
-        address.classList.remove("add");
-        payment.classList.add("add");
-
-        setup_service.classList.remove("add-color");
-        schedule.classList.remove("add-color");
-        address.classList.remove("add-color");
-        payment.classList.add("add-color");
-
-        setup_service.classList.add("add-color-noarrow");
-        schedule.classList.add("add-color-noarrow");
-        address.classList.add("add-color-noarrow");
-        payment.classList.remove("add-color-noarrow");
-
-        setup_service.style.color = "#646464";
-        schedule.style.color = "#646464";
-        address.style.color = "#646464";
-        payment.style.color = "white";
-
-        img1.src = "/image/setup-service-white.png";
-        img2.src = "/image/schedule-white.png";
-        img3.src = "/image/details-white.png";
-          img4.src = "/image/payment-white.png";
-
-          
-      }
-
-      var add_address_btn =
-        document.getElementsByClassName("add-address-btn")[0];
-      add_address_btn.addEventListener("click", () => {
-        document.getElementsByClassName("add-address-box")[0].style.display =
-          "block";
-        add_address_btn.style.display = "none";
-      });
-
-        const urlSearchParams = new URLSearchParams(window.location.search);
-        if (urlSearchParams == "scheduleService=true") {
-            form2();
         }
 
-        if (urlSearchParams == "address=true") {
-            form3();
+
+        function getAddress() {
+
+
+
+            $.ajax(
+                {
+                    type: 'GET',
+                    url: '/Customer/getAddressDetails',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    success:
+                        function (response) {
+                            console.log(response);
+                            var AddressList = $("#AddressList");
+                            AddressList.empty();
+                            for (var i = 0; i < response.length; i++) {
+                                AddressList.append('<div class="address-check-box"><div><input type="radio" name="address1" /></div><div><p><strong>Address: </strong>' + response[i].addressLine2 + ', ' + response[i].addressLine1 + ', ' + response[i].city + ', ' + response[i].postalCode+'</p > <p><strong>Phone number: </strong>'+response[i].mobile+'</p> </div > </div > ')}
+
+                        },
+                    error:
+                        function (response) {
+                            console.error(response);
+                            alert("fail");
+                        }
+                });
+
+
+
         }
+
+
 
     </script>
 </body>

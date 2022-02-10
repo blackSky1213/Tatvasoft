@@ -72,9 +72,28 @@
 
 
     }
-            <li class="nav-item">
-                <a href="" class="button book-btn nav-link">Book a Cleaner</a>
-            </li>
+            @if (ViewBag.Name != null)
+            {
+                if (ViewBag.Name.UserTypeId == 1)
+                {
+
+
+                    <li class="nav-item">
+                        <a asp-controller="Customer" asp-action="BookService" class="button book-btn nav-link">Book a Cleaner</a>
+                    </li>
+                }
+
+
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a asp-controller="Customer" asp-action="BookService" class="button book-btn nav-link">Book a Cleaner</a>
+                </li>
+            }
+
+
+
             <li class="nav-item">
                 <a asp-controller="Home" asp-action="Price" class="nav-link service-btn">Prices</a>
             </li>
@@ -112,7 +131,7 @@
                             <a class="dropdown-item text-black-50" href="#">My Setting </a>
                         </li>
                         <li>
-                            <a class="dropdown-item text-black-50" asp-controller="Registration" asp-action="Logout" >Log out </a>
+                            <a class="dropdown-item text-black-50" asp-controller="Registration" asp-action="Logout">Log out </a>
                         </li>
 
                     </ul>
@@ -125,6 +144,8 @@
                     <a id="Login" asp-controller="Home" asp-action="Index" asp-route-loginModal="true" class="button login-btn nav-link" data-bs-toggle="modal"
                        data-bs-target="#staticBackdrop">Login</a>
                 </li>
+
+
                 <li class="nav-item">
                     <a asp-controller="Registration" asp-action="BecomePro" class="button helper-btn nav-link">Become a Helper</a>
                 </li>

@@ -8,9 +8,13 @@ namespace HelperLand.Models
     public class AddressDetails
     {
 
-        public string Address { get; set; }
-        public string newAddress { get; set; }
+        public string AddressLine1 { get; set; }
+        public string AddressLine2 { get; set; }
+        public string City { get; set; }
+        public string PostalCode { get; set; }
+        public string Mobile { get; set; }
+        public string Email { get; set; }
 
-       
+
     }
 }

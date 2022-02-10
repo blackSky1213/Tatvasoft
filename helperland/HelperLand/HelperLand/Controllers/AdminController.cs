@@ -49,7 +49,7 @@ namespace HelperLand.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home", new { loginModel = "true" });
+                return RedirectToAction("Index", "Home", new { loginModal = "true" });
             }
         }
     }
