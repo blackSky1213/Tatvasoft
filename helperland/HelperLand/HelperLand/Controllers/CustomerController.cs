@@ -128,6 +128,9 @@ namespace HelperLand.Controllers
 
         [HttpGet]
         public JsonResult getAddressDetails()
+        
+        
+        
         {
             int? Id = HttpContext.Session.GetInt32("id");
             List<AddressDetails> addresses = new List<AddressDetails>();
@@ -137,11 +140,13 @@ namespace HelperLand.Controllers
             foreach(var address in userAddress)
             {
                 AddressDetails addr = new AddressDetails();
+                addr.Id = address.AddressId;
                 addr.AddressLine1 = address.AddressLine1;
                 addr.AddressLine2 = address.AddressLine2;
                 addr.City = address.City;
                 addr.Mobile = address.Mobile;
                 addr.PostalCode = address.PostalCode;
+                addr.IsDefault = address.IsDefault;
 
                 addresses.Add(addr);
             }
@@ -149,6 +154,32 @@ namespace HelperLand.Controllers
             return new JsonResult(addresses);
             
         }
+
+
+        [HttpPost]
+        public IActionResult addAddress(UserAddress address)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                User user = _db.Users.FirstOrDefault(x => x.UserId == Id);
+                address.Email = user.Email;
+                address.UserId = user.UserId;
+                address.IsDefault = false;
+                address.IsDeleted = false;
+                _db.UserAddresses.Add(address);
+                _db.SaveChanges();
+
+                return Ok(Json("true"));
+
+
+            }
+            return Ok(Json("false"));
+
+        }
+
+
+    
 
 
     }

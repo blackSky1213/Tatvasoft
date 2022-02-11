@@ -37,7 +37,7 @@
                     <label for="streetname"> Street name </label>
                     <br />
                     <input type="text"
-                           name="streetname"
+                           id="streetname"
                            placeholder="Street name" />
                 </div>
                 <div>
@@ -45,7 +45,7 @@
                     <br />
 
                     <input type="text"
-                           name="housename"
+                           id="housename"
                            placeholder="House name" />
                 </div>
             </div>
@@ -54,13 +54,13 @@
                     <label for="postalcode"> Postal code </label>
                     <br />
                     <input type="text"
-                           name="postalcode"
-                           placeholder="Postal code" />
+                           id="postalcode"
+                           placeholder="Postal code"   disabled/>
                 </div>
                 <div>
                     <label for="city"> City </label>
                     <br />
-                    <input type="text" name="city" placeholder="City" />
+                    <input type="text" id="city" placeholder="City" />
                 </div>
             </div>
             <div class="address-taker-box tel">
@@ -70,15 +70,15 @@
                     <div class="tel-box">
                         <span class="tel-icon"> +49 </span>
                         <input type="tel"
-                               name="phonenumber"
+                               id="phonenumber"
                                placeholder="Phone number" />
                     </div>
                 </div>
                 <div id="tel2"></div>
             </div>
             <div class="Button">
-                <button class="save-btn">Save</button>
-                <button class="clear-btn">Cancel</button>
+                <button class="save-btn" type="button" onclick="AddAddress()">Save</button>
+                <button class="clear-btn" type="button" onclick="clearAddress()">Cancel</button>
             </div>
         </div>
         <h4 class="favourite-title">Your Favourite Service Providers</h4>
@@ -99,10 +99,10 @@
                 </div>
             </div>
         </div>
-        <div style="text-align: right">
+        <div style="text-align: right;margin-top:20px">
             <input id="continue"
-                   type="submit"
-                   name="submit"
+                   type="button"
+                   onclick="form4()"
                    value="Continue" />
         </div>
     </form>

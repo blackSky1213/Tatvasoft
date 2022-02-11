@@ -224,6 +224,7 @@ add_address_btn.addEventListener("click", () => {
     document.getElementsByClassName("add-address-box")[0].style.display =
         "block";
     add_address_btn.style.display = "none";
+   
 });
 
 const urlSearchParams = new URLSearchParams(window.location.search);

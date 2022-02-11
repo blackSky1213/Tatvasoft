@@ -566,6 +566,7 @@
     <script>
 
         function checkZipcode() {
+            $("#postalcode").val($("#zip").val());
             var zip = $("#zipform");
             var jsonInput = zip.serialize();
 
@@ -645,7 +646,14 @@
                             var AddressList = $("#AddressList");
                             AddressList.empty();
                             for (var i = 0; i < response.length; i++) {
-                                AddressList.append('<div class="address-check-box"><div><input type="radio" name="address1" /></div><div><p><strong>Address: </strong>' + response[i].addressLine2 + ', ' + response[i].addressLine1 + ', ' + response[i].city + ', ' + response[i].postalCode+'</p > <p><strong>Phone number: </strong>'+response[i].mobile+'</p> </div > </div > ')}
+
+                                if (response[i].isDefault == true) {
+                                    AddressList.append('<div class="address-check-box"><div><input type="radio" name="address1" id="addressId' + response[i].id + '"' + 'value ="'+response[i].id+'"'+'checked /></div><div><p><strong>Address: </strong>' + response[i].addressLine2 + ', ' + response[i].addressLine1 + ', ' + response[i].city + ', ' + response[i].postalCode + '</p > <p><strong>Phone number: </strong>' + response[i].mobile + '</p> </div > </div > ')
+                                } else {
+                                    AddressList.append('<div class="address-check-box"><div><input type="radio" name="address1" id="addressId' + response[i].id + '"' + 'value ="' + response[i].id + '"' + '/></div><div><p><strong>Address: </strong>' + response[i].addressLine2 + ', ' + response[i].addressLine1 + ', ' + response[i].city + ', ' + response[i].postalCode + '</p > <p><strong>Phone number: </strong>' + response[i].mobile + '</p> </div > </div > ')
+                                }
+                               
+                            }
 
                         },
                     error:
@@ -659,7 +667,90 @@
 
         }
 
+        function clearAddress() {
 
+            $("#streetname").val("");
+            $("#housename").val("");
+            $("#city").val("");
+            $("#phonenumber").val("");
+            document.getElementsByClassName("add-address-box")[0].style.display =
+                "none";
+            add_address_btn.style.display = "block";
+        }
+         
+
+        function AddAddress() {
+            var addData= {};
+            addData.AddressLine2 = $("#streetname").val();
+            addData.AddressLine1 = $("#housename").val();
+            addData.postalcode = $("#postalcode").val();
+            addData.city = $("#city").val();
+            addData.mobile = $("#phonenumber").val();
+
+            console.log(addData);
+            
+
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '/Customer/addAddress',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: addData,
+                    success:
+                        function (response) {
+                            if (response.value == "true") {
+                                getAddress();
+                                clearAddress()
+                            } else {
+
+                                alert("fails");
+                            }
+
+
+                        },
+                    error:
+                        function (response) {
+                            console.error(response);
+                            alert("fail");
+                        }
+                });
+
+        }
+
+
+
+
+        function payDone() {
+
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '/Customer/addAddress',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: addData,
+                    success:
+                        function (response) {
+                            if (response.value == "true") {
+                                getAddress();
+                                clearAddress()
+                            } else {
+
+                                alert("fails");
+                            }
+
+
+                        },
+                    error:
+                        function (response) {
+                            console.error(response);
+                            alert("fail");
+                        }
+                });
+
+
+        }
+
+        
 
     </script>
 </body>

@@ -2,7 +2,7 @@
 <div id="make-payment">
     <h4>Pay securely with Helperland payment gateway!</h4>
 
-    <form action="/" method="post">
+    <form id="Pay" action="/" method="post">
         <input class="form-control make-payment-input"
                type="text"
                placeholder="card number" />
@@ -22,7 +22,8 @@
         </div>
 
         <div style="text-align: right">
-            <input type="submit"
+            <input type="button"
+                   onclick="payDone()"
                    class="complete"
                    value="Complete Booking" />
         </div>
