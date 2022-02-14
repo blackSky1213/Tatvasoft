@@ -179,6 +179,103 @@ namespace HelperLand.Controllers
         }
 
 
+        [HttpPost]
+        public IActionResult PayDone(ServiceDetailsAdd data)
+        {
+            
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                ServiceRequest addService=new ServiceRequest();
+                addService.UserId =(int)Id;
+                addService.ServiceId = (int)Id;
+                addService.ServiceStartDate = data.startDate;
+                addService.ZipCode = data.postalCode;
+                addService.ServiceHourlyRate = 20;
+                addService.ServiceHours = data.duration;
+                addService.ExtraHours = data.extraHours;
+                addService.SubTotal = (decimal)data.extraHours + (decimal)data.duration;
+                addService.TotalCost = (decimal)(addService.SubTotal *addService.ServiceHourlyRate);
+                addService.Comments = data.comment;
+                addService.HasPets = data.havePet;
+                addService.PaymentDue = false;
+                addService.PaymentDone = true;
+                addService.HasIssue = false;
+                addService.CreatedDate =  DateTime.Now;
+                addService.ModifiedDate = DateTime.Now;
+                addService.ModifiedBy = Id;
+
+                var ServiceRequest=_db.ServiceRequests.Add(addService);
+                _db.SaveChanges();
+
+                UserAddress address = _db.UserAddresses.FirstOrDefault(x => x.AddressId == data.AddressId);
+
+                ServiceRequestAddress serviceAddress = new ServiceRequestAddress();
+                serviceAddress.AddressLine1 = address.AddressLine1;
+                serviceAddress.AddressLine2 = address.AddressLine2;
+                serviceAddress.City = address.City;
+                serviceAddress.ServiceRequestId = ServiceRequest.Entity.ServiceRequestId;
+                serviceAddress.PostalCode = address.PostalCode;
+                serviceAddress.Mobile = address.Mobile;
+                serviceAddress.State = address.State;
+
+                var addServiceAddress = _db.ServiceRequestAddresses.Add(serviceAddress);
+                _db.SaveChanges();
+
+
+
+                
+
+                if (data.cabinet)
+                {
+                    ServiceRequestExtra addServiceExtra = new ServiceRequestExtra();
+                    addServiceExtra.ServiceRequestId = ServiceRequest.Entity.ServiceRequestId;
+                    addServiceExtra.ServiceExtraId = 1;
+                    _db.ServiceRequestExtras.Add(addServiceExtra);
+                    _db.SaveChanges();
+                }
+
+                
+                if (data.fridge)
+                {
+                    ServiceRequestExtra addServiceExtra = new ServiceRequestExtra();
+                    addServiceExtra.ServiceRequestId = ServiceRequest.Entity.ServiceRequestId;
+                    addServiceExtra.ServiceExtraId = 2;
+                    _db.ServiceRequestExtras.Add(addServiceExtra);
+                    _db.SaveChanges();
+                }
+                if (data.oven)
+                {
+                    ServiceRequestExtra addServiceExtra = new ServiceRequestExtra();
+                    addServiceExtra.ServiceRequestId = ServiceRequest.Entity.ServiceRequestId;
+                    addServiceExtra.ServiceExtraId = 3;
+                    _db.ServiceRequestExtras.Add(addServiceExtra);
+                    _db.SaveChanges();
+                }
+                if (data.lundary)
+                {
+                    ServiceRequestExtra addServiceExtra = new ServiceRequestExtra();
+                    addServiceExtra.ServiceRequestId = ServiceRequest.Entity.ServiceRequestId;
+                    addServiceExtra.ServiceExtraId = 4;
+                    _db.ServiceRequestExtras.Add(addServiceExtra);
+                    _db.SaveChanges();
+                }
+                if (data.windows)
+                {
+                    ServiceRequestExtra addServiceExtra = new ServiceRequestExtra();
+                    addServiceExtra.ServiceRequestId = ServiceRequest.Entity.ServiceRequestId;
+                    addServiceExtra.ServiceExtraId = 5;
+                    _db.ServiceRequestExtras.Add(addServiceExtra);
+                    _db.SaveChanges();
+                }
+
+                return Ok(Json("true"));
+            }
+
+            return Ok(Json("false"));
+        }
+        
+
     
 
 

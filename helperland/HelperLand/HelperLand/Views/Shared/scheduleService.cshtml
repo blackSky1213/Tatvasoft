@@ -16,12 +16,12 @@
             <div class="totalTime">
                 <label for="dateAndtime"> When do you need cleaner? </label>
                 <br />
-                <select asp-for="Duration">
+                <select asp-for="Duration" onchange="CreatePaySummery()">
                     <option value="1">1.0 Hrs</option>
-                    <option value="1">1.0 Hrs</option>
-                    <option value="1">1.0 Hrs</option>
-                    <option value="1">1.0 Hrs</option>
-                    <option value="1">1.0 Hrs</option>
+                    <option value="2">2.0 Hrs</option>
+                    <option value="3">3.0 Hrs</option>
+                    <option value="4">4.0 Hrs</option>
+                    <option value="5">5.0 Hrs</option>
                 </select>
             </div>
         </div>
@@ -33,7 +33,8 @@
                            asp-for="extra.Cabinet"
                            id="insideCabinetCheck"
                            class="htmlcheckbox"
-                           onclick="onInsideCabinet();" />
+                           onclick="onInsideCabinet();"
+                           onchange="CreatePaySummery()"/>
                     <label for="insideCabinetCheck" onclick="onInsideCabinet();">
                         <img src="/image/3.png" id="insideCabinetImg" alt="" />
                     </label>
@@ -45,7 +46,8 @@
                            id="insideFridgeCheck"
                            asp-for="extra.Fridge"
                            class="htmlcheckbox"
-                           onclick="onInsideFridge();" />
+                           onclick="onInsideFridge()"
+                            onchange="CreatePaySummery()"/>
                     <label for="insideFridgeCheck">
                         <img src="/image/5.png"
                              id="insideFridgeImg"
@@ -60,7 +62,8 @@
                            asp-for="extra.Oven"
                            id="insideOvenCheck"
                            class="htmlcheckbox"
-                           onclick="onInsideOven();" />
+                           onclick="onInsideOven();"
+                            onchange="CreatePaySummery()"/>
                     <label for="insideOvenCheck" onclick="onInsideOven();">
                         <img src="/image/4.png" id="insideOvenImg" alt="" />
                     </label>
@@ -72,7 +75,8 @@
                            id="laundryCheck"
                            asp-for="extra.Laundary"
                            class="htmlcheckbox"
-                           onclick="onLaundry();" />
+                           onclick="onLaundry();"
+                            onchange="CreatePaySummery()"/>
                     <label for="laundryCheck" onclick="onLaundry();">
                         <img src="/image/2.png" id="laundryImg" alt="" />
                     </label>
@@ -84,7 +88,8 @@
                            id="interiorCheck"
                            asp-for="extra.Window"
                            class="htmlcheckbox"
-                           onclick="onInterior();" />
+                           onclick="onInterior();"
+                            onchange="CreatePaySummery()"/>
                     <label for="interiorCheck" onclick="onInterior();">
                         <img src="/image/1.png" id="interiorImg" alt="" />
                     </label>

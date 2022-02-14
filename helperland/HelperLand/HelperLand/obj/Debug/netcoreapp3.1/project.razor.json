@@ -14427,6 +14427,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\scheduleService.cshtml",
+      "TargetPath": "Views\\Shared\\scheduleService.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\Error.cshtml",
       "TargetPath": "Views\\Shared\\Error.cshtml",
       "FileKind": "mvc"
@@ -14497,6 +14502,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\setupService.cshtml",
+      "TargetPath": "Views\\Shared\\setupService.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\AddressDetails.cshtml",
+      "TargetPath": "Views\\Shared\\AddressDetails.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\ServiceProvider\\UpcomingService.cshtml",
       "TargetPath": "Views\\ServiceProvider\\UpcomingService.cshtml",
       "FileKind": "mvc"
@@ -14514,6 +14529,11 @@
     {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Registration\\BecomePro.cshtml",
       "TargetPath": "Views\\Registration\\BecomePro.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\payment.cshtml",
+      "TargetPath": "Views\\Shared\\payment.cshtml",
       "FileKind": "mvc"
     },
     {

@@ -85,40 +85,37 @@
                 <div class="price-card">
                     <h3>Payment Summary</h3>
                     <div class="details">
-                        <p>01/01/2018  4:00 pm <span>1 bed, 1 bath.</span></p>
+                        <p>01/01/2018  4:00 pm </p>
                     </div>
                     <h4>Duration</h4>
                     <div class="duration">
-                        <p>Basic <span>Inside cabinets (extra)</span></p>
-                        <p style="text-align: right">3 Hrs <span>30 Mins</span></p>
+                        <p>Basic <span class="d-none extra1">Inside Cabinet (extra)</span><span class="d-none extra2">Inside Fridge (extra)</span><span class="d-none extra3">Inside Oven (extra)</span><span class="d-none extra4">Laundry Wash & Dry (extra)</span><span class="d-none extra5">Interior Windows (extra)</span></p>
+                        <p style="text-align: right"><span id="duration-print">3 Hrs</span><span class="d-none extra1">30 Mins</span><span class="d-none extra2">30 Mins</span><span class="d-none extra3">30 Mins</span><span class="d-none extra4">30 Mins</span><span class="d-none extra5">30 Mins</span></p>
                     </div>
                     <div class="cover">
                         <div class="totalhour">
                             <span><strong>Total Service Time</strong></span>
-                            <span><strong>3.5 Hrs</strong></span>
+                            <span id="TotalHour"><strong>3.5 Hrs</strong></span>
                         </div>
                     </div>
                     <div class="cover">
                         <div class="pay-list">
-                            <p>Per cleaning <span>Discount</span></p>
+                            <p>Per cleaning </p>
                             <p style="text-align: right">
-                                <strong>$87</strong><span><strong>-$27</strong></span>
+                                <strong class="PerCleanPay" >$87</strong>
                             </p>
                         </div>
                     </div>
                     <div class="pay-list totalPay">
                         <p>
                             <span style="color: #1d7a8c; font-size: 20px; padding-bottom: 11px">Total Payment</span>
-                            <span>Effective Price</span>
+                            
                         </p>
                         <p style="text-align: right">
-                            <strong style="color: #1d7a8c; font-size: 42px">$63</strong><span><strong>$50.4</strong></span>
+                            <strong class="PerCleanPay" style="color: #1d7a8c; font-size: 42px">$63</strong>
                         </p>
                     </div>
-                    <p class="condition">
-                        <span style="color: red">*</span>You will save 20% according to
-                        §35a EStG.
-                    </p>
+                    
 
                     <div class="seeWhatInclude">
                         <p>
@@ -435,10 +432,7 @@
                                         <span id="total-pay">Total Payment</span>
                                         <span id="amount">&dollar;63</span>
                                     </div>
-                                    <div>
-                                        <span>Effective Price</span>
-                                        <span id="last-amount"><b>&dollar;50.4</b></span>
-                                    </div>
+                                    
                                 </div>
                                 <!-- payment ends -->
 
@@ -648,11 +642,11 @@
                             for (var i = 0; i < response.length; i++) {
 
                                 if (response[i].isDefault == true) {
-                                    AddressList.append('<div class="address-check-box"><div><input type="radio" name="address1" id="addressId' + response[i].id + '"' + 'value ="'+response[i].id+'"'+'checked /></div><div><p><strong>Address: </strong>' + response[i].addressLine2 + ', ' + response[i].addressLine1 + ', ' + response[i].city + ', ' + response[i].postalCode + '</p > <p><strong>Phone number: </strong>' + response[i].mobile + '</p> </div > </div > ')
+                                    AddressList.append('<div class="address-check-box"><div><input type="radio" name="address1" id="addressId' + response[i].id + '"' + 'value ="' + response[i].id + '"' + 'checked /></div><div><p><strong>Address: </strong>' + response[i].addressLine2 + ', ' + response[i].addressLine1 + ', ' + response[i].city + ', ' + response[i].postalCode + '</p > <p><strong>Phone number: </strong>' + response[i].mobile + '</p> </div > </div > ')
                                 } else {
                                     AddressList.append('<div class="address-check-box"><div><input type="radio" name="address1" id="addressId' + response[i].id + '"' + 'value ="' + response[i].id + '"' + '/></div><div><p><strong>Address: </strong>' + response[i].addressLine2 + ', ' + response[i].addressLine1 + ', ' + response[i].city + ', ' + response[i].postalCode + '</p > <p><strong>Phone number: </strong>' + response[i].mobile + '</p> </div > </div > ')
                                 }
-                               
+
                             }
 
                         },
@@ -677,18 +671,19 @@
                 "none";
             add_address_btn.style.display = "block";
         }
-         
+
 
         function AddAddress() {
-            var addData= {};
+            var addData = {};
             addData.AddressLine2 = $("#streetname").val();
             addData.AddressLine1 = $("#housename").val();
             addData.postalcode = $("#postalcode").val();
             addData.city = $("#city").val();
             addData.mobile = $("#phonenumber").val();
 
+
             console.log(addData);
-            
+
 
             $.ajax(
                 {
@@ -716,23 +711,157 @@
                 });
 
         }
+        var d = "";
+        var date = $("#Date").change(() => {
+            var addDate = $("#Date").val().split("-");
+            d = addDate[2] + "/" + addDate[1] + "/" + addDate[0];
+
+        });
+
+        $("#time").change(() => {
+
+            var t = new Date($("#Date").val() + " " + $("#time").val());
+            var t1 = t.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+
+            $(".details p").empty();
+            $(".details p").html(d + " " + t1);
 
 
+        });
+       
+        
+        
+       
+        
+       
+        function CreatePaySummery() {
+            var dur = 0;
+            var totalhour = 0;
+            var cabinetValue = 0, ovenValue = 0, fridgeValue = 0, laundryValue = 0, windowValue = 0;
+            if ($("#insideCabinetCheck").is(':checked')) {
+                $(".extra1").removeClass("d-none");
+                cabinetValue = 0.5;
 
+            } else {
+                $(".extra1").addClass("d-none");
+                cabinetValue = 0;
+
+            }
+
+
+            if ($("#insideFridgeCheck").is(':checked')) {
+                $(".extra2").removeClass("d-none");
+                fridgeValue = 0.5;
+            } else {
+                $(".extra2").addClass("d-none");
+                fridgeValue = 0;
+            }
+
+
+            if ($("#insideOvenCheck").is(':checked')) {
+                $(".extra3").removeClass("d-none");
+                ovenValue = 0.5;
+            } else {
+                $(".extra3").addClass("d-none");
+                ovenValue = 0;
+            }
+
+
+            if ($("#laundryCheck").is(':checked')) {
+                $(".extra4").removeClass("d-none");
+                laundryValue = 0.5;
+            } else {
+                $(".extra4").addClass("d-none");
+                laundryValue = 0;
+            }
+
+
+            if ($("#interiorCheck").is(':checked')) {
+                $(".extra5").removeClass("d-none");
+                windowValue = 0.5;
+            } else {
+                $(".extra5").addClass("d-none");
+                windowValue = 0;
+            }
+            dur = parseFloat($("#Duration").val());
+            $("#duration-print").text(dur + " Hrs");
+            totalhour = cabinetValue + fridgeValue + ovenValue + laundryValue + windowValue+dur;
+            $("#TotalHour").html('<strong>' + totalhour + ' Hrs</strong>');
+            $(".PerCleanPay").text("$" + totalhour * 20);
+
+
+            
+        }
+        
+       
+  
+     
+      
+      
+      
+       
+      
 
         function payDone() {
+            var serviceRequestData = {};
+
+            serviceRequestData.startDate = $("#Date").val();
+            serviceRequestData.startTime = $("#time").val();
+            serviceRequestData.duration = $("#Duration").val();
+            serviceRequestData.comment = $("#comment").val();
+            serviceRequestData.havePet = $("#havePet").val();
+            serviceRequestData.AddressId = $("#AddressList div input[type=radio]:checked").val();
+            serviceRequestData.postalcode = $("#zip").val();
+
+            serviceRequestData.extraHours = 0;
+
+            var insideCabinetCheck = $("#insideCabinetCheck");
+            if (insideCabinetCheck.is(':checked')) {
+                serviceRequestData.extraHours += 0.5;
+                serviceRequestData.cabinet = insideCabinetCheck.val();
+            }
+            var insideFridgeCheck = $("#insideFridgeCheck");
+
+            if (insideFridgeCheck.is(':checked')) {
+                serviceRequestData.extraHours += 0.5;
+                serviceRequestData.fridge = insideFridgeCheck.val();
+            }
+
+            var insideOvenCheck = $("#insideOvenCheck");
+
+            if (insideOvenCheck.is(':checked')) {
+                serviceRequestData.extraHours += 0.5;
+                serviceRequestData.oven = insideOvenCheck.val();
+            }
+
+            var laundryCheck = $("#laundryCheck");
+
+            if (laundryCheck.is(':checked')) {
+                serviceRequestData.extraHours += 0.5;
+                serviceRequestData.laundry = laundryCheck.val();
+            }
+
+            var interiorCheck = $("#interiorCheck");
+
+            if (interiorCheck.is(':checked')) {
+                serviceRequestData.extraHours += 0.5;
+                serviceRequestData.windows = interiorCheck.val();
+            }
+
+            console.log(serviceRequestData);
+
 
             $.ajax(
                 {
                     type: 'POST',
-                    url: '/Customer/addAddress',
+                    url: '/Customer/PayDone',
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    data: addData,
+                    data: serviceRequestData,
                     success:
                         function (response) {
                             if (response.value == "true") {
-                                getAddress();
-                                clearAddress()
+                                alert("payment done");
+
                             } else {
 
                                 alert("fails");
@@ -750,7 +879,7 @@
 
         }
 
-        
+
 
     </script>
 </body>
