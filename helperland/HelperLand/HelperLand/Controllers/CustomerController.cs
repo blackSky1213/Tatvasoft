@@ -100,8 +100,11 @@ namespace HelperLand.Controllers
             var zipcodes = _db.Zipcodes.Where(x => x.ZipcodeValue == setupservice.postalCode);
             if (zipcodes.Count() > 0)
             {
+                var cityId = zipcodes.FirstOrDefault().CityId;
+                string city = _db.Cities.FirstOrDefault(x => x.Id == cityId).CityName;
                 CookieOptions cookie = new CookieOptions();
                 Response.Cookies.Append("zipcode", setupservice.postalCode, cookie);
+                Response.Cookies.Append("city",city,cookie);
                 return Ok(Json("true"));
             }
             else
@@ -120,6 +123,8 @@ namespace HelperLand.Controllers
             }
             else
             {
+                
+
                 return Ok(Json("false"));
             }
 
@@ -127,10 +132,7 @@ namespace HelperLand.Controllers
 
 
         [HttpGet]
-        public JsonResult getAddressDetails()
-        
-        
-        
+        public JsonResult getAddressDetails()        
         {
             int? Id = HttpContext.Session.GetInt32("id");
             List<AddressDetails> addresses = new List<AddressDetails>();

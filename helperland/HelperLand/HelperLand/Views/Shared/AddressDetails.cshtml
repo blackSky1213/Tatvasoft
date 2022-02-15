@@ -32,6 +32,9 @@
             + Add New Address
         </button>
         <div class="add-address-box">
+            <div class="addAddress-error d-none alert alert-danger" role="alert">
+               
+            </div>
             <div class="address-taker-box">
                 <div>
                     <label for="streetname"> Street name </label>
@@ -39,6 +42,7 @@
                     <input type="text"
                            id="streetname"
                            placeholder="Street name" />
+                   
                 </div>
                 <div>
                     <label for="housename"> House number </label>
@@ -60,7 +64,7 @@
                 <div>
                     <label for="city"> City </label>
                     <br />
-                    <input type="text" id="city" placeholder="City" />
+                    <input type="text" id="city" placeholder="City" disabled/>
                 </div>
             </div>
             <div class="address-taker-box tel">

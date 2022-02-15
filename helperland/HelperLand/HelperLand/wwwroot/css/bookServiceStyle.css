@@ -204,6 +204,7 @@ nav {
     padding: 10px;
     margin-top: 20px;
     border-radius: 5px;
+   
 }
 
     .address-check-box p {
@@ -446,6 +447,7 @@ custom-checkboxes :checked + label img {
     margin-top: 20px;
     background: #f3f3f3;
     display: none;
+    padding-bottom: 20px;
 }
 
 .address-taker-box {
@@ -494,7 +496,6 @@ custom-checkboxes :checked + label img {
     border: none;
     color: white;
     margin-left: 50px;
-    margin-bottom: 20px;
     margin-right: 10px;
 }
 
@@ -812,144 +813,13 @@ a {
         border: 0;
     }
 
-#PS-modal-head {
-    background-color: #1d7a8c;
-    padding: 20px 15px;
-}
 
-#PSLabel {
-    color: #fff;
-}
-
-#modal-timeandbed {
-    display: block;
-    margin: 0 0 25px;
-}
-
-    #modal-timeandbed p {
-        margin: 2px 0;
-    }
-
-#modal-total-time {
-    border-top: 1px solid #00000022;
-    padding-top: 5px;
-}
-
-#modal-service-cost {
-    border: 1px solid #00000059;
-    border-left: 0;
-    border-right: 0;
-}
-
-#modal-call-modal {
-    padding: 0 22px;
-    background-color: #f3f3f3;
-}
-
-    #modal-call-modal a {
-        color: #8d8d8d;
-        line-height: 46px;
-    }
-
-#modal-question-title h3 {
-    font-size: 20px;
-    text-align: center;
-}
-
-#modal-question-title {
-    padding-top: 20px;
-}
-
-#book-questions #question-main {
-    margin-top: 5px;
-}
-
-    #book-questions #question-main .faq-qa {
-        padding: 17px 0;
-        margin: 0;
-        border-bottom: 1px solid #00000022;
-    }
-
-        #book-questions #question-main .faq-qa p {
-            margin: 0;
-            padding-left: 18px;
-        }
-
-    #book-questions #question-main .faq-ans {
-        padding: 17px 0 0 17px;
-    }
-
-#modal-book-questions .faq-ans {
-    padding: 0;
-}
-
-#modal-book-questions p {
-    padding-left: 7px;
-}
 
 #paymentSummaryModal .modal-header {
     background-color: #1d7a8c;
     padding: 20px;
+    color:#fff;
 }
-
-    #paymentSummaryModal .modal-header h5 {
-        color: #fff;
-        font-size: 20px;
-    }
-
-#for-more-help {
-    margin-top: 18px;
-}
-
-    #for-more-help a {
-        font-size: 16px;
-        color: #1d7a8c;
-        font-weight: 600;
-    }
-
-#modal-book-questions .faq-qa {
-    margin-top: 15px;
-}
-
-#modal-datetime div,
-#modal-service div,
-#modal-invoice div {
-    display: flex;
-    flex-direction: column;
-    width: 47%;
-    margin-bottom: 10px;
-}
-
-.flex-column {
-    display: flex;
-}
-
-    .flex-column div {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 2px;
-    }
-
-#modal-datetime,
-#modal-service,
-#modal-invoice {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-bottom: 7px;
-}
-
-.flex-column {
-    display: flex;
-    padding: 22px 0;
-}
-
-    .flex-column b {
-        font-size: 18px;
-        margin-bottom: 8px;
-        color: #646464;
-    }
 
 .collapse.show {
     background-color: #757575;
@@ -1013,66 +883,4 @@ a {
 }
 
 
-/* login model */
-.login-title {
-    color: #646464;
-    font-size: 24px;
-    font-weight: 700;
-}
 
-.modal-dialog {
-    text-align: left;
-    width: fit-content;
-    height: fit-content;
-}
-
-.modal-body {
-    width: fit-content;
-    margin: 20px;
-    color: #646464;
-}
-
-.modal-header,
-.modal-footer {
-    border: none;
-}
-
-.inner-addon {
-    position: relative;
-    margin-bottom: 15px;
-    width: 300px;
-    height: 46px;
-}
-
-    .inner-addon input {
-        padding: 10px;
-    }
-
-    /* style icon */
-    .inner-addon img {
-        position: absolute;
-        padding: 10px;
-        pointer-events: none;
-    }
-
-/* align icon */
-
-.right-addon img {
-    right: 0px;
-}
-
-/* add padding  */
-.right-addon input {
-    padding-right: 30px;
-}
-
-.modal-body .Login-btn {
-    background-color: #1d7a8c;
-    border: none;
-    font-size: 18px;
-    color: white;
-    padding: 10px 30px;
-    border-radius: 50px;
-    width: 100%;
-    font-weight: bold;
-}

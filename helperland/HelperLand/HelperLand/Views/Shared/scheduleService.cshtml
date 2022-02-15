@@ -1,14 +1,16 @@
 ﻿@model HelperLand.Models.scheduleService 
 <div class="schedule-plan">
-    <form id="scheduleService" asp-controller="Customer" asp-action="ScheduleService" method="post">
-
+    <form id="scheduleService" >
+        <div  class="scheduleService-error d-none alert alert-danger" role="alert">
+                
+        </div>
         <div class="selectRoomAndBath">
             <div>
                 <label for="dateAndtime"> When do you need cleaner? </label>
                 <div style="display: flex">
                     <div class="date-input">
                         <img src="/image/calendar.png" alt="calender" />
-                        <input type="date" asp-for="Date" />
+                        <input type="date" asp-for="Date"/>
                     </div>
                     <input type="time" asp-for="time" />
                 </div>

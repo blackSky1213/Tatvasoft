@@ -105,6 +105,10 @@ function form1() {
 }
 
 function form2() {
+
+    var now = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    $("#Date").attr("min", now);
+
     pincode_check.style.display = "none";
     schedule_plan.style.display = "block";
     address_list.style.display = "none";
