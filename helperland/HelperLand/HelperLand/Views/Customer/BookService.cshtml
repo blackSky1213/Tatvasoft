@@ -627,6 +627,7 @@
 
     <!-- PS modal ends -->
     @await Html.PartialAsync("footer")
+    @await Html.PartialAsync("completBook")
 
 
     <!-- bootstrap js cdn  -->
@@ -639,8 +640,8 @@
     <script>
 
         function checkZipcode() {
-           
-           
+
+
             var zip = $("#zipform");
             var numbers = /^[0-9]+$/.test($("#zip").val());
             console.log(typeof ($("#zip").val()));
@@ -981,12 +982,14 @@
                     success:
                         function (response) {
 
-                            if (response.value == "true") {
-                                alert("payment done");
+                            if (response.value == "false") {
+                                alert("fails");
+                              
 
                             } else {
-
-                                alert("fails");
+                                $("#bookedId").text("service request id : " + response.value);
+                                $("#completeBookModal").click();
+                                
                             }
 
 

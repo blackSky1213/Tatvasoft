@@ -271,7 +271,7 @@ namespace HelperLand.Controllers
                     _db.SaveChanges();
                 }
 
-                return Ok(Json("true"));
+                return Ok(Json(ServiceRequest.Entity.ServiceRequestId));
             }
 
             return Ok(Json("false"));
