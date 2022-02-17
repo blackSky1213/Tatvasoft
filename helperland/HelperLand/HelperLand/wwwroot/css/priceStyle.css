@@ -8,7 +8,7 @@ body{
     padding:0;
 
 }
-a:hover{
+.nav-link:hover,.nav-link:focus{
     color:#ffff !important;
 }
 
@@ -388,10 +388,7 @@ nav{
 
 }
 
-a{
-    color:#9BA0A3;
-    text-decoration: none;
-}
+
 
 #scrollToTop {
     position: fixed;

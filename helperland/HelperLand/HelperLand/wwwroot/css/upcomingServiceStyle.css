@@ -12,7 +12,7 @@ body{
 
 
 
-a:hover{
+.nav-link:hover,.nav-link:focus{
   text-decoration: none;
   color:#ffff !important; 
 }
@@ -243,8 +243,8 @@ nav{
   
   }
   
-  a{
-    color:#9BA0A3;
+ .footer-menu a{
+    color:#fff;
     text-decoration: none;
   }
 

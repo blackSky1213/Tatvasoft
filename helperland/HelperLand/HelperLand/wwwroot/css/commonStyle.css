@@ -29,5 +29,6 @@
 
 .dropdown-item:focus, .dropdown-item:hover {
     background-color: #4F4F4F;
+   color:#fff !important;
 }
 

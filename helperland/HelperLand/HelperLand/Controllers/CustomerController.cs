@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace HelperLand.Controllers
@@ -97,6 +98,7 @@ namespace HelperLand.Controllers
         [HttpPost]
         public ActionResult IsValidZipcode(setupService setupservice)
         {
+            Thread.Sleep(1500);
             var zipcodes = _db.Zipcodes.Where(x => x.ZipcodeValue == setupservice.postalCode);
             if (zipcodes.Count() > 0)
             {

@@ -32,7 +32,7 @@
 
 <body>
     <section id="header">
-       @await Html.PartialAsync("Navbar3"); 
+        @await Html.PartialAsync("Navbar3");
 
         <form class="service-provider" asp-controller="Registration" asp-action="BecomePro" method="post">
 
@@ -46,7 +46,7 @@
             <input type="text" asp-for="LastName" placeholder="Last name" class="form-control">
             <span asp-validation-for="Email" class="text-danger"></span>
             <input type="email" asp-for="Email" placeholder="Email Address" id="" class="form-control">
-            
+
             <span asp-validation-for="Mobile" class="text-danger"></span>
             <div class="input-group">
                 <span class="input-group-text" style="color:#4F4F4F;margin-bottom:15px" id="basic-addon1">+49</span>
@@ -59,7 +59,7 @@
             <input type="hidden" asp-for="UserTypeId" value="2" />
             <span asp-validation-for="Password" class="text-danger"></span>
             <input type="password" id="password" asp-for="Password" placeholder="Password" class="form-control">
-            
+
             <span id="re-enter-pwd-message" class="text-danger"></span>
             <input type="password" id="re-enter-password" placeholder="Confirm Password" class="form-control">
 
@@ -136,38 +136,15 @@
 
 
     </section>
-    @await Html.PartialAsync("footer") 
+    @await Html.PartialAsync("footer")
     <!-- bootstrap js cdn  -->
 
-    <script>
-        window.addEventListener("scroll", () => {
-            var nav = document.querySelector("nav");
-            nav.classList.toggle("sticky", window.scrollY > 0);
 
-
-        });
-        var pwd = document.getElementById("password");
-        var conf = document.getElementById("re-enter-password");
-        var submit = document.getElementById("registered");
-        var re_pwd_message = document.getElementById("re-enter-pwd-message");
-
-        conf.addEventListener("change", function () {
-
-            if (pwd.value != conf.value) {
-                submit.disabled = true;
-                re_pwd_message.textContent = "password not match!"
-            }
-            else {
-                submit.disabled = false;
-                re_pwd_message.style.display = "none";
-            }
-        });
-
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
-
+    <script src="/js/becomeproScript.js">
+    </script>
 </body>
 </html>
 @section Scripts{

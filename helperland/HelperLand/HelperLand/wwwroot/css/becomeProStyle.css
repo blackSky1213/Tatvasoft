@@ -13,8 +13,9 @@ body{
 
 }
 
-a:hover{
-  color:none !important;
+.nav-link:hover,.nav-link:focus{
+  color:#fff !important;
+  text-decoration:none;
 }
 
 
@@ -292,7 +293,7 @@ nav{
 
 }
 
-a{
-    color:#9BA0A3;
+.footer-menu a{
+    color:#fff;
     text-decoration: none;
 }

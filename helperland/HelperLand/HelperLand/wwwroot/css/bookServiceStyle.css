@@ -67,6 +67,11 @@ nav {
     height: 40px;
 }
 
+.nav-link:hover, .nav-link:focus{
+    color:#fff;
+    text-decoration:none;
+}
+
 .header-img {
     width: 100%;
 }
@@ -887,8 +892,8 @@ custom-checkboxes :checked + label img {
     font-weight: normal;
 }
 
-a {
-    color: #9ba0a3;
+.footer-menu a {
+    color: #fff;
     text-decoration: none;
 }
 

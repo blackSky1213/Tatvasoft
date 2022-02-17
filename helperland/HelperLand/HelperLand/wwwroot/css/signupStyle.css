@@ -10,7 +10,7 @@ body{
 
 }
 
-a:hover{
+.nav-link:hover, .nav-link:focus{
   text-decoration: none;
   color:#ffff !important; 
 }
@@ -238,6 +238,11 @@ nav{
   margin:6px;
 }
 
+.footer-menu a{
+    color:#fff;
+    text-decoration:none;
+}
+
 @media (max-width:503px){
   .footer-menu li{
       display:block;
@@ -254,10 +259,7 @@ nav{
 
 }
 
-a{
-  color:#9BA0A3;
-  text-decoration: none;
-}
+
 
 #scrollToTop {
   position: fixed;

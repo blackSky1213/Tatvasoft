@@ -24,7 +24,9 @@ nav {
 .nav-link {
     display: inline-block !important;
 }
-
+.nav-link:hover, .nav-link:focus{
+    color:#fff;
+}
 .navbar li a {
     font-size: 16px;
     font-weight: normal;

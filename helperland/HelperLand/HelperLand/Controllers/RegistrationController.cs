@@ -25,7 +25,16 @@ namespace HelperLand.Controllers
 
         public IActionResult SignUp()
         {
-            return PartialView();
+            int? Id = HttpContext.Session.GetInt32("id");
+            if(Id != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return PartialView();
+            }
+           
         }
 
         [HttpPost]
@@ -59,7 +68,16 @@ namespace HelperLand.Controllers
 
         public IActionResult BecomePro()
         {
-            return PartialView();
+            int? Id = HttpContext.Session.GetInt32("id");
+            if(Id != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return PartialView();
+            }
+            
         }
 
         [HttpPost]

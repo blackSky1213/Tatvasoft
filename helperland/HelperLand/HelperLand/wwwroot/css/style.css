@@ -8,6 +8,8 @@ body {
     margin: 0;
     padding: 0;
 }
+
+
 .alert{
     width:300px;
 }
@@ -23,6 +25,10 @@ body {
 
 .nav-link:hover {
     color: #fff ;
+}
+
+.nav-link:focus {
+    color: #fff;
 }
 
 /* Navbar  */
@@ -177,10 +183,18 @@ nav {
     padding: 8px;
     border-radius: 22px;
 }
+.dropdown-item span{
+    color:grey;
+}
+
+.dropdown-item span:hover{
+ color:#fff !important;
+}
 
 .forget-password-link {
     color: #1d7a8c;
     text-decoration: none;
+    cursor: pointer;
 }
 /* login model end */
 
@@ -444,8 +458,8 @@ nav {
     font-weight: normal;
 }
 
-a {
-    color: #9ba0a3;
+.footer-menu a {
+    color: #fff;
     text-decoration: none;
 }
 
