@@ -1,0 +1,423 @@
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+/* Navbar  */
+body {
+  margin: 0;
+  padding: 0;
+}
+#mytable1_filter,
+#mytable2_filter {
+  display: none !important;
+}
+
+#upcoming-menu-collapse {
+  display: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #ffff !important;
+}
+
+.main-nav {
+  padding: 6px 15px 4px 15px;
+  font-family: "Robo";
+  background-color: #757575;
+  position: sticky !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+#upcoming-menu-collapse {
+  display: none;
+}
+
+.nav-link {
+  display: inline-block;
+}
+.navbar li a {
+  font-size: 16px;
+  font-weight: normal;
+  color: #ffffff;
+  text-decoration: none;
+}
+.badge {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 2px 5px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
+.button {
+  border-left: solid 0.2px #ffffff80;
+  border-right: solid 0.2px #ffffff80;
+  text-align: center;
+  height: 40px;
+  display: inline-block;
+  position: relative;
+}
+.navbar li {
+  margin: 6px 5px 8px 5px;
+}
+.book-btn {
+  width: 111px;
+  height: 40px;
+  border: solid 0.2px #ffffff80;
+  border-radius: 20px;
+  text-align: center;
+  background-color: #29626d;
+  opacity: 100%;
+}
+
+/* header */
+#header {
+  text-align: center;
+  background: #f9f9f9;
+  padding: 50px 0;
+}
+#header h1 {
+  font-size: 30px;
+  font-weight: normal;
+  color: #4f4f4f;
+}
+
+/* Dashboard*/
+
+/* Service history */
+
+#contant {
+  display: flex;
+  justify-content: center;
+  margin: 31px 0;
+}
+.table-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.table-title {
+  font-size: 22px;
+  color: #646464;
+  font-weight: bold;
+}
+.export-btn,
+.reschedule-btn,
+.cancel-btn {
+  display: inline-block;
+  background: #146371;
+  color: #ffffff;
+  font-size: 14px;
+  width: fit-content;
+  height: 34px;
+  padding: 7px 14px 9px 16px;
+  border-radius: 17px;
+  margin-bottom: 10px;
+}
+.cancel-btn {
+  background-color: #ff6b6b;
+}
+.serviceRequest-btn {
+  background: #146371;
+  display: inline-block;
+  color: #ffffff;
+  font-size: 14px;
+
+  height: 34px;
+  padding: 7px 14px 9px 16px;
+  border-radius: 17px;
+}
+#contant table {
+  border: solid 1px #e1e1e1;
+  border-collapse: collapse;
+  text-align: left;
+  width: 100% !important;
+}
+
+#contant table td span {
+  display: block;
+}
+#contant tr {
+  border-bottom: solid 1px #e1e1e1;
+}
+
+#contant th,
+#contant td {
+  padding: 15px 20px 13px 15px;
+  color: #646464;
+}
+
+.contant-right {
+  width: 960px;
+  padding: 20px;
+}
+
+/* pagging and table size */
+
+#ServiceHistory {
+  display: none;
+}
+#rows {
+  background: #fff;
+  border: solid 1px #e1e1e1;
+  padding: 5px;
+  color: #646464;
+  font-size: 14px;
+}
+
+#mytable1_length,
+#mytable2_length {
+  color: #646464;
+}
+#mytable1_length label,
+#mytable2_length label {
+  margin-top: 15px;
+}
+#mytable1_length select,
+#mytable2_length select {
+  margin: 0px 10px;
+  border: solid 1px #e1e1e1;
+  color: #646464;
+}
+
+.paginate_button {
+  padding: 7px 15px !important;
+  border: 1px solid #aaaaaa !important;
+  border-radius: 50% !important;
+  margin: 0 2.5px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: #146371 !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  color: white !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  color: #777777 !important;
+}
+.dataTables_wrapper .dataTables_paginate,
+.dataTables_wrapper .dataTables_paginate span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+.current {
+  background: #146371 !important;
+  color: #aaaaaa !important;
+}
+
+#mytable1_info,
+#mytable2_info {
+  margin-top: 7px;
+  margin-left: 7px;
+  color: #646464;
+}
+.sizing {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.active {
+  background: #1d7a8c;
+}
+
+.page-icon {
+  border: solid 1px #e1e1e1;
+  text-align: center;
+  padding-top: 6px;
+  font-size: 14px;
+  border-radius: 100px;
+  color: #777777;
+  margin-left: 2px;
+  width: 38px;
+  height: 38px;
+}
+
+#contant-menu {
+  width: 16.8%;
+  background: #1d7a8c;
+  margin-right: 31px;
+}
+#contant-menu ul {
+  padding: 0;
+}
+
+#contant-menu li {
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: normal;
+  list-style: none;
+  border-bottom: solid 1px #ffffff;
+  padding: 13.5px 55px 13.5px 15px;
+}
+table.dataTable thead th,
+table.dataTable thead td {
+  border-bottom: solid 1px #e1e1e1;
+}
+
+.cap-icon {
+  margin: auto 10px auto 0px;
+  text-align: center;
+  border: solid 1px #aaaaaa;
+  padding: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 100px;
+}
+
+.payment-td {
+  text-align: center;
+  color: #1d7a8c;
+  font-size: 20px;
+}
+
+.completed-label {
+  background: #67b644;
+  color: #ffff;
+  font-size: 13px;
+  padding: 5px 10px 4px 9px;
+  text-align: center;
+  width: 83px;
+  margin: auto;
+}
+.cancel-label {
+  background: #ff6b6b;
+  color: #ffff;
+  font-size: 13px;
+  padding: 5px 10px 4px 9px;
+  text-align: center;
+  width: 83px;
+  margin: auto;
+}
+
+.rateSP-btn {
+  background: #6da9b5;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 8px 9px 9px 12px;
+  border-radius: 17px;
+  width: 70px;
+  height: 34px;
+  margin: auto;
+}
+
+/*  Footer  */
+
+#footer {
+  background-color: #111111;
+  color: #f1f1f1;
+  padding-top: 20px;
+  text-align: center;
+  padding-bottom: 10px;
+}
+.footer-menu {
+  text-align: center;
+  padding: 0;
+  margin: 15px 0;
+}
+.footer-menu li {
+  list-style: none;
+  display: inline-block;
+  margin: 6px;
+}
+
+@media (max-width: 503px) {
+  .footer-menu li {
+    display: block;
+    text-align: center;
+    padding: 5px;
+  }
+  .paging {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (max-width: 700px) {
+  td {
+    display: block !important;
+    border-bottom: 1px solid #e1e1e1;
+    margin: 0 15px;
+    padding-left: 0 !important;
+  }
+  thead {
+    display: none;
+  }
+  th {
+    display: none;
+  }
+  tr {
+    width: 300px;
+    margin-bottom: 40px;
+    box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2);
+  }
+  #mytable1,
+  #mytable2 {
+    max-width: 900px !important;
+  }
+  tbody {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  #contant table {
+    border-collapse: separate;
+    border-spacing: 20px 20px;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0;
+  }
+}
+
+.policy {
+  color: #9ba0a3;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+a {
+  color: #9ba0a3;
+  text-decoration: none;
+}
+
+.section-divder {
+  width: 80%;
+  margin: 74px auto 74px auto;
+  background-color: #dcdcdc;
+  border: solid 1px;
+}
+
+@media (max-width: 991px) {
+  #contant-menu {
+    display: none;
+  }
+
+  #upcoming-menu-collapse {
+    display: block;
+    border-bottom: solid 1px white;
+  }
+
+  .badge {
+    top: 0px;
+    right: -7px;
+  }
+
+  .button {
+    border: none;
+  }
+}
