@@ -16,7 +16,7 @@ body {
   display: none;
 }
 
-a:hover {
+.nav-link:hover {
   text-decoration: none;
   color: #ffff !important;
 }
@@ -132,22 +132,22 @@ a:hover {
   padding: 7px 14px 9px 16px;
   border-radius: 17px;
 }
-#contant table {
+.contant-right table {
   border: solid 1px #e1e1e1;
   border-collapse: collapse;
   text-align: left;
   width: 100% !important;
 }
 
-#contant table td span {
+.contant-right table td span {
   display: block;
 }
-#contant tr {
+.contant-right tr {
   border-bottom: solid 1px #e1e1e1;
 }
 
-#contant th,
-#contant td {
+.contant-right th,
+.contant-right td {
   padding: 15px 20px 13px 15px;
   color: #646464;
 }
@@ -419,5 +419,168 @@ a {
 
   .button {
     border: none;
+  }
+}
+
+/* My setting  */
+
+.my-setting-box {
+  color: #646464;
+  width: 70%;
+}
+
+.my-setting-menu ul {
+  display: flex;
+
+  padding: 0;
+  margin: 0;
+}
+
+.my-setting-menu ul li {
+  list-style: none;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 16px 0;
+  text-align: center;
+  border-bottom: 4px solid #e1e1e1;
+  width: 33.33%;
+  transition: all 0.3s;
+}
+
+.active-setting-option {
+  color: #1d7a8c;
+  border-bottom: 4px solid #1d7a8c !important;
+}
+
+/* user details  */
+
+.my-setting-details {
+  width: 100%;
+}
+
+.my-setting-details label {
+  font-weight: bold;
+}
+
+.my-setting-details input,
+.mobile-box {
+  padding: 12px;
+  font-size: 16px;
+}
+.mobile-box,
+.my-setting-details input[type="date"] {
+  color: #646464;
+}
+.input-group-text {
+  color: #646464 !important;
+}
+
+.save-btn {
+  color: #fff;
+  background-color: #146371;
+  border-radius: 26px;
+  width: 100px;
+  margin-top: 20px;
+  border: none;
+}
+
+/* user addresses details */
+
+.my-setting-addresses {
+  padding-top: 20px;
+  width: 100%;
+}
+
+.my-addresses-table {
+  border: 2px solid #e1e1e1;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.my-setting-addresses-header {
+  background-color: #f3f3f3;
+  border-bottom: 2px solid #e1e1e1;
+}
+
+.my-setting-addresses-header td {
+  padding: 12px 36px;
+}
+
+.my-addresses-table p {
+  margin-bottom: 0;
+}
+
+.user-address-list {
+  padding-left: 36px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.user-address-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 20px 20px 20px;
+}
+
+.edit-icon {
+  width: 24px;
+  height: 24px;
+  stroke: #646464;
+}
+
+.delete-icon {
+  width: 24px;
+  height: 24px;
+  stroke: #646464;
+}
+
+.user-add-address-btn {
+  color: white;
+  background-color: #146371;
+  border: none;
+  border-radius: 22px;
+  padding: 8px 16px;
+}
+
+.my-setting-change-password label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.my-setting-change-password input {
+  padding: 12px;
+  font-size: 16px;
+  max-width: 400px;
+}
+
+.user-details-menu-icon {
+  display: none;
+}
+
+.user-menu-icon {
+  width: 36px;
+  height: 36px;
+}
+.user-menu-header {
+  font-weight: bold;
+  margin: 10px;
+  display: none;
+  font-size: 20px;
+}
+
+.key-icon {
+  transform: rotate(-45deg);
+}
+@media (max-width: 595px) {
+  .user-details-option-text {
+    display: none;
+  }
+
+  .user-details-menu-icon {
+    display: block;
+  }
+  .user-menu-header {
+    display: block;
   }
 }
