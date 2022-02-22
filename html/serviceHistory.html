@@ -118,20 +118,15 @@
               class="dropdown-menu dropdown-menu-end"
               aria-labelledby="navbarDropdown"
             >
+             
               <li>
-                <a class="dropdown-item" href="#"
-                  ><img src="" alt="" /> <span>India</span>
-                </a>
+                <a class="dropdown-item text-black-50" href="#">Dashboard </a>
               </li>
               <li>
-                <a class="dropdown-item" href="#"
-                  ><img src="image/admin-user.png" alt="" /> <span>U.K.</span>
-                </a>
+                <a class="dropdown-item text-black-50" href="#">My Setting </a>
               </li>
               <li>
-                <a class="dropdown-item" href="#"
-                  ><img src="image/admin-user.png" alt="" /> <span>U.S.A.</span>
-                </a>
+                <a class="dropdown-item text-black-50" href="#">Log out </a>
               </li>
             </ul>
           </li>
@@ -157,7 +152,9 @@
       <div>
         <div class="table-head">
           <h2 class="table-title">Service History</h2>
-          <a class="export-btn" id="export" onclick="exportData()" href="">Export</a>
+          <a class="export-btn" id="export" onclick="exportData()" href=""
+            >Export</a
+          >
         </div>
 
         <table id="mytable">
@@ -645,15 +642,15 @@
                   </div>
                   <div>
                     Lyum Watson
-                    <span style="width:100px"
+                    <span style="width: 100px"
                       ><img src="image/star1.png" alt="star" /><img
                         src="image/star1.png"
-                        alt="star"
-                      /><img src="image/star1.png" alt="star" /><img
+                        alt="star" /><img
                         src="image/star1.png"
-                        alt="star"
-                      /><img src="image/star2.png" alt="star" /></span
-                    >
+                        alt="star" /><img
+                        src="image/star1.png"
+                        alt="star" /><img src="image/star2.png" alt="star"
+                    /></span>
                   </div>
                 </div>
               </td>
@@ -1019,9 +1016,8 @@
               <td>
                 <span>
                   <img src="image/calendar.png" alt="calendar" />
-                  <strong> 09/04/2018</strong
-                  >
-                </span><span>
+                  <strong> 09/04/2018</strong> </span
+                ><span>
                   <img src="image/layer-712.png" alt="" /> 12:00- 18:00</span
                 >
               </td>
@@ -1292,8 +1288,10 @@
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
-   <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
-
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"
+    ></script>
 
     <script>
       $(document).ready(function () {
@@ -1318,25 +1316,21 @@
         columnDefs: [{ orderable: false, targets: 4 }],
       });
 
-      
-function html_table_to_excel(type)
-    {
-        var data = document.getElementById('mytable');
+      function html_table_to_excel(type) {
+        var data = document.getElementById("mytable");
 
-        var file = XLSX.utils.table_to_book(data, {sheet: "sheet1"});
+        var file = XLSX.utils.table_to_book(data, { sheet: "sheet1" });
 
-        XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
+        XLSX.write(file, { bookType: type, bookSST: true, type: "base64" });
 
-        XLSX.writeFile(file, 'file.' + type);
-    }
+        XLSX.writeFile(file, "file." + type);
+      }
 
-    const export_button = document.getElementById('export');
+      const export_button = document.getElementById("export");
 
-    export_button.addEventListener('click', () =>  {
-        html_table_to_excel('xlsx');
-    });
-
-     
+      export_button.addEventListener("click", () => {
+        html_table_to_excel("xlsx");
+      });
     </script>
     <!-- bootstrap js cdn  -->
   </body>

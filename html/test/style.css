@@ -1,0 +1,272 @@
+.login-title {
+  color: #646464;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.updateTimeModal .modal-dialog {
+  text-align: left;
+  width: fit-content;
+}
+.updateTimeModal .modal-header {
+  border: none;
+}
+.updateTimeModal .modal-body {
+  max-width: 100%;
+  margin: 16px;
+  padding: 0;
+  color: #646464;
+}
+
+.updateTimeModal .modal-body .update-btn {
+  background-color: #1d7a8c;
+  border: none;
+  font-size: 18px;
+  color: white;
+  padding: 10px 30px;
+  border-radius: 50px;
+  width: 100%;
+  font-weight: bold;
+}
+
+.update-time-form {
+  max-width: 335px;
+}
+.update-time-form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.date-input,
+#time {
+  border: solid 1px #e1e1e1;
+  padding: 10px 5px;
+  flex-grow: 1;
+  text-align: center;
+  height: 46px;
+  border-radius: 3px;
+  margin-right: 10px;
+  color: #646464;
+  margin-bottom: 20px;
+}
+
+.date-input img {
+  margin-left: 10px;
+}
+.date-input input[type="date"] {
+  border: none;
+  color: #646464;
+  padding: 0px;
+}
+
+#comment {
+  width: 100%;
+  height: 70px;
+  margin-bottom: 10px;
+}
+
+.serviceRequestSummery {
+  color: #646464;
+}
+
+.cover {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e1e1e1;
+}
+.cover p {
+  margin: 0;
+}
+
+#serviceRequestDateTime {
+  font-size: 20px;
+  font-weight: bold;
+}
+.netAmount {
+  max-width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+.netAmount span:last-child {
+  color: #1d7a8c;
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.reschedule-btn,
+.Cancel-btn {
+  display: inline-block;
+  background: #146371;
+  color: #ffffff;
+  font-size: 16px;
+  width: fit-content;
+  height: 34px;
+  padding: 4px 14px 7px 16px;
+  border-radius: 17px;
+
+  border: none;
+}
+.Cancel-btn {
+  background-color: #ff6b6b;
+}
+
+.x-icon {
+  fill: red;
+  width: 24px;
+  height: 24px;
+  stroke: white;
+}
+.cancel-icon {
+  stroke: white;
+  width: 18px;
+  height: 18px;
+  padding-bottom: 3px;
+}
+.user-setting-add-address {
+  color: #646464;
+}
+.user-setting-add-address .modal-dialog {
+  max-width: 600px;
+}
+
+.user-setting-add-address input {
+  font-size: 16px;
+  padding: 10px;
+}
+
+.user-setting-add-address label {
+  margin-bottom: 3px;
+  font-weight: bold;
+}
+.user-setting-add-address .input-group span {
+  color: #646464;
+}
+
+.user-address-add-btn {
+  margin: 20px 0;
+  color: #fff;
+  border: none;
+  width: 100%;
+  background-color: #1d7a8c;
+  border-radius: 22px;
+}
+.service-provider-average-rating {
+  display: flex;
+  align-items: center;
+}
+/* rating modal style */
+.cap-icon {
+  margin: auto 10px auto 0px;
+  text-align: center;
+  border: solid 1px #aaaaaa;
+  padding: 10px;
+  width: 54px;
+  height: 54px;
+  border-radius: 100px;
+}
+
+.average-rating span {
+  display: inline-block;
+  position: relative;
+  height: 30px;
+  width: 10px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+#myRatingModal {
+  color: #646464;
+}
+#myRatingModal .modal-header {
+  border: none;
+  padding-bottom: 0;
+}
+.rating-head {
+  font-weight: 600;
+  border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 10px;
+}
+
+.average-rating span::before {
+  content: "★";
+  position: absolute;
+  color: #64646466;
+  font-size: 24px;
+  width: fit-content;
+}
+
+.average-rating span:nth-child(even)::before {
+  right: 0px;
+  left: initial;
+}
+
+#myRatingModal .spSkills {
+  display: flex;
+  align-items: center;
+}
+
+#myRatingModal .spSkills p {
+  width: 150px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+#myRatingModal .spSkills .spRatings {
+  display: flex;
+
+  flex-direction: row-reverse;
+}
+
+#myRatingModal .spSkills .spRatings input {
+  position: relative;
+  width: 20px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  overflow: hidden;
+  border: 0;
+}
+
+#myRatingModal .spSkills .spRatings input::before {
+  content: "★";
+  color: #64646466;
+  position: absolute;
+  font-size: 34px;
+  left: 6px;
+  transition: 0.5s;
+}
+
+#myRatingModal .spSkills .spRatings input:nth-child(odd)::before {
+  right: 6px;
+  left: initial;
+}
+
+#myRatingModal .spSkills .spRatings input:hover ~ input::before,
+#myRatingModal .spSkills .spRatings input:hover::before,
+#myRatingModal .spSkills .spRatings input:checked ~ input::before,
+#myRatingModal .spSkills .spRatings input:checked::before {
+  color: yellow;
+}
+
+.feedback-box {
+  margin-top: 20px;
+}
+.feedback-box label {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.submit-btn {
+  color: white;
+  border: none;
+  background-color: #146371;
+  border-radius: 22px;
+  padding: 8px 16px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}

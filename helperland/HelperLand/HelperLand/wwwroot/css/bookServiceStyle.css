@@ -789,8 +789,18 @@ custom-checkboxes :checked + label img {
 
 .modal-body {
     width: fit-content;
-    margin: 20px;
     color: #646464;
+}
+.modal-body .Price-card{
+    margin:0 !important;
+}
+.Price-card {
+        font-size: 16px;
+        color: #4f4f4f;
+       }
+
+.Price-card .details , .Price-card h4{
+    margin-left:19px;
 }
 
 .modal-header,

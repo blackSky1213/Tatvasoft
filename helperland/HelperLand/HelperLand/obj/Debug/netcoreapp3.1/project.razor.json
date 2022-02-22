@@ -14550,6 +14550,11 @@
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Admin\\UserDetailsTable.cshtml",
       "TargetPath": "Views\\Admin\\UserDetailsTable.cshtml",
       "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\completBook.cshtml",
+      "TargetPath": "Views\\Shared\\completBook.cshtml",
+      "FileKind": "mvc"
     }
   ],
   "SerializationFormat": "0.2"

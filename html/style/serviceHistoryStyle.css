@@ -417,4 +417,13 @@ a{
   .button{
     border:none;
   }
-}
+    }
+
+
+    /* user setting dropdown menu */
+
+    .dropdown-item:focus, .dropdown-item:hover{
+
+      background-color:#4F4F4F;
+
+    }

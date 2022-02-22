@@ -126,10 +126,10 @@
             <ul class="dropdown-menu dropdown-menu-end"
                 aria-labelledby="navbarDropdown">
                 <li>
-                    <a class="dropdown-item text-black-50" href="#">Dashboard </a>
+                    <a class="dropdown-item text-black-50" asp-controller="Customer" asp-action="CustomerServiceHistory" asp-route-customerDashboard="true">Dashboard </a>
                 </li>
                 <li>
-                    <a class="dropdown-item text-black-50" href="#">My Setting </a>
+                    <a class="dropdown-item text-black-50"  asp-controller="Customer" asp-action="CustomerServiceHistory"  asp-route-customerSetting="true">My Setting </a>
                 </li>
                 <li>
                     <a class="dropdown-item text-black-50" asp-controller="Registration" asp-action="Logout">Log out </a>

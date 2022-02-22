@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script src="https://unpkg.com/phosphor-icons"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#staticBackdrop"
+    >
+      update time & date
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#staticBackdrop1"
+    >
+      cancel service
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#staticBackdrop2"
+    >
+      show service request
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#staticBackdrop3"
+    >
+      add address
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#myRatingModal"
+    >
+      give rating
+    </button>
+
+    <!-- Modal -->
+    <div
+      class="modal fade updateTimeModal"
+      id="staticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title login-title" id="staticBackdropLabel">
+              Reschedule Service Request
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form class="update-time-form" action="" method="post">
+              <label>Select New Date & Time</label>
+              <div style="display: flex; flex-wrap: wrap">
+                <div class="date-input">
+                  <img src="shape-1.png" alt="calender" />
+                  <input type="date" name="date" />
+                </div>
+                <input type="time" name="time" id="time" />
+              </div>
+              <input type="button" class="update-btn" value="Update" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- cancel request modal -->
+    <div
+      class="modal fade updateTimeModal"
+      id="staticBackdrop1"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabe2"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title login-title" id="staticBackdropLabe2">
+              Cancel Service Request
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form class="update-time-form" action="" method="post">
+              <label>Why you want to cancel the service request?</label>
+              <textarea name="comment" id="comment"></textarea>
+              <input type="button" class="update-btn" value="Cancel Now" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- service details modal -->
+    <div
+      class="modal fade serviceRequestSummery"
+      id="staticBackdrop2"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabe3"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title login-title" id="staticBackdropLabe3">
+              Service Details
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="service-request-summary">
+              <div class="cover">
+                <p id="serviceRequestDateTime">05/10/2021 08:00 - 11:30</p>
+                <p><strong>Duration: </strong> 3.5 Hrs</p>
+              </div>
+              <div class="cover">
+                <p><strong>Duration: </strong> 3.5 Hrs</p>
+                <p><strong>Service Id:</strong> 8485</p>
+                <p><strong>Extras:</strong> Inside cabinets</p>
+                <p class="netAmount">
+                  <span><strong>Net Amount:</strong></span>
+                  <span class="netAmountNo">87,50 &#8364;</span>
+                </p>
+              </div>
+              <div class="cover">
+                <p>
+                  <strong>Service Address: </strong> Ganeshnagar 121, 364004
+                  Bhavnagar
+                </p>
+                <p>
+                  <strong>Billing Address:</strong> Same as clearing Address
+                </p>
+                <p><strong>Phone:</strong> +917433984425</p>
+                <p><strong>Email:</strong> kbsarvaiya123@gmail.com</p>
+              </div>
+              <div class="cover">
+                <p>
+                  <strong>Comments </strong>
+                </p>
+                <p>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="x-icon"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    /></svg
+                  >I don't have pets at home
+                </p>
+              </div>
+              <div class="btn-box">
+                <button type="button" class="reschedule-btn">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="cancel-icon"
+                    width="18"
+                    height="18"
+                    fill="#ffffff"
+                    viewBox="0 0 256 256"
+                  >
+                    <rect width="256" height="256" fill="none"></rect>
+                    <line
+                      x1="128"
+                      y1="80"
+                      x2="128"
+                      y2="128"
+                      fill="none"
+                      stroke="#ffffff"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="16"
+                    ></line>
+                    <line
+                      x1="169.6"
+                      y1="152"
+                      x2="128"
+                      y2="128"
+                      fill="none"
+                      stroke="#ffffff"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="16"
+                    ></line>
+                    <polyline
+                      points="184.2 99.7 224.2 99.7 224.2 59.7"
+                      fill="none"
+                      stroke="#ffffff"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="16"
+                    ></polyline>
+                    <path
+                      d="M190.2,190.2a88,88,0,1,1,0-124.4l34,33.9"
+                      fill="none"
+                      stroke="#ffffff"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="24"
+                    ></path>
+                  </svg>
+                  Reschedule
+                </button>
+                <button type="button" class="Cancel-btn">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="cancel-icon"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="M6 18L18 6M6 6l12 12"
+                    /></svg
+                  >Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- add address modal -->
+    <div
+      class="modal fade user-setting-add-address"
+      id="staticBackdrop3"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabe2"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title login-title" id="staticBackdropLabe2">
+              Add New Address
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-6 mb-2">
+                    <label for="streetname"> Street Name </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Street Name"
+                      id="streetname"
+                    />
+                  </div>
+                  <div class="col-sm-6 mb-2">
+                    <label for="housename">House Number </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="House Number"
+                      id="housenumber"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6 mb-2">
+                    <label for="postalcode"> Postal Code </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Postal Code"
+                      id="postalcode"
+                    />
+                  </div>
+                  <div class="col-sm-6 mb-2">
+                    <label for="city"> City </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Street Name"
+                      id="city"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label for="mobile"> Phone Number </label>
+                    <div class="input-group">
+                      <span class="input-group-text">+49</span>
+                      <input
+                        type="tel"
+                        id="mobile"
+                        class="form-control"
+                        placeholder="Mobile Number"
+                        aria-label="mobile"
+                        aria-describedby="basic-addon1"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <input class="user-address-add-btn" type="button" value="Add" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- rating modal -->
+
+    <div class="modal" tabindex="-1" id="myRatingModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="service-provider-average-rating">
+              <div>
+                <img class="cap-icon" src="cap.png" alt="cap" />
+              </div>
+              <div>
+                <div><span>Lyum Watson</span></div>
+                <div class="d-flex align-items-center">
+                  <div class="average-rating">
+                    <span></span><span></span><span></span><span></span
+                    ><span></span><span></span><span></span><span></span
+                    ><span></span><span></span>
+                  </div>
+                  <div style="padding-top: 4px; padding-left: 3px">
+                    <span>5</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <h4 class="rating-head">Rate your service provider</h4>
+            <!-- on time starts -->
+            <div class="spSkills">
+              <div><p>On Time Arrival</p></div>
+              <div class="spRatings">
+                <input type="radio" name="onTime" />
+                <input type="radio" name="onTime" />
+                <input type="radio" name="onTime" />
+                <input type="radio" name="onTime" />
+                <input type="radio" name="onTime" />
+                <input type="radio" name="onTime" />
+                <input type="radio" name="onTime" />
+                <input type="radio" name="onTime" />
+                <input type="radio" name="onTime" />
+                <input type="radio" name="onTime" />
+              </div>
+            </div>
+            <!-- on time ends -->
+
+            <!-- friendly starts -->
+            <div class="spSkills">
+              <p>friendly</p>
+              <div class="spRatings">
+                <input type="radio" name="friendly" />
+                <input type="radio" name="friendly" />
+                <input type="radio" name="friendly" />
+                <input type="radio" name="friendly" />
+                <input type="radio" name="friendly" />
+                <input type="radio" name="friendly" />
+                <input type="radio" name="friendly" />
+                <input type="radio" name="friendly" />
+                <input type="radio" name="friendly" />
+                <input type="radio" name="friendly" />
+              </div>
+            </div>
+            <!-- friendly ends -->
+
+            <!-- Quality of Service starts -->
+            <div class="spSkills">
+              <p>Quality of Service</p>
+              <div class="spRatings">
+                <input type="radio" name="qualityService" />
+                <input type="radio" name="qualityService" />
+                <input type="radio" name="qualityService" />
+                <input type="radio" name="qualityService" />
+                <input type="radio" name="qualityService" />
+                <input type="radio" name="qualityService" />
+                <input type="radio" name="qualityService" />
+                <input type="radio" name="qualityService" />
+                <input type="radio" name="qualityService" />
+                <input type="radio" name="qualityService" />
+              </div>
+            </div>
+            <!-- quality of service ends -->
+            <div class="feedback-box">
+              <form action="">
+                <label for="feedback-label">Feedback on service provider</label>
+                <textarea
+                  class="form-control"
+                  id="feedback-label"
+                  rows="2"
+                ></textarea>
+                <input type="button" class="submit-btn" value="Submit"></input>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
