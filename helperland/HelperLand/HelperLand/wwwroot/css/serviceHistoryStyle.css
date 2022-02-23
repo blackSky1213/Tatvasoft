@@ -132,6 +132,7 @@ nav{
     padding: 7px 14px 9px 16px;
     border-radius: 17px;
     margin-bottom: 10px;
+    border:none;
 }
 
 .cancel-btn {
@@ -689,7 +690,7 @@ table.dataTable thead td {
     }
 
 .date-input,
-#time {
+#rescheduletime {
     border: solid 1px #e1e1e1;
     padding: 10px 5px;
     flex-grow: 1;

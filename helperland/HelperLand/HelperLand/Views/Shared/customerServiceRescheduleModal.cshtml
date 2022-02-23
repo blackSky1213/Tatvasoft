@@ -18,15 +18,16 @@
             </div>
             <div class="modal-body">
                 <form class="update-time-form" action="" method="post">
+                    <input type="hidden" id="rescheduleID" name="rescheduleID" />
                     <label>Select New Date & Time</label>
                     <div style="display: flex; flex-wrap: wrap">
                         <div class="date-input">
                             <img src="/image/shape-1.png" alt="calender" />
-                            <input type="date" name="date" />
+                            <input type="date" id="rescheduledate" name="date" />
                         </div>
-                        <input type="time" name="time" id="time" />
+                        <input type="time" name="time" id="rescheduletime" />
                     </div>
-                    <input type="button" class="update-btn" value="Update" />
+                    <input type="button" id="rescheduleServiceRequestID" class="update-btn" value="Update" />
                 </form>
             </div>
         </div>

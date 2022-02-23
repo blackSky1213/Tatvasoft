@@ -129,7 +129,7 @@ namespace HelperLand.Controllers
                         if (user.remember == true)
                         {
                             CookieOptions MyCookie = new CookieOptions();
-                            MyCookie.Expires = DateTime.Now.AddSeconds(30);
+                            MyCookie.Expires = DateTime.Now.AddSeconds(120);
                             Response.Cookies.Append("userid", Convert.ToString(U.UserId),MyCookie);
                             
 

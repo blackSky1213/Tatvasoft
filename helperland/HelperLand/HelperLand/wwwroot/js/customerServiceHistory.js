@@ -158,3 +158,90 @@ if (urlSearchParams == "customerDashboard=true") {
 if (urlSearchParams == "customerSetting=true") {
     my_user_setting();
 }
+
+
+
+document.addEventListener("click", (e) => {
+
+    if (e.target.className == "cancel-btn") {
+        console.log(e.target.value);
+        document.getElementById("cancelId").value = e.target.value;
+    }
+
+    if (e.target.className == "reschedule-btn") {
+        document.getElementById("rescheduleID").value = e.target.value;
+    }
+
+
+});
+
+
+document.getElementById("rescheduleServiceRequestID").addEventListener("click", () => {
+
+
+    console.log("date :- " + document.getElementById("rescheduledate").value);
+    console.log("time :- " + document.getElementById("rescheduletime").value);
+
+    var data = {}
+    data.serviceRequestId = document.getElementById("rescheduleID").value;
+    data.serviceStartDate = document.getElementById("rescheduledate").value;
+    data.startTime = document.getElementById("rescheduletime").value;
+
+    $.ajax(
+        {
+            type: 'POST',
+            url: '/Customer/UpdateServiceRequest',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data,
+            success:
+                function (response) {
+                    if (response.value == "true") {
+                        window.location.reload();
+                    }
+
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+
+});
+
+
+document.getElementById("CancelRequestbtn").addEventListener("click", () => {
+
+    console.log("id :- " + document.getElementById("cancelId").value);
+    console.log("comment :- " + document.getElementById("comment").value);
+
+    var data = {};
+    data.serviceRequestId = document.getElementById("cancelId").value;
+    data.comments = document.getElementById("comment").value;
+
+    $.ajax(
+        {
+            type: 'POST',
+            url: '/Customer/CancelServiceRequest',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data,
+            success:
+                function (response) {
+                    if (response.value == "true") {
+                        window.location.reload();
+                    }
+
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+
+
+
+});
+

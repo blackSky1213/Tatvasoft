@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<HelperLand.Models.CustomerNewServiceRequest>
+
 <div id="Dashboard">
     <div class="table-head">
         <h2 class="table-title">Dashboard</h2>
@@ -19,41 +20,52 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-             
-                <td >8892</td>
-                <td>
-                    <img src="/image/calendar2.png" alt="calendar" />
-                    <strong> 09/04/2018</strong><span>
-                        <img src="/image/layer-14.png" alt="" /> 12:00- 18:00
-                    </span>
-                </td>
-                <td>
-                    <div style="display: flex">
-                        <div>
-                            <img class="cap-icon" src="/image/cap.png" alt="cap" />
-                        </div>
-                        <div>
-                            Lyum Watson
-                            <span>
-                                <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                              alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                         alt="star" /><img src="/image/star2.png" alt="star" /> 4
-                            </span>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <span class="payment-td">&#8364;<strong style="font-size: 24px">63</strong></span>
-                </td>
+            @if (Model.Count() > 0)
+            {
+                @foreach (var obj in Model)
+                {
+                    <tr>
 
-                <td>
-                    <a class="reschedule-btn"  data-bs-toggle="modal"
-      data-bs-target="#staticBackdrop" >Reschedule</a>
-                    <a  class="cancel-btn" data-bs-toggle="modal"
-      data-bs-target="#staticBackdrop1">Cancel</a>
-                </td>
-            </tr>
+                        <td> @obj.ServiceRequestId</td>
+                        <td>
+                            <img src="/image/calendar2.png" alt="calendar" />
+                            <strong>@obj.ServiceStartDate</strong><span>
+                                <img src="/image/layer-14.png" alt="" /> @obj.startTime- @obj.endTime
+                            </span>
+                        </td>
+                        <td>
+                            @if (obj.ServiceProvider != null)
+                            {
+                                <div style="display: flex">
+                                    <div>
+                                        <img class="cap-icon" src="/image/cap.png" alt="cap" />
+                                    </div>
+                                    <div>
+                                        Lyum Watson
+                                        <span>
+                                            <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                          alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
+                                                                                                                                                     alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            <span class="payment-td">&#8364;<strong style="font-size: 24px"> @obj.TotalCost </strong></span>
+                        </td>
+
+                        <td>
+                            <button type="button" class="reschedule-btn" data-bs-toggle="modal"
+                               data-bs-target="#staticBackdrop" value="@obj.ServiceRequestId">Reschedule</button>
+                            
+
+                            <button type="button" class="cancel-btn" data-bs-toggle="modal"
+                               data-bs-target="#staticBackdrop1" value="@obj.ServiceRequestId">Cancel</button>
+                        </td>
+                    </tr>
+                }
+            }
         </tbody>
     </table>
 </div>
