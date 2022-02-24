@@ -936,3 +936,13 @@ table.dataTable thead td {
     margin-top: 10px;
 }
 
+
+.dobSelect select {
+    padding:13px;
+    background: #ffffff;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    margin: 0 3px;
+    color: #646464;
+    flex-grow: 1;
+}

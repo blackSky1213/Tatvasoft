@@ -52,10 +52,13 @@
                             }
                         </td>
                         <td>
+                            
                             <span class="payment-td">&#8364;<strong style="font-size: 24px"> @obj.TotalCost </strong></span>
                         </td>
 
                         <td>
+                            <button type="button" value="@obj.ServiceStartDate" hidden></button>
+                            <button type="button" value="@obj.startTime" hidden></button>
                             <button type="button" class="reschedule-btn" data-bs-toggle="modal"
                                data-bs-target="#staticBackdrop" value="@obj.ServiceRequestId">Reschedule</button>
                             

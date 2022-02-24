@@ -354,10 +354,135 @@ namespace HelperLand.Controllers
             }
 
             return Ok(Json("false"));
-
+            
 
 
         }
+
+
+
+        [HttpGet]
+        public JsonResult getUserDetails()
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                User data = _db.Users.FirstOrDefault(x => x.UserId == Id);
+                if (data != null)
+                {
+                    return new JsonResult(data);
+                }
+            }
+            return new JsonResult(null);
+        }
+
+
+        public IActionResult updateUserDetails(User data)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                var u = _db.Users.FirstOrDefault(x => x.UserId==Id);
+
+                u.FirstName = data.FirstName;
+                u.LastName = data.LastName;
+                u.Mobile = data.Mobile;
+
+                
+                u.DateOfBirth = data.DateOfBirth;
+                u.ModifiedDate = DateTime.Now;
+                if (_db.Users.Where(x => x.Mobile == data.Mobile && x.UserId == Id).Count() == 1 || _db.Users.Where(x => x.Mobile == data.Mobile).Count() == 0)
+                {
+                    _db.Users.Update(u);
+                    _db.SaveChanges();
+
+                    return Ok(Json("true"));
+                }
+                else
+                {
+                    return Ok(Json("mobileThere"));
+                }
+
+            }
+
+            return Ok(Json("false"));
+
+        }
+
+
+        [HttpGet]
+        public JsonResult getAllAddressDetails()
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                List<AddressDetails> addresses = new List<AddressDetails>();
+
+                var userAddress = _db.UserAddresses.Where(x => x.UserId == Id).ToList();
+
+                foreach (var address in userAddress)
+                {
+                    AddressDetails addr = new AddressDetails();
+                    addr.Id = address.AddressId;
+                    addr.AddressLine1 = address.AddressLine1;
+                    addr.AddressLine2 = address.AddressLine2;
+                    addr.City = address.City;
+                    addr.Mobile = address.Mobile;
+                    addr.PostalCode = address.PostalCode;
+                    addr.IsDefault = address.IsDefault;
+
+                    addresses.Add(addr);
+                }
+
+                return new JsonResult(addresses);
+            }
+            return new JsonResult(null);
+
+        }
+
+
+        [HttpPost]
+        public IActionResult UpdateUserPassword(AuthLogin changePass)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                User u = _db.Users.FirstOrDefault(x => x.UserId == Id);
+                bool IsPassValid = BCrypt.Net.BCrypt.Verify(changePass.password,u.Password);
+                if (IsPassValid)
+                {
+                    string HashPass = BCrypt.Net.BCrypt.HashPassword(changePass.NewPassword);
+                    u.Password = HashPass;
+                    _db.Users.Update(u);
+                    _db.SaveChanges();
+                    return Ok(Json("true"));
+                }
+                
+            }
+            return Ok(Json("false"));
+        }
+
+        [HttpPost]
+        public IActionResult UserAddAddress(UserAddress address)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+
+            if(Id != null)
+            {
+                User user = _db.Users.FirstOrDefault(x => x.UserId == Id);
+                address.Email = user.Email;
+                address.UserId = user.UserId;
+                address.IsDefault = false;
+                address.IsDeleted = false;
+                _db.UserAddresses.Add(address);
+                _db.SaveChanges();
+
+                return Ok(Json("true"));
+            }
+            return Ok(Json("false"));
+
+        }
+
     }
 
     }
