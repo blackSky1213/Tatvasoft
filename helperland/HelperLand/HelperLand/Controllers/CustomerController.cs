@@ -171,7 +171,7 @@ namespace HelperLand.Controllers
             int? Id = HttpContext.Session.GetInt32("id");
             List<AddressDetails> addresses = new List<AddressDetails>();
             var zipCode = Request.Cookies["zipcode"];
-            var userAddress = _db.UserAddresses.Where(x => x.PostalCode == zipCode && x.UserId == Id).ToList();
+            var userAddress = _db.UserAddresses.Where(x => x.PostalCode == zipCode && x.UserId == Id && x.IsDeleted== false).ToList();
 
             foreach (var address in userAddress)
             {
@@ -418,7 +418,7 @@ namespace HelperLand.Controllers
             {
                 List<AddressDetails> addresses = new List<AddressDetails>();
 
-                var userAddress = _db.UserAddresses.Where(x => x.UserId == Id).ToList();
+                var userAddress = _db.UserAddresses.Where(x => x.UserId == Id && x.IsDeleted==false).ToList();
 
                 foreach (var address in userAddress)
                 {
@@ -480,6 +480,99 @@ namespace HelperLand.Controllers
                 return Ok(Json("true"));
             }
             return Ok(Json("false"));
+
+        }
+
+
+        [HttpPost]
+        public IActionResult UserUpdateAddress(UserAddress address)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+
+            if (Id != null)
+            {
+                User user = _db.Users.FirstOrDefault(x => x.UserId == Id);
+                address.Email = user.Email;
+                address.UserId = user.UserId;
+                address.IsDefault = false;
+                address.IsDeleted = false;
+                _db.UserAddresses.Update(address);
+                _db.SaveChanges();
+
+                return Ok(Json("true"));
+            }
+            return Ok(Json("false"));
+
+        }
+
+
+
+        [HttpPost]
+        public IActionResult deleteUserAddress(UserAddress addrId)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+
+            if (Id != null)
+            {
+                UserAddress uaddress = _db.UserAddresses.FirstOrDefault(x => x.AddressId == addrId.AddressId);
+
+                uaddress.IsDeleted = true;
+                _db.UserAddresses.Update(uaddress);
+                _db.SaveChanges();
+
+                return Ok(Json("true"));
+            }
+
+            return Ok(Json("false"));
+        }
+
+        public JsonResult showServiceRequestSummery(ServiceRequest data)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                ServiceRequest request = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
+                List<ServiceRequestExtra> requestExtra = _db.ServiceRequestExtras.Where(x => x.ServiceRequestId == request.ServiceRequestId).ToList();
+                ServiceRequestAddress requestAddress = _db.ServiceRequestAddresses.FirstOrDefault(x => x.ServiceRequestId == request.ServiceRequestId);
+                CustomerServiceRequestSummery Details=new CustomerServiceRequestSummery();
+                Details.ServiceRequestId = request.ServiceRequestId;
+                Details.Date = request.ServiceStartDate.ToString("dd/MM/yyyy");
+                Details.StartTime = request.ServiceStartDate.ToString("HH:mm");
+                Details.Duration = request.SubTotal;
+                Details.EndTime = request.ServiceStartDate.AddHours((double)request.SubTotal).ToString("HH:mm");
+                Details.TotalCost = request.TotalCost;
+                Details.Comments = request.Comments;
+                foreach (ServiceRequestExtra row in requestExtra)
+                {
+                    if (row.ServiceExtraId == 1)
+                    {
+                        Details.Cabinet = true;
+                    }
+                    else if (row.ServiceExtraId == 2)
+                    {
+                        Details.Oven = true;
+                    }
+                    else if (row.ServiceExtraId == 3)
+                    {
+                        Details.Window = true;
+                    }
+                    else if (row.ServiceExtraId == 4)
+                    {
+                        Details.Fridge = true;
+                    }
+                    else
+                    {
+                        Details.Laundry = true;
+                    }
+                }
+                Details.Address = requestAddress.AddressLine1 + ", " + requestAddress.AddressLine2 + ", " + requestAddress.City + "- " + requestAddress.PostalCode;
+                Details.PhoneNo = requestAddress.Mobile;
+                Details.Email = requestAddress.Email;
+
+                return new JsonResult(Details);
+            }
+
+            return new JsonResult("false");
 
         }
 

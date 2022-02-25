@@ -122,6 +122,7 @@ nav{
 
 .export-btn,
 .reschedule-btn,
+.Reschedule-btn,
 .cancel-btn {
     display: inline-block;
     background: #146371;
@@ -132,7 +133,7 @@ nav{
     padding: 7px 14px 9px 16px;
     border-radius: 17px;
     margin-bottom: 10px;
-    border:none;
+    border: none;
 }
 
 .cancel-btn {
@@ -591,7 +592,7 @@ table.dataTable thead td {
     stroke: #646464;
 }
 
-.user-add-address-btn {
+.user-add-address-btn  {
     color: white;
     background-color: #146371;
     border: none;
@@ -802,7 +803,7 @@ table.dataTable thead td {
         color: #646464;
     }
 
-.user-address-add-btn {
+.user-address-add-btn, .user-address-update-btn {
     margin: 20px 0;
     color: #fff;
     border: none;
@@ -945,4 +946,25 @@ table.dataTable thead td {
     margin: 0 3px;
     color: #646464;
     flex-grow: 1;
+}
+
+
+.delete-address .modal-body {
+    color: #646464;
+}
+
+.delete-address p {
+    font-size: 20px;
+}
+
+.delete-btn {
+    color: white;
+    border: none;
+    background-color: #146371;
+    border-radius: 25px;
+    padding: 9px 16px;
+    font-size: 18px;
+    margin-top: 5px;
+    display: inline-block;
+    text-align: center;
 }

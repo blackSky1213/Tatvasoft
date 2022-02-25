@@ -127,7 +127,7 @@ function showUserAddress() {
 
                     for (var i = 0; i < response.length; i++) {
 
-                        list.append('<tr> <td class= "user-address-list" > <p><strong>Address : </strong>' + response[i].addressLine2 + '-' + response[i].addressLine1 + ', ' + response[i].city + ' </p > <p><strong>Phone number</strong> ' + response[i].mobile + ' </p> </td ><td><div class="user-address-btn"><a><svg xmlns="http://www.w3.org/2000/svg" class="edit-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>   </a> <a> <svg xmlns="http://www.w3.org/2000/svg" class="delete-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>  </svg> </a> </div></td> <div></div></tr > ');
+                        list.append('<tr> <td class= "user-address-list" > <p><strong>Address : </strong>' + response[i].addressLine2 + '-' + response[i].addressLine1 + ', ' + response[i].city + ' </p > <p><strong>Phone number</strong> ' + response[i].mobile + ' </p> </td ><td><div class="user-address-btn"><a class="updateAddress" data-bs-toggle="modal" data-bs-target="#updateUserAddress"   data-value="' + response[i].id+'" > <svg xmlns="http://www.w3.org/2000/svg" class="edit-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>   </a > <a data-bs-toggle="modal" data-bs-target="#staticBackdrop4" class="delete-user-address" data-value="' + response[i].id+'" > <svg xmlns="http://www.w3.org/2000/svg" class="delete-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>  </svg> </a > </div ></td > <div></div></tr > ');
 
                     }
                 
@@ -292,22 +292,170 @@ if (urlSearchParams == "customerSetting=true") {
     my_user_setting();
 }
 
-
+var address_user_id = 0;
+var service_request_id = 0;
 
 document.addEventListener("click", (e) => {
 
     if (e.target.className == "cancel-btn") {
-        console.log(e.target.value);
+        console.log(e.target.className);
         document.getElementById("cancelId").value = e.target.value;
     }
 
     if (e.target.className == "reschedule-btn") {
         document.getElementById("rescheduleID").value = e.target.value;
+
+
+    }
+    var address_id = e.target.closest('a');
+    if (address_id != null) {
+        if (address_id.className == "delete-user-address") {
+            address_user_id=address_id.getAttribute('data-value');
+        }
+        if (address_id.className == "updateAddress") {
+
+            address_user_id = address_id.getAttribute('data-value');
+            console.log("class :" + address_id.className + ". " + " value: " + address_user_id);
+        }
+
+
        
+    }
+  
+
+
+   
+    
+    
+   /* deleteUser(e.target.closest('button').getAttribute("data-value"));*/
+
+   
+
+});
+
+$("#mytable1").click((e) => {
+
+    service_request_id = e.target.closest('tr').getAttribute("data-value");
+
+    if (service_request_id != null && (e.target.className != "cancel-btn" && e.target.className != "reschedule-btn")) {
+
+        document.getElementById("CustomerServiceSummery-btn").click();
+        console.log(service_request_id);
+        getServiceRequestAllDetails();
        
     }
 
+  
 
+});
+
+
+
+function getServiceRequestAllDetails() {
+
+    var data = {};
+    data.serviceRequestId = service_request_id;
+    $.ajax(
+        {
+            type: 'GET',
+            url: '/Customer/showServiceRequestSummery',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data,
+            success:
+                function (response) {
+                    if (response!=null) {
+                        console.log(response);
+                        $("#serviceRequestDateTime").text(response.date + " " + response.startTime + " - " + response.endTime);
+                        $("#serviceRequestDuration").text(response.duration + " Hrs");
+                        $("#ServiceRequestId").text(response.serviceRequestId);
+                        if (response.cabinet == true) {
+                            $("#serviceExtra1").removeClass("d-none");
+                        } else {
+                            $("#serviceExtra1").addClass("d-none");
+                        }
+                        if (response.oven == true) {
+                            $("#serviceExtra2").removeClass("d-none");
+                        } else {
+                            $("#serviceExtra2").addClass("d-none");
+                        }
+                        if (response.fridge == true) {
+                            $("#serviceExtra3").removeClass("d-none");
+                        } else {
+                            $("#serviceExtra3").addClass("d-none");
+                        }
+                        if (response.laundry == true) {
+                            $("#serviceExtra4").removeClass("d-none");
+                        } else {
+                            $("#serviceExtra4").addClass("d-none");
+                        }
+                        if (response.window == true) {
+                            $("#serviceExtra5").removeClass("d-none");
+                        } else {
+                            $("#serviceExtra5").addClass("d-none");
+                        }
+
+                        $(".netAmountNo").html(response.totalCost + " &#8364;");
+                        $("#serviceRequestAddress").text(response.address);
+                        $("#ServiceRequestPhone").text(response.mobile);
+                        $("#ServiceRequestEmail").text(response.email);
+                    }
+
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+
+}
+
+
+$(".Reschedule-btn").click(() => {
+
+    document.getElementsByClassName("reschedule-btn")[0].click();
+});
+
+$(".Cancel-btn").click(() => {
+
+    document.getElementsByClassName("cancel-btn")[0].click();
+});
+
+function deleteUserAddress() {
+    var data = {};
+    data.addressId = parseInt(address_user_id);
+    console.log(address_user_id);
+
+    $.ajax(
+        {
+            type: 'POST',
+            url: '/Customer/deleteUserAddress',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data,
+            success:
+                function (response) {
+                    if (response.value == "true") {
+
+                        $(".setting-address-details-alert").addClass("alert-success").removeClass("alert-danger d-none").text("successfully remove Address");
+                        showUserAddress();
+                    }
+
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+
+    
+}
+
+
+$(".delete-btn").click(() => {
+    deleteUserAddress();
 });
 
 
@@ -417,6 +565,8 @@ $("#updateUserPassword").click(() => {
                     function (response) {
                         if (response.value == "true") {
                             $(".user-update-password-alert").addClass("alert-success").removeClass("alert-danger d-none").text("Password successfully update!")
+                        } else {
+                            $(".user-update-password-alert").addClass("alert-danger").removeClass("alert-success d-none").text("password is wrong please try again");
                         }
                       
 
@@ -494,3 +644,71 @@ $(".user-address-add-btn").click(() => {
 
     }
 });
+
+
+
+
+
+$(".user-address-update-btn").click(() => {
+
+    var data = {};
+    data.addressId = address_user_id;
+    data.addressLine1 = $("#Updatehousenumber").val();
+    data.addressLine2 = $("#Updatestreetname").val();
+    data.postalCode = $("#Updatepostalcode").val();
+    data.city = $("#Updatecity").val();
+    data.mobile = $("#UpdateMobile").val();
+    var numbers = /^[0-9]+$/.test(data.mobile);
+    console.log(data);
+    var flag = 1;
+    if (data.addressLine1 == "" && data.addressLine2 == "" && data.mobile == "") {
+        $(".addAddress-error").removeClass("d-none").text("please enter value!");
+        $(".user-address-add-btn").remosveAttr("data-bs-dismiss", "modal");
+        flag = 0;
+    }
+    else if (data.addressLine1 == "") {
+        $(".addAddress-error").removeClass("d-none").text("please enter value of house!");
+        $(".user-address-add-btn").removeAttr("data-bs-dismiss", "modal");
+        flag = 0;
+    } else if (data.addressLine2 == "") {
+        $(".addAddress-error").removeClass("d-none").text("please enter value of street!");
+        $(".user-address-add-btn").removeAttr("data-bs-dismiss", "modal");
+        flag = 0;
+    } else if (data.mobile == "" || !numbers) {
+        $(".addAddress-error").removeClass("d-none").text("please enter valid value of mobile!");
+        $(".user-address-add-btn").removeAttr("data-bs-dismiss", "modal");
+        flag = 0;
+    }
+    else {
+        $('#staticBackdrop3').modal('hide');
+        $(".addAddress-error").addClass("d-none").
+            flag = 1;
+    }
+
+    if (flag == 1) {
+        $.ajax(
+            {
+                type: 'POST',
+                url: '/Customer/UserUpdateAddress',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: data,
+                success:
+                    function (response) {
+                        if (response.value == "true") {
+                            showUserAddress();
+                            $(".setting-address-details-alert").addClass("alert-success").removeClass("alert-danger d-none").text("successfully add Address!");
+                        }
+                    },
+                error:
+                    function (response) {
+                        console.error(response);
+                        alert("fail");
+                    }
+            });
+
+
+    }
+
+
+});
+

@@ -1,4 +1,4 @@
-﻿
+﻿<a id="CustomerServiceSummery-btn" class="d-none" role="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"></a>
 <div class="modal fade serviceRequestSummery"
      id="staticBackdrop2"
      data-bs-backdrop="static"
@@ -21,12 +21,15 @@
                 <div class="service-request-summary">
                     <div class="cover">
                         <p id="serviceRequestDateTime">05/10/2021 08:00 - 11:30</p>
-                        <p><strong>Duration: </strong> 3.5 Hrs</p>
+                        <p><strong>Duration: </strong><span  id="serviceRequestDuration">3.5 Hrs</span> </p>
                     </div>
                     <div class="cover">
-                        <p><strong>Duration: </strong> 3.5 Hrs</p>
-                        <p><strong>Service Id:</strong> 8485</p>
-                        <p><strong>Extras:</strong> Inside cabinets</p>
+                        <p><strong>Service Id:</strong> <span id="ServiceRequestId">8888</span> </p>
+                        <p id="serviceExtra1" class="d-none"><strong>Extras:</strong> Inside cabinets</p>
+                        <p id="serviceExtra2" class="d-none"><strong>Extras:</strong> Inside fridge</p>
+                        <p id="serviceExtra3" class="d-none"><strong>Extras:</strong> Inside oven</p>
+                        <p id="serviceExtra4" class="d-none"><strong>Extras:</strong> Laundry Wash & Dry</p>
+                        <p id="serviceExtra5" class="d-none"><strong>Extras:</strong> interior Windows</p>
                         <p class="netAmount">
                             <span><strong>Net Amount:</strong></span>
                             <span class="netAmountNo">87,50 &#8364;</span>
@@ -34,14 +37,13 @@
                     </div>
                     <div class="cover">
                         <p>
-                            <strong>Service Address: </strong> Ganeshnagar 121, 364004
-                            Bhavnagar
+                            <strong>Service Address: </strong> <span id="serviceRequestAddress"> Ganeshnagar 121, 364004 Bhavnagar</span>
                         </p>
                         <p>
                             <strong>Billing Address:</strong> Same as clearing Address
                         </p>
-                        <p><strong>Phone:</strong> +917433984425</p>
-                        <p><strong>Email:</strong> kbsarvaiya123@gmail.com</p>
+                        <p><strong>Phone:</strong> <span id="ServiceRequestPhone">+917433984425</span> </p>
+                        <p><strong>Email:</strong> <span id="ServiceRequestEmail">kbsarvaiya123@gmail.com</span> </p>
                     </div>
                     <div class="cover">
                         <p>
@@ -61,7 +63,7 @@
                         </p>
                     </div>
                     <div class="btn-box">
-                        <button type="button" class="reschedule-btn">
+                        <button type="button" class="Reschedule-btn" data-bs-dismiss="modal">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="cancel-icon"
                                  width="18"
@@ -102,7 +104,7 @@
                             </svg>
                             Reschedule
                         </button>
-                        <button type="button" class="Cancel-btn">
+                        <button type="button" class="Cancel-btn"  data-bs-dismiss="modal">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="cancel-icon"
                                  fill="none"
