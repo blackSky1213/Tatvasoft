@@ -20,61 +20,62 @@
             </div>
             <div class="modal-body">
               
-                    <form>
-                        <div class="addAddress-error d-none alert alert-danger " role="alert">
+                <form>
+                    <input type="hidden" id="UpdateState" />
+                    <div class="addAddress-error d-none alert alert-danger " role="alert">
 
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6 mb-2">
+                                <label for="streetname"> Street Name </label>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="Street Name"
+                                       id="Updatestreetname" />
+                            </div>
+                            <div class="col-sm-6 mb-2">
+                                <label for="housename">House Number </label>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="House Number"
+                                       id="Updatehousenumber" />
+                            </div>
                         </div>
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-sm-6 mb-2">
-                                    <label for="streetname"> Street Name </label>
-                                    <input type="text"
+                        <div class="row">
+                            <div class="col-sm-6 mb-2">
+                                <label for="postalcode"> Postal Code </label>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="Postal Code"
+                                       id="Updatepostalcode" />
+                            </div>
+                            <div class="col-sm-6 mb-2">
+                                <label for="city"> City </label>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="City Name"
+                                       id="Updatecity" disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="Mobile"> Phone Number </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">+49</span>
+                                    <input type="tel"
+                                           id="UpdateMobile"
                                            class="form-control"
-                                           placeholder="Street Name"
-                                           id="Updatestreetname" />
-                                </div>
-                                <div class="col-sm-6 mb-2">
-                                    <label for="housename">House Number </label>
-                                    <input type="text"
-                                           class="form-control"
-                                           placeholder="House Number"
-                                           id="Updatehousenumber" />
+                                           placeholder="Mobile Number"
+                                           aria-label="mobile"
+                                           aria-describedby="basic-addon1" />
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-6 mb-2">
-                                    <label for="postalcode"> Postal Code </label>
-                                    <input type="text"
-                                           class="form-control"
-                                           placeholder="Postal Code"
-                                           id="Updatepostalcode" />
-                                </div>
-                                <div class="col-sm-6 mb-2">
-                                    <label for="city"> City </label>
-                                    <input type="text"
-                                           class="form-control"
-                                           placeholder="Street Name"
-                                           id="Updatecity" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label for="Mobile"> Phone Number </label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">+49</span>
-                                        <input type="tel"
-                                               id="UpdateMobile"
-                                               class="form-control"
-                                               placeholder="Mobile Number"
-                                               aria-label="mobile"
-                                               aria-describedby="basic-addon1" />
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
 
-                            <input class="user-address-update-btn" data-bs-dismiss="modal" type="button" value="Edit" />
-                        </div>
-                    </form>
+                        <input class="user-address-update-btn" type="button" value="Edit" />
+                    </div>
+                </form>
                 </div>
             </div>
     </div>

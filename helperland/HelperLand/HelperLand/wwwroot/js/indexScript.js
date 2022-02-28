@@ -1,8 +1,8 @@
 ﻿window.addEventListener("scroll", () => {
     var nav = document.querySelector("nav");
     nav.classList.toggle("sticky", window.scrollY > 0);
-    var brand = document.getElementsByClassName("logo")[0];
-    brand.classList.toggle("brand-img", window.scrollY > 0);
+ /*   var brand = document.getElementsByClassName("logo")[0];
+    brand.classList.toggle("brand-img", window.scrollY > 0);*/
 
 });
 document.getElementById("ok-btn").onclick = function () {

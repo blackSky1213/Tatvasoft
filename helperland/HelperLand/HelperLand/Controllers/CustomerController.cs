@@ -246,7 +246,7 @@ namespace HelperLand.Controllers
                 _db.SaveChanges();
 
                 UserAddress address = _db.UserAddresses.FirstOrDefault(x => x.AddressId == data.AddressId);
-
+                address.IsDefault = true;
                 ServiceRequestAddress serviceAddress = new ServiceRequestAddress();
                 serviceAddress.AddressLine1 = address.AddressLine1;
                 serviceAddress.AddressLine2 = address.AddressLine2;
@@ -255,6 +255,7 @@ namespace HelperLand.Controllers
                 serviceAddress.PostalCode = address.PostalCode;
                 serviceAddress.Mobile = address.Mobile;
                 serviceAddress.State = address.State;
+              
 
                 var addServiceAddress = _db.ServiceRequestAddresses.Add(serviceAddress);
                 _db.SaveChanges();
@@ -576,6 +577,80 @@ namespace HelperLand.Controllers
 
         }
 
+
+        public JsonResult getAddressFieldData(UserAddress address)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                UserAddress addr = _db.UserAddresses.FirstOrDefault(x => x.AddressId == address.AddressId);
+                return new JsonResult(addr);
+            }
+            return new JsonResult("false");
+
+        }
+
+
+        public JsonResult getscheduleDataTime(ServiceRequest request)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                ServiceRequest service = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == request.ServiceRequestId);
+
+                return new JsonResult(service.ServiceStartDate);
+            }
+            return new JsonResult("false");
+        }
+
+
+        public JsonResult ServiceHistory()
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                List<CustomerNewServiceRequest> ServiceHistory = new List<CustomerNewServiceRequest>();
+
+                var table = _db.ServiceRequests.Where(x => x.UserId == Id && x.Status != 2).ToList();
+
+                foreach (var data in table)
+                {
+
+                    CustomerNewServiceRequest sr = new CustomerNewServiceRequest();
+                    sr.ServiceRequestId = data.ServiceRequestId;
+                    sr.ServiceStartDate = data.ServiceStartDate.ToString("dd/MM/yyyy");
+                    sr.startTime = data.ServiceStartDate.ToString("HH:mm");
+                    sr.endTime = data.ServiceStartDate.AddHours((double)data.SubTotal).ToString("HH:mm");
+                    sr.TotalCost = data.TotalCost;
+                    sr.Status = data.Status;
+                    if (data.ServiceProviderId != null)
+                    {
+                        User sp = _db.Users.Where(x => x.UserId == data.ServiceProviderId).FirstOrDefault();
+
+                        sr.ServiceProvider = sp.FirstName + " " + sp.LastName;
+
+
+
+                        var rating = _db.Ratings.Where(x => x.RatingTo == data.ServiceProviderId);
+
+                        if (rating != null)
+                        {
+                          
+                            sr.SPRatings = rating.Average(x => x.Ratings);
+                        }
+
+                       
+
+                    }
+
+                    ServiceHistory.Add(sr);
+                }
+                return new JsonResult(ServiceHistory);
+
+            }
+            return new JsonResult("false");
+        }
+     
     }
 
     }

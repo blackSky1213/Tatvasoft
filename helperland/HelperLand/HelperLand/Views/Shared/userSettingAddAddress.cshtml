@@ -20,7 +20,9 @@
             </div>
             <div class="modal-body">
                 <form>
+                    <input type="hidden" id="State" />
                     <div class="addAddress-error d-none alert alert-danger " role="alert">
+
 
                     </div>
                     <div class="container-fluid">
@@ -52,8 +54,8 @@
                                 <label for="city"> City </label>
                                 <input type="text"
                                        class="form-control"
-                                       placeholder="Street Name"
-                                       id="city" />
+                                       placeholder="City Name"
+                                       id="city" disabled />
                             </div>
                         </div>
                         <div class="row">
@@ -71,7 +73,7 @@
                             </div>
                         </div>
 
-                        <input  class="user-address-add-btn" type="button" value="Add" />
+                        <input class="user-address-add-btn" type="button" value="Add" />
                     </div>
                 </form>
             </div>

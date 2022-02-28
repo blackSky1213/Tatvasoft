@@ -78,6 +78,7 @@ function form2() {
 
     document.getElementsByClassName("my-setting-box")[0].classList.add("d-none");
     document.getElementsByClassName("contant-right")[0].classList.remove("d-none");
+    getServiceHistory();
 }
 
 var useroption = [
@@ -232,17 +233,17 @@ function updateUserData() {
     var numbers = /^[0-9]+$/.test(data.mobile);
     data.dateOfBirth = $(".month").val() + "/" + $(".day").val() + "/" + $(".year").val();
     if (data.firstName == "" && data.lastName == "" && data.mobile == "") {
-        $(".setting-details-alert").addClass("alert-danger").removeClass("d-none").text("please enter valid value");
+        $(".setting-details-alert").addClass("alert-danger").removeClass("d-none").text("please enter valid value").fadeIn().fadeOut(2000);
     } else if (data.firstName == "") {
-        $(".setting-details-alert").addClass("alert-danger").removeClass("d-none").text("please enter valid First Name");
+        $(".setting-details-alert").addClass("alert-danger").removeClass("d-none").text("please enter valid First Name").fadeIn().fadeOut(2000);
     }
     else
         if (data.lastName == "") {
-            $(".setting-details-alert").addClass("alert-danger").removeClass("d-none").text("please enter valid Last Name");
+            $(".setting-details-alert").addClass("alert-danger").removeClass("d-none").text("please enter valid Last Name").fadeIn().fadeOut(2000);
         } else
 
             if (data.mobile == "" || !numbers) {
-                $(".setting-details-alert").addClass("alert-danger").removeClass("d-none").text("please enter valid moblie number");
+                $(".setting-details-alert").addClass("alert-danger").removeClass("d-none").text("please enter valid moblie number").fadeIn().fadeOut(2000);
             }
             else {
                 $.ajax(
@@ -255,11 +256,11 @@ function updateUserData() {
                             function (response) {
                                 if (response.value == "true") {
 
-                                    $(".setting-details-alert").removeClass("d-none alert-danger").addClass("alert-success").text("successfully data is update!").fadeIn().fadeOut(500);
+                                    $(".setting-details-alert").removeClass("d-none alert-danger").addClass("alert-success").text("successfully data is update!").fadeIn().fadeOut(2000);
                                    
                                     getUserdata();
                                 } else if (response.value == "mobileThere") {
-                                    $(".setting-details-alert").addClass("alert-danger").removeClass("d-none").text("mobile number already exist please use different number");
+                                    $(".setting-details-alert").addClass("alert-danger").removeClass("d-none").text("mobile number already exist please use different number").fadeIn().fadeOut(2000);
                                 }
                                 
 
@@ -304,7 +305,7 @@ document.addEventListener("click", (e) => {
 
     if (e.target.className == "reschedule-btn") {
         document.getElementById("rescheduleID").value = e.target.value;
-
+        getscheduleDataTime(e.target.value);
 
     }
     var address_id = e.target.closest('a');
@@ -315,23 +316,143 @@ document.addEventListener("click", (e) => {
         if (address_id.className == "updateAddress") {
 
             address_user_id = address_id.getAttribute('data-value');
+            getAddressField();
             console.log("class :" + address_id.className + ". " + " value: " + address_user_id);
         }
 
-
-       
     }
-  
-
-
-   
-    
-    
-   /* deleteUser(e.target.closest('button').getAttribute("data-value"));*/
-
-   
 
 });
+
+
+function getscheduleDataTime(id) {
+    var data = {};
+    data.serviceRequestId = id;
+    $.ajax(
+        {
+            type: 'GET',
+            url: '/Customer/getscheduleDataTime',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data,
+            success:
+                function (response) {
+                    if (response != null) {
+
+                        var dateTime = response.split("T");
+                        var now = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+                        $("#rescheduledate").attr("min", now);
+                        $("#rescheduledate").val(dateTime[0]);
+                        $("#rescheduletime").val(dateTime[1]);
+
+                    }
+
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+
+    
+
+}
+
+document.getElementById("Updatepostalcode").addEventListener("focusout", () => {
+
+    var zip = $("#Updatepostalcode").val();
+    if (zip.length == 6) {
+        getZipcodeCity(zip, "Updatecity", "UpdateState", "user-address-update-btn");
+    } else {
+        $(".addAddress-error").removeClass("d-none").text("please enter valid postalcode!").fadeIn().fadeOut(2000);
+
+    }
+
+});
+document.getElementById("postalcode").addEventListener("focusout", () => {
+
+    var zip = $("#postalcode").val();
+    if (zip.length == 6) {
+        getZipcodeCity(zip, "city", "State","user-address-add-btn");
+    }
+    else {
+        $(".addAddress-error").removeClass("d-none").text("please enter valid postalcode!").fadeIn().fadeOut(2000);
+
+    }
+
+});
+
+function getZipcodeCity(zipcode,tagidcity,tagidstate,tagiderror) {
+   
+
+    $.ajax({
+        url: "https://api.postalpincode.in/pincode/" + zipcode,
+        method: "GET",
+        dataType: "json",
+        cache: false,
+       
+        success: (data) => {
+
+            console.log(data);
+            if (data[0].Status == "Error") {
+                console.log("err");
+                $(".addAddress-error").removeClass("d-none").text("please enter valid postalcode!").fadeIn().fadeOut(2000);
+             
+                $("#" + tagidcity).val("");
+
+            } else if (data[0].Status == "Success") {
+                $("#" + tagidcity).val(data[0].PostOffice[0].District);
+                $("#" + tagidstate).val(data[0].PostOffice[0].State);
+                $(".addAddress-error").addClass("d-none");
+                $("." + tagiderror).removeClass("btn disabled");
+
+            }
+        }, 
+        error: (err) => {
+            console.log(err);
+        }
+
+    });
+
+}
+
+
+
+function getAddressField() {
+    var data = {};
+    data.addressId = address_user_id;
+
+    $.ajax(
+        {
+            type: 'GET',
+            url: '/Customer/getAddressFieldData',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data,
+            success:
+                function (response) {
+                    if (response != null) {
+
+                        console.table(response);
+
+                        $("#Updatestreetname").val(response.addressLine2);
+                        $("#Updatehousenumber").val(response.addressLine1);
+                        $("#Updatepostalcode").val(response.postalCode);
+                        $("#Updatecity").val(response.city);
+                        $("#UpdateMobile").val(response.mobile);
+                        $("UpdateState").val(response.state);
+                    }
+
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+}
+
 
 $("#mytable1").click((e) => {
 
@@ -437,7 +558,7 @@ function deleteUserAddress() {
                 function (response) {
                     if (response.value == "true") {
 
-                        $(".setting-address-details-alert").addClass("alert-success").removeClass("alert-danger d-none").text("successfully remove Address");
+                        $(".setting-address-details-alert").addClass("alert-success").removeClass("alert-danger d-none").text("successfully remove Address").fadeIn().fadeOut(2000);
                         showUserAddress();
                     }
 
@@ -549,10 +670,10 @@ $("#updateUserPassword").click(() => {
     var IsvalidPass = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(data.newPassword);
     console.log(data);
     if ($("#currentPassword").val() == "" || $("#NewPassword").val() == "" || $("#confirmpass").val() == "") {
-        $(".user-update-password-alert").addClass("alert-danger").removeClass("d-none").text("please fill all field");
+        $(".user-update-password-alert").addClass("alert-danger").removeClass("d-none").text("please fill all field").fadeIn().fadeOut(2000);
     } else if (!IsvalidPass) {
 
-        $(".user-update-password-alert").addClass("alert-danger").removeClass("d-none").text("Passwords must contain at least six characters, including uppercase, lowercase letters and numbers.");
+        $(".user-update-password-alert").addClass("alert-danger").removeClass("d-none").text("Passwords must contain at least six characters, including uppercase, lowercase letters and numbers.").fadeIn().fadeOut(2000);
 
     } else {
         $.ajax(
@@ -564,9 +685,9 @@ $("#updateUserPassword").click(() => {
                 success:
                     function (response) {
                         if (response.value == "true") {
-                            $(".user-update-password-alert").addClass("alert-success").removeClass("alert-danger d-none").text("Password successfully update!")
+                            $(".user-update-password-alert").addClass("alert-success").removeClass("alert-danger d-none").text("Password successfully update!").fadeIn().fadeOut(2000);
                         } else {
-                            $(".user-update-password-alert").addClass("alert-danger").removeClass("alert-success d-none").text("password is wrong please try again");
+                            $(".user-update-password-alert").addClass("alert-danger").removeClass("alert-success d-none").text("password is wrong please try again").fadeIn().fadeOut(2000);
                         }
                       
 
@@ -593,30 +714,31 @@ $(".user-address-add-btn").click(() => {
     data.postalCode = $("#postalcode").val();
     data.city = $("#city").val();
     data.mobile = $("#Mobile").val();
+    data.state = $("#State").val();
     var numbers = /^[0-9]+$/.test(data.mobile);
     console.log(data);
     var flag = 1;
     if (data.addressLine1 == "" && data.addressLine2 == "" && data.mobile == "") {
-        $(".addAddress-error").removeClass("d-none").text("please enter value!");
-        $(".user-address-add-btn").remosveAttr("data-bs-dismiss", "modal");
+        $(".addAddress-error").removeClass("d-none").text("please enter value!").fadeIn().fadeOut(2000);
+       
         flag = 0;
     }
     else if (data.addressLine1 == "") {
-        $(".addAddress-error").removeClass("d-none").text("please enter value of house!");
-        $(".user-address-add-btn").removeAttr("data-bs-dismiss", "modal");
+        $(".addAddress-error").removeClass("d-none").text("please enter value of house!").fadeIn().fadeOut(2000);
+        
         flag = 0;
     } else if (data.addressLine2 == "") {
-        $(".addAddress-error").removeClass("d-none").text("please enter value of street!");
-        $(".user-address-add-btn").removeAttr("data-bs-dismiss", "modal");
+        $(".addAddress-error").removeClass("d-none").text("please enter value of street!").fadeIn().fadeOut(2000);
+       
         flag = 0;
     } else if (data.mobile == "" || !numbers) {
-        $(".addAddress-error").removeClass("d-none").text("please enter valid value of mobile!");
-        $(".user-address-add-btn").removeAttr("data-bs-dismiss", "modal");
+        $(".addAddress-error").removeClass("d-none").text("please enter valid value of mobile!").fadeIn().fadeOut(2000);
+      
         flag = 0;
     }
     else {
         $('#staticBackdrop3').modal('hide');
-        $(".addAddress-error").addClass("d-none").
+        $(".addAddress-error").addClass("d-none").fadeIn().fadeOut(2000);
         flag = 1;
     }
 
@@ -631,7 +753,7 @@ $(".user-address-add-btn").click(() => {
                     function (response) {
                         if (response.value == "true") {
                             showUserAddress();
-                            $(".setting-address-details-alert").addClass("alert-success").removeClass("alert-danger d-none").text("successfully add Address!");
+                            $(".setting-address-details-alert").addClass("alert-success").removeClass("alert-danger d-none").text("successfully add Address!").fadeIn().fadeOut(2000);
                         }
                     },
                 error:
@@ -658,30 +780,32 @@ $(".user-address-update-btn").click(() => {
     data.postalCode = $("#Updatepostalcode").val();
     data.city = $("#Updatecity").val();
     data.mobile = $("#UpdateMobile").val();
+    data.state = $("#UpdateState").val();
     var numbers = /^[0-9]+$/.test(data.mobile);
     console.log(data);
     var flag = 1;
     if (data.addressLine1 == "" && data.addressLine2 == "" && data.mobile == "") {
-        $(".addAddress-error").removeClass("d-none").text("please enter value!");
-        $(".user-address-add-btn").remosveAttr("data-bs-dismiss", "modal");
+        $(".addAddress-error").removeClass("d-none").text("please enter value!").fadeIn().fadeOut(2000);
+      
         flag = 0;
     }
     else if (data.addressLine1 == "") {
-        $(".addAddress-error").removeClass("d-none").text("please enter value of house!");
-        $(".user-address-add-btn").removeAttr("data-bs-dismiss", "modal");
+        $(".addAddress-error").removeClass("d-none").text("please enter value of house!").fadeIn().fadeOut(2000);
+       
         flag = 0;
     } else if (data.addressLine2 == "") {
-        $(".addAddress-error").removeClass("d-none").text("please enter value of street!");
-        $(".user-address-add-btn").removeAttr("data-bs-dismiss", "modal");
+        $(".addAddress-error").removeClass("d-none").text("please enter value of street!").fadeIn().fadeOut(2000);
+     
         flag = 0;
     } else if (data.mobile == "" || !numbers) {
-        $(".addAddress-error").removeClass("d-none").text("please enter valid value of mobile!");
-        $(".user-address-add-btn").removeAttr("data-bs-dismiss", "modal");
+        $(".addAddress-error").removeClass("d-none").text("please enter valid value of mobile!").fadeIn().fadeOut(2000);
+
         flag = 0;
     }
     else {
-        $('#staticBackdrop3').modal('hide');
-        $(".addAddress-error").addClass("d-none").
+      
+        $('#updateUserAddress').modal('hide');
+        $(".addAddress-error").addClass("d-none").fadeIn().fadeOut(2000);
             flag = 1;
     }
 
@@ -696,7 +820,8 @@ $(".user-address-update-btn").click(() => {
                     function (response) {
                         if (response.value == "true") {
                             showUserAddress();
-                            $(".setting-address-details-alert").addClass("alert-success").removeClass("alert-danger d-none").text("successfully add Address!");
+                            $(".setting-address-details-alert").addClass("alert-success").removeClass("alert-danger d-none").text("successfully add Address!").fadeIn().fadeOut(2000);
+                           
                         }
                     },
                 error:
@@ -712,3 +837,46 @@ $(".user-address-update-btn").click(() => {
 
 });
 
+
+function getServiceHistory() {
+
+    $.ajax(
+        {
+            type: 'GET',
+            url: '/Customer/ServiceHistory',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success:
+                function (response) {
+                    if (response!=null) {
+                        console.table(response);
+                        $("#CustomerServiceHistoryTable").empty();
+                        for (var i = 0; i < response.length; i++) {
+                            if (response[i].serviceProvider != null) {
+
+                                $("#CustomerServiceHistoryTable").append('<tr><td class="dtr-control sorting_1" tabindex="0">' + response[i].serviceRequestId + '</td> <td> <img src="/image/calendar.png" alt="calendar"><strong>' + response[i].serviceStartDate + '</strong ><span> <img src="/image/layer-712.png" alt="">' + response[i].startTime + ' - ' + response[i].endTime + '</span> </td><td><div style="display: flex"> <div><img class="cap-icon" src="/image/cap.png" alt="cap"> </div> <div> ' + response[i].serviceProvider + ' <span><img src="/image/star1.png" alt="star"><img src="/image/star1.png" alt="star"><img src="/image/star1.png" alt="star"><img src="/image/star1.png" alt="star"><img src="/image/star2.png" alt="star"> 4</span> </div></div> </td><td><span class="payment-td">€<strong style="font-size: 24px">' + response[i].totalCost + '</strong></span></td><td><span class="completed-label">Completed</span></td><td><a class="rateSP-btn" data-bs-toggle="modal" data-bs-target="#myRatingModal">Rate SP</a></td> </tr>');
+
+
+                            } else {
+
+
+                                $("#CustomerServiceHistoryTable").append('<tr><td class="dtr-control sorting_1" tabindex="0">' + response[i].serviceRequestId + '</td> <td> <img src="/image/calendar.png" alt="calendar"> <strong>' + response[i].serviceStartDate + '</strong ><span> <img src="/image/layer-712.png" alt=""> ' + response[i].startTime + ' - ' + response[i].endTime + '</span> </td><td></td><td><span class="payment-td">€<strong style="font-size: 24px">' + response[i].totalCost + '</strong></span></td><td><span class="completed-label">Completed</span></td><td><a class="rateSP-btn" data-bs-toggle="modal" data-bs-target="#myRatingModal">Rate SP</a></td> </tr>');
+
+                            }
+                          
+
+
+                        }
+                        
+
+                    }
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+
+
+
+}

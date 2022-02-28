@@ -10,6 +10,13 @@ namespace HelperLand.Models
 
         public int ServiceRequestId { get; set; }
 
+        public int ServiceProviderId { get; set; }
+
+        public int Status { get; set; }
+        public string ServiceProviderName { get; set; }
+
+        public decimal ServiceProviderRating { get; set; }
+
         public string Date { get; set; }
 
         public string StartTime { get; set; }
@@ -31,6 +38,7 @@ namespace HelperLand.Models
         public decimal TotalCost { get; set; }
 
         public String Address { get; set; }
+
 
         public string PhoneNo { get; set; }
 

@@ -18,6 +18,7 @@ namespace HelperLand.Models
 
         public decimal SPRatings { get; set; }
 
+        public int? Status { get; set; }
         public string SPAvatar { get; set; }
     }
 }
