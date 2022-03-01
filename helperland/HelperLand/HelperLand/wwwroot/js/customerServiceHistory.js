@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     $("#mytable1").DataTable();
-    $("#mytable2").DataTable();
+   
 });
 
 const dt = new DataTable("#mytable1", {
@@ -21,23 +21,7 @@ const dt = new DataTable("#mytable1", {
     columnDefs: [{ orderable: false, targets: 4 }],
 });
 
-const dt1 = new DataTable("#mytable2", {
-    dom: 't<"table-bottom paging d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
-    responsive: true,
-    pagingType: "full_numbers",
-    language: {
-        paginate: {
-            first: '<img src="/image/first-page.png" alt="first" style= />',
-            previous: '<img src="/image/previous.png" alt="previous" />',
-            next: '<img src="/image/previous.png" alt="next" style="transform: rotate(180deg)" />',
-            last: "<img src='/image/first-page.png' alt='first' style='transform: rotate(180deg)' />",
-        },
-        info: "Total Record: _MAX_",
-        lengthMenu: "Show_MENU_Entries",
-    },
-    buttons: ["excel"],
-    columnDefs: [{ orderable: false, targets: 4 }],
-});
+
 
 function html_table_to_excel(type) {
     var data = document.getElementById("mytable2");
@@ -459,7 +443,7 @@ $("#mytable1").click((e) => {
     service_request_id = e.target.closest('tr').getAttribute("data-value");
 
     if (service_request_id != null && (e.target.className != "cancel-btn" && e.target.className != "reschedule-btn")) {
-
+        $(".btn-box").removeClass("d-none");
         document.getElementById("CustomerServiceSummery-btn").click();
         console.log(service_request_id);
         getServiceRequestAllDetails();
@@ -467,6 +451,23 @@ $("#mytable1").click((e) => {
     }
 
   
+
+});
+
+
+$("#mytable2").click((e) => {
+
+    service_request_id = e.target.closest('tr').getAttribute("data-value");
+
+    if (service_request_id != null && (e.target.className != "rateSP-btn")) {
+        $(".btn-box").addClass("d-none");
+        document.getElementById("CustomerServiceSummery-btn").click();
+        console.log(service_request_id);
+        getServiceRequestAllDetails();
+
+    } 
+
+
 
 });
 
@@ -517,8 +518,19 @@ function getServiceRequestAllDetails() {
 
                         $(".netAmountNo").html(response.totalCost + " &#8364;");
                         $("#serviceRequestAddress").text(response.address);
-                        $("#ServiceRequestPhone").text(response.mobile);
+                        $("#ServiceRequestPhone").text(response.phoneNo);
                         $("#ServiceRequestEmail").text(response.email);
+
+                        if (response.serviceProviderName != null) {
+                            $("#ServiceProviderName").text(response.serviceProviderName);
+                            $("#ServiceProviderRating").text(response.serviceProviderRating);
+                            $(".service-request-provider-box").removeClass("d-none");
+                            $(".serivce-request-summary-box").removeClass("d-block").addClass("d-flex");
+                        } else {
+                            $(".service-request-provider-box").addClass("d-none");
+                            $(".serivce-request-summary-box").addClass("d-block").removeClass("d-flex");
+
+                        }
                     }
 
 
@@ -851,21 +863,54 @@ function getServiceHistory() {
                         console.table(response);
                         $("#CustomerServiceHistoryTable").empty();
                         for (var i = 0; i < response.length; i++) {
+                            var sp = "";
+                            var Ratesp = "";
+                            var customerStatus = "";
+                            if (response[i].status == 0) {
+                                if (response[i].alreadyRated == false) {
+                                    Ratesp = '<button  class="rateSP-btn" data-bs-toggle="modal" data-bs-target="#myRatingModal">Rate SP</button>';
+                                } else {
+                                    Ratesp = '<button  class="rateSP-btn btn disabled" data-bs-toggle="modal" data-bs-target="#myRatingModal">Rate SP</button>';
+                                }
+                                
+                                customerStatus = '<span class="completed-label">Completed</span>';
+                             
+                            } else if (response[i].status == 1) {
+                                customerStatus = '<span class="cancel-label">Canceled</span>';
+                                Ratesp = '<button  class="rateSP-btn btn disabled" data-bs-toggle="modal" data-bs-target="#myRatingModal">Rate SP</button>';
+                            }
                             if (response[i].serviceProvider != null) {
 
-                                $("#CustomerServiceHistoryTable").append('<tr><td class="dtr-control sorting_1" tabindex="0">' + response[i].serviceRequestId + '</td> <td> <img src="/image/calendar.png" alt="calendar"><strong>' + response[i].serviceStartDate + '</strong ><span> <img src="/image/layer-712.png" alt="">' + response[i].startTime + ' - ' + response[i].endTime + '</span> </td><td><div style="display: flex"> <div><img class="cap-icon" src="/image/cap.png" alt="cap"> </div> <div> ' + response[i].serviceProvider + ' <span><img src="/image/star1.png" alt="star"><img src="/image/star1.png" alt="star"><img src="/image/star1.png" alt="star"><img src="/image/star1.png" alt="star"><img src="/image/star2.png" alt="star"> 4</span> </div></div> </td><td><span class="payment-td">€<strong style="font-size: 24px">' + response[i].totalCost + '</strong></span></td><td><span class="completed-label">Completed</span></td><td><a class="rateSP-btn" data-bs-toggle="modal" data-bs-target="#myRatingModal">Rate SP</a></td> </tr>');
+                                sp = '<div style="display: flex"> <div><img class="cap-icon" src="/image/cap.png" alt="cap"> </div> <div> ' + response[i].serviceProvider + ' <span><img src="/image/star1.png" alt="star"><img src="/image/star1.png" alt="star"><img src="/image/star1.png" alt="star"><img src="/image/star1.png" alt="star"><img src="/image/star2.png" alt="star"> ' + response[i].spRatings + '</span> </div></div>';
 
+                            } 
 
-                            } else {
-
-
-                                $("#CustomerServiceHistoryTable").append('<tr><td class="dtr-control sorting_1" tabindex="0">' + response[i].serviceRequestId + '</td> <td> <img src="/image/calendar.png" alt="calendar"> <strong>' + response[i].serviceStartDate + '</strong ><span> <img src="/image/layer-712.png" alt=""> ' + response[i].startTime + ' - ' + response[i].endTime + '</span> </td><td></td><td><span class="payment-td">€<strong style="font-size: 24px">' + response[i].totalCost + '</strong></span></td><td><span class="completed-label">Completed</span></td><td><a class="rateSP-btn" data-bs-toggle="modal" data-bs-target="#myRatingModal">Rate SP</a></td> </tr>');
-
-                            }
-                          
+                            $("#CustomerServiceHistoryTable").append('<tr data-value="' + response[i].serviceRequestId + '"><td class="dtr-control sorting_1" tabindex="0">' + response[i].serviceRequestId + '</td> <td> <img src="/image/calendar.png" alt="calendar"><strong> ' + response[i].serviceStartDate + '</strong ><span> <img src="/image/layer-712.png" alt=""> ' + response[i].startTime + ' - ' + response[i].endTime + '</span> </td><td>' + sp + '</td><td><span class="payment-td">€<strong style="font-size: 24px">' + response[i].totalCost + '</strong></span></td><td>' + customerStatus + '</td><td>' + Ratesp + '</td> </tr>');
 
 
                         }
+
+                        $("#mytable2").DataTable({
+                            dom: 't<"table-bottom paging d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
+                            responsive: true,
+                            destroy: true,
+                            pagingType: "full_numbers",
+                            language: {
+                                paginate: {
+                                    first: '<img src="/image/first-page.png" alt="first" style= />',
+                                    previous: '<img src="/image/previous.png" alt="previous" />',
+                                    next: '<img src="/image/previous.png" alt="next" style="transform: rotate(180deg)" />',
+                                    last: "<img src='/image/first-page.png' alt='first' style='transform: rotate(180deg)' />",
+                                },
+                                info: "Total Record: _MAX_",
+                                lengthMenu: "Show_MENU_Entries",
+                            },
+                            buttons: ["excel"],
+                            columnDefs: [{ orderable: false, targets: 4 }],
+                        
+                        });
+
+
                         
 
                     }
@@ -880,3 +925,43 @@ function getServiceHistory() {
 
 
 }
+
+
+
+
+$("#ServiceProviderRatingBtn").click(() => {
+
+    var data = {};
+    data.onTimeArrival = $("#OnTimeArrival input:checked").val();
+    data.friendly = $("#friendly input:checked").val();
+    data.qualityOfService = $("#qualityOfService input:checked").val();
+    data.ratings = (parseFloat(data.onTimeArrival) + parseFloat(data.friendly) + parseFloat(data.qualityOfService)) / 3;
+    data.serviceRequestId = service_request_id;
+    data.comments = $("#feedback-label").val();
+
+
+
+    $.ajax(
+        {
+            type: 'POST',
+            url: '/Customer/addServiceProviderRating',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data,
+            success:
+                function (response) {
+                    if (response.value == "true") {
+                        getServiceHistory();
+
+                    }
+                    else {
+                        alert("not well");
+                    }
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+
+})

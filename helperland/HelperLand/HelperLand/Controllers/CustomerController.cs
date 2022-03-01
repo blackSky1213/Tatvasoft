@@ -47,15 +47,24 @@ namespace HelperLand.Controllers
                         sr.endTime = data.ServiceStartDate.AddHours((double)data.SubTotal).ToString("HH:mm");
                         sr.TotalCost = data.TotalCost;
 
+
                         if (data.ServiceProviderId != null)
                         {
                             User sp = _db.Users.Where(x => x.UserId == data.ServiceProviderId).FirstOrDefault();
 
                             sr.ServiceProvider = sp.FirstName + " " + sp.LastName;
 
-                            decimal rating = _db.Ratings.Where(x => x.RatingTo == data.ServiceProviderId).Average(x => x.Ratings);
 
-                            sr.SPRatings = rating;
+
+                            var rating = _db.Ratings.Where(x => x.RatingTo == data.ServiceProviderId);
+
+                            if (rating.Count()>0)
+                            {
+
+                                sr.SPRatings = Math.Round(rating.Average(x => x.Ratings), 1);
+                            }
+
+
 
                         }
 
@@ -569,6 +578,26 @@ namespace HelperLand.Controllers
                 Details.Address = requestAddress.AddressLine1 + ", " + requestAddress.AddressLine2 + ", " + requestAddress.City + "- " + requestAddress.PostalCode;
                 Details.PhoneNo = requestAddress.Mobile;
                 Details.Email = requestAddress.Email;
+                if (request.ServiceProviderId != null)
+                {
+                    User sp = _db.Users.Where(x => x.UserId == request.ServiceProviderId).FirstOrDefault();
+
+                    Details.ServiceProviderName = sp.FirstName + " " + sp.LastName;
+
+
+
+                    var rating = _db.Ratings.Where(x => x.RatingTo == request.ServiceProviderId);
+
+                    if (rating.Count()>0)
+                    {
+
+                        Details.ServiceProviderRating = Math.Round(rating.Average(x => x.Ratings),1);
+                    }
+
+
+
+                }
+
 
                 return new JsonResult(Details);
             }
@@ -617,12 +646,22 @@ namespace HelperLand.Controllers
                 {
 
                     CustomerNewServiceRequest sr = new CustomerNewServiceRequest();
+                    var r = _db.Ratings.Where(x => x.ServiceRequestId == data.ServiceRequestId);
+                    if (r.Count() > 0)
+                    {
+                        sr.AlreadyRated = true;
+                    }
+                    else
+                    {
+                        sr.AlreadyRated = false;
+                    }
                     sr.ServiceRequestId = data.ServiceRequestId;
                     sr.ServiceStartDate = data.ServiceStartDate.ToString("dd/MM/yyyy");
                     sr.startTime = data.ServiceStartDate.ToString("HH:mm");
                     sr.endTime = data.ServiceStartDate.AddHours((double)data.SubTotal).ToString("HH:mm");
                     sr.TotalCost = data.TotalCost;
                     sr.Status = data.Status;
+                    
                     if (data.ServiceProviderId != null)
                     {
                         User sp = _db.Users.Where(x => x.UserId == data.ServiceProviderId).FirstOrDefault();
@@ -632,8 +671,8 @@ namespace HelperLand.Controllers
 
 
                         var rating = _db.Ratings.Where(x => x.RatingTo == data.ServiceProviderId);
-
-                        if (rating != null)
+                       
+                        if (rating.Count() > 0)
                         {
                           
                             sr.SPRatings = rating.Average(x => x.Ratings);
@@ -650,7 +689,32 @@ namespace HelperLand.Controllers
             }
             return new JsonResult("false");
         }
-     
+
+
+
+        public IActionResult addServiceProviderRating(Rating data)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null )
+            {
+                if (_db.Ratings.Where(x => x.ServiceRequestId == data.ServiceRequestId).Count() < 0)
+                {
+                    return Ok(Json("false"));
+                }
+                ServiceRequest request = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
+                data.RatingTo = (int)request.ServiceProviderId;
+                data.RatingFrom = (int)Id;
+                data.RatingDate = DateTime.Now;
+                _db.Ratings.Add(data);
+                _db.SaveChanges();
+
+                return Ok(Json("true"));
+            }
+            return Ok(Json("false"));
+
+        }
+
+
     }
 
     }

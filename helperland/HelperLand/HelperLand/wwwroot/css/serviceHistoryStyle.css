@@ -337,13 +337,13 @@ table.dataTable thead td {
 }
 
 .rateSP-btn {
-    background: #6da9b5;
+    background: #146371;
     color: #ffffff;
     font-size: 14px;
-    padding: 8px 9px 9px 12px;
-    border-radius: 17px;
-    width: 70px;
-    height: 34px;
+    padding: 8px 16px;
+    border-radius: 22px;
+    border:none;
+ 
     margin: auto;
 }
 
@@ -726,6 +726,7 @@ table.dataTable thead td {
 .cover {
     margin-bottom: 10px;
     padding-bottom: 10px;
+    padding-right: 10px;
     border-bottom: 1px solid #e1e1e1;
 }
 
@@ -967,4 +968,21 @@ table.dataTable thead td {
     margin-top: 5px;
     display: inline-block;
     text-align: center;
+}
+
+
+
+.service-request-provider-box {
+    border-left: 1px solid #e1e1e1;
+    padding: 0 30px;
+}
+
+.cap-icon1 {
+    margin: auto 10px auto 0px;
+    text-align: center;
+    border: solid 1px #aaaaaa;
+    padding: 10px;
+    width: 70px;
+    height: 70px;
+    border-radius: 100px;
 }

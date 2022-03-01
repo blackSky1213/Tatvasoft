@@ -20,5 +20,7 @@ namespace HelperLand.Models
 
         public int? Status { get; set; }
         public string SPAvatar { get; set; }
+
+        public bool AlreadyRated { get; set; }
     }
 }
