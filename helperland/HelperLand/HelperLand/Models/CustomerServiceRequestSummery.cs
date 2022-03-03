@@ -17,6 +17,8 @@ namespace HelperLand.Models
 
         public decimal ServiceProviderRating { get; set; }
 
+        public int ServiceProviderCleaning { get; set; }
+
         public string Date { get; set; }
 
         public string StartTime { get; set; }

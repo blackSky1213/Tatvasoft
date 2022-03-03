@@ -7,14 +7,22 @@
     </div>
     <table id="mytable1">
         <thead style="background-color: #f9f9f9">
-            <tr >
-                <th>Service Id <img src="/image/sort.png" alt="short" /></th>
-                <th>Service Date <img src="/image/sort.png" alt="short" /></th>
-                <th class="text-center">
-                    Service Provider <img src="/image/sort.png" alt="short" />
+            <tr>
+                <th>
+                    Service Id
+                    <img src="/image/sort.png" alt="short" />
+                </th>
+                <th>
+                    Service Date
+                    <img src="/image/sort.png" alt="short" />
                 </th>
                 <th class="text-center">
-                    Payment <img src="/image/sort.png" alt="short" />
+                    Service Provider
+                    <img src="/image/sort.png" alt="short" />
+                </th>
+                <th class="text-center">
+                    Payment
+                    <img src="/image/sort.png" alt="short" />
                 </th>
                 <th style="text-align: center">Action</th>
             </tr>
@@ -29,46 +37,61 @@
                         <td> @obj.ServiceRequestId</td>
                         <td>
                             <img src="/image/calendar2.png" alt="calendar" />
-                            <strong>@obj.ServiceStartDate</strong><span>
+                            <strong>@obj.ServiceStartDate</strong>
+                            <span>
                                 <img src="/image/layer-14.png" alt="" /> @obj.startTime- @obj.endTime
                             </span>
                         </td>
                         <td>
                             @if (obj.ServiceProvider != null)
                             {
-                                <div style="display: flex">
+                                <div class="service-provider-average-rating" id="serviceproviderId">
                                     <div>
                                         <img class="cap-icon" src="/image/cap.png" alt="cap" />
                                     </div>
                                     <div>
-                                        @obj.ServiceProvider
-                                        <span>
-                                            <img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                          alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png"
-                                                                                                                                                     alt="star" /><img src="/image/star2.png" alt="star" /> @obj.SPRatings
-                                        </span>
+                                        <div>
+                                            <span class="spName"> @obj.ServiceProvider </span>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <div class="average-rating" id="spratingId">
+
+                                                @for (int i = 0; i < Math.Ceiling(obj.SPRatings * 2); i++)
+                                                {<span class=" half-star half-start"></span>}@for (int i = (int)Math.Ceiling(obj.SPRatings * 2); i < 10; i++)
+                                                {<span class=" half-star"></span>}
+                                                @*<span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span>*@
+                                            </div>
+                                            <div style="padding-top: 4px; padding-left: 3px">
+                                                <span class="sprating"> @obj.SPRatings</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             }
-                        </td>
-                        <td>
+                            </td>
                             
-                            <span class="payment-td">&#8364;<strong style="font-size: 24px"> @obj.TotalCost </strong></span>
-                        </td>
+                            <td>
 
-                        <td>
-                            <button type="button" value="@obj.ServiceStartDate" hidden></button>
-                            <button type="button" value="@obj.startTime" hidden></button>
-                            <button type="button" class="reschedule-btn" data-bs-toggle="modal"
-                               data-bs-target="#staticBackdrop" value="@obj.ServiceRequestId">Reschedule</button>
-                            
+                                <span class="payment-td">&#8364;<strong style="font-size: 24px"> @obj.TotalCost </strong></span>
+                            </td>
 
-                            <button type="button" class="cancel-btn" data-bs-toggle="modal"
-                               data-bs-target="#staticBackdrop1" value="@obj.ServiceRequestId">Cancel</button>
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
-</div>
+                            <td>
+                                <button type="button" value="@obj.ServiceStartDate" hidden></button>
+                                <button type="button" value="@obj.startTime" hidden></button>
+                                <button type="button" class="reschedule-btn" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop" value="@obj.ServiceRequestId">
+                                    Reschedule
+                                </button>
+
+
+                                <button type="button" class="cancel-btn" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop1" value="@obj.ServiceRequestId">
+                                    Cancel
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                            }
+                        </tbody>
+                    </table>
+                </div>

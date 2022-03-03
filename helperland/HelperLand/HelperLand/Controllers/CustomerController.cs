@@ -26,6 +26,11 @@ namespace HelperLand.Controllers
         public IActionResult CustomerServiceHistory()
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if(Id==null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 User obj = _db.Users.FirstOrDefault(x => x.UserId == Id);
@@ -101,6 +106,11 @@ namespace HelperLand.Controllers
         public IActionResult BookService()
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 User obj = _db.Users.FirstOrDefault(x => x.UserId == Id);
@@ -552,6 +562,7 @@ namespace HelperLand.Controllers
                 Details.EndTime = request.ServiceStartDate.AddHours((double)request.SubTotal).ToString("HH:mm");
                 Details.TotalCost = request.TotalCost;
                 Details.Comments = request.Comments;
+               
                 foreach (ServiceRequestExtra row in requestExtra)
                 {
                     if (row.ServiceExtraId == 1)
@@ -584,8 +595,8 @@ namespace HelperLand.Controllers
 
                     Details.ServiceProviderName = sp.FirstName + " " + sp.LastName;
 
-
-
+                    int CleaningCount = _db.ServiceRequests.Where(x => x.ServiceProviderId == request.ServiceProviderId && x.Status == 0).Count();
+                    Details.ServiceProviderCleaning = CleaningCount;
                     var rating = _db.Ratings.Where(x => x.RatingTo == request.ServiceProviderId);
 
                     if (rating.Count()>0)

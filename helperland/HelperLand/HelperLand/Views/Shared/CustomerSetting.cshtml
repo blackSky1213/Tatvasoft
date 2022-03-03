@@ -99,7 +99,7 @@
                                    aria-describedby="basic-addon1" />
                         </div>
                     </div>
-                    <div class="col-lg-4 dobSelect">
+                    <div class="col-lg-5 flex-nowrap dobSelect">
                         <label for="dob"> Date of Birth </label>
                         <input type="hidden" class="form-control" name="birthdate" id="example" />
                     </div>
@@ -262,10 +262,21 @@
                 </tr>
             </tbody>
         </table>
-        <button class="user-add-address-btn" type="button" data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop3">
-            Add New Address
-        </button>
+       
+        <div class="d-flex justify-content-between">
+            <div>
+                <button class="user-add-address-btn" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop3">
+                    Add New Address
+                </button>
+            </div>
+            <div>
+                <span> <span id="shownRow"></span> of <span id="totalRow"></span></span>
+                <button class="user-show-address-btn" type="button">
+                    Show More
+                </button>
+            </div>
+        </div>
     </div>
     <div class="my-setting-change-password d-none">
 

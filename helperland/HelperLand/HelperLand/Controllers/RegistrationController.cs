@@ -26,7 +26,12 @@ namespace HelperLand.Controllers
         public IActionResult SignUp()
         {
             int? Id = HttpContext.Session.GetInt32("id");
-            if(Id != null)
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
+            if (Id != null)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -69,7 +74,12 @@ namespace HelperLand.Controllers
         public IActionResult BecomePro()
         {
             int? Id = HttpContext.Session.GetInt32("id");
-            if(Id != null)
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
+            if (Id != null)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -129,7 +139,7 @@ namespace HelperLand.Controllers
                         if (user.remember == true)
                         {
                             CookieOptions MyCookie = new CookieOptions();
-                            MyCookie.Expires = DateTime.Now.AddSeconds(120);
+                            MyCookie.Expires = DateTime.Now.AddMinutes(30);
                             Response.Cookies.Append("userid", Convert.ToString(U.UserId),MyCookie);
                             
 

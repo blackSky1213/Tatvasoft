@@ -866,6 +866,16 @@ table.dataTable thead td {
     left: initial;
 }
 
+
+
+.average-rating .half-start::before {
+    content: "★";
+    position: absolute;
+    color: orangered;
+    font-size: 24px;
+    width: fit-content;
+}
+
 #myRatingModal .spSkills {
     display: flex;
     align-items: center;
@@ -940,7 +950,7 @@ table.dataTable thead td {
 
 
 .dobSelect select {
-    padding:13px;
+    padding: 13px;
     background: #ffffff;
     border: 1px solid #CCCCCC;
     border-radius: 3px;
@@ -985,4 +995,23 @@ table.dataTable thead td {
     width: 70px;
     height: 70px;
     border-radius: 100px;
+}
+
+
+.ratingStar{
+    display:flex;
+    gap:4px;
+}
+
+.user-show-address-btn {
+    color: #146371;
+    border: 1px solid #146371;
+    background-color: #fff;
+    border-radius: 22px;
+    padding: 8px 16px;
+}
+
+
+.service-provider-average-rating span{
+    display:inline-block !important;
 }

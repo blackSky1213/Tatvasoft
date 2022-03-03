@@ -115,7 +115,8 @@ function showUserAddress() {
                         list.append('<tr> <td class= "user-address-list" > <p><strong>Address : </strong>' + response[i].addressLine2 + '-' + response[i].addressLine1 + ', ' + response[i].city + ' </p > <p><strong>Phone number</strong> ' + response[i].mobile + ' </p> </td ><td><div class="user-address-btn"><a class="updateAddress" data-bs-toggle="modal" data-bs-target="#updateUserAddress"   data-value="' + response[i].id+'" > <svg xmlns="http://www.w3.org/2000/svg" class="edit-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>   </a > <a data-bs-toggle="modal" data-bs-target="#staticBackdrop4" class="delete-user-address" data-value="' + response[i].id+'" > <svg xmlns="http://www.w3.org/2000/svg" class="delete-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>  </svg> </a > </div ></td > <div></div></tr > ');
 
                     }
-                
+
+                    showMoreAddress();
     
 
 
@@ -467,7 +468,14 @@ $("#mytable2").click((e) => {
 
     } 
 
-
+    if (e.target.className == "rateSP-btn") {
+        var name = $("#serviceproviderId" + service_request_id + " .spName").text();
+        var sprate = $("#serviceproviderId" + service_request_id + " .sprating").text();
+        console.log(sprate);
+        $(".service-provider-average-rating .RatingspName").text(name);
+        $(".service-provider-average-rating .Ratingsprating").text(sprate);
+        showRating(sprate,".average-rating-modal");
+    }
 
 });
 
@@ -490,6 +498,7 @@ function getServiceRequestAllDetails() {
                         $("#serviceRequestDateTime").text(response.date + " " + response.startTime + " - " + response.endTime);
                         $("#serviceRequestDuration").text(response.duration + " Hrs");
                         $("#ServiceRequestId").text(response.serviceRequestId);
+                        $("#SerivceProviderCleaning").text(response.serviceProviderCleaning);
                         if (response.cabinet == true) {
                             $("#serviceExtra1").removeClass("d-none");
                         } else {
@@ -531,7 +540,12 @@ function getServiceRequestAllDetails() {
                             $(".serivce-request-summary-box").addClass("d-block").removeClass("d-flex");
 
                         }
+                        if (response.serviceProviderName != null) {
+                            showRating(response.serviceProviderRating, ".summaryrating");
+                        }
                     }
+
+                    
 
 
                 },
@@ -881,19 +895,23 @@ function getServiceHistory() {
                             }
                             if (response[i].serviceProvider != null) {
 
-                                sp = '<div style="display: flex"> <div><img class="cap-icon" src="/image/cap.png" alt="cap"> </div> <div> ' + response[i].serviceProvider + ' <span><img src="/image/star1.png" alt="star"><img src="/image/star1.png" alt="star"><img src="/image/star1.png" alt="star"><img src="/image/star1.png" alt="star"><img src="/image/star2.png" alt="star"> ' + response[i].spRatings + '</span> </div></div>';
-
+                                sp = ' <div class="service-provider-average-rating" id="serviceproviderId' + response[i].serviceRequestId + '"><div><img class="cap-icon" src="/image/cap.png" alt="cap" /></div ><div><div><span class="spName">' + response[i].serviceProvider + '</span></div><div class="d-flex align-items-center"><div class="average-rating" id="spratingId' + response[i].serviceRequestId + '"><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span></div><div style="padding-top: 4px; padding-left: 3px"><span class="sprating">' + response[i].spRatings + '</span></div></div></div></div>';
+                                
                             } 
 
                             $("#CustomerServiceHistoryTable").append('<tr data-value="' + response[i].serviceRequestId + '"><td class="dtr-control sorting_1" tabindex="0">' + response[i].serviceRequestId + '</td> <td> <img src="/image/calendar.png" alt="calendar"><strong> ' + response[i].serviceStartDate + '</strong ><span> <img src="/image/layer-712.png" alt=""> ' + response[i].startTime + ' - ' + response[i].endTime + '</span> </td><td>' + sp + '</td><td><span class="payment-td">€<strong style="font-size: 24px">' + response[i].totalCost + '</strong></span></td><td>' + customerStatus + '</td><td>' + Ratesp + '</td> </tr>');
 
+                            if (response[i].serviceProvider != null) {
+                                showRating(response[i].spRatings, "#spratingId"+response[i].serviceRequestId);
+                            }
+                           
 
                         }
 
                         $("#mytable2").DataTable({
                             dom: 't<"table-bottom paging d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
                             responsive: true,
-                            destroy: true,
+                            retrieve: true,
                             pagingType: "full_numbers",
                             language: {
                                 paginate: {
@@ -964,4 +982,61 @@ $("#ServiceProviderRatingBtn").click(() => {
                 }
         });
 
-})
+});
+
+var numShown = 5;
+
+
+function showMoreAddress() {
+  
+   
+    numShown = 5;
+
+    var $table = $(".my-addresses-table").find('tbody');
+    var numRows = $table.find('tr').length;
+    console.log("numrows :- " + numRows);
+    if (numShown > numRows) {
+        numShown = numRows;
+    }
+    $table.find('tr:gt(' + (numShown - 1) + ')').hide();
+
+    $("#shownRow").text(numShown);
+    $("#totalRow").text(numRows);
+}
+
+$(".user-show-address-btn").click(function () {
+
+    numShown += 5;
+
+    var $table = $(".my-addresses-table").find('tbody');
+    var numRows = $table.find('tr').length;
+
+    console.log(numShown);
+
+    if (numShown > numRows) {
+        numShown = numRows;
+    }
+
+    $("#shownRow").text(numShown);
+    $table.find('tr:lt(' + numShown + ')').show();
+});
+
+
+function showRating(rating,id) {
+  
+    var rate = Math.ceil(rating * 2);
+    var star = document.querySelector(id);
+    var colorStart = star.querySelectorAll(".half-star");
+    console.log(colorStart);
+    colorStart.forEach((item) => {
+        item.classList.add("half-start");
+    });
+
+    for (var i = rate; i < 10; i++) {
+        colorStart[i].classList.remove("half-start");
+    }
+
+    
+
+
+}
