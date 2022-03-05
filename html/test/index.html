@@ -59,6 +59,24 @@
       give rating
     </button>
 
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#staticBackdrop4"
+    >
+      user address details
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#staticBackdrop5"
+    >
+      Service Provider serice details 
+    </button>
+
     <!-- Modal -->
     <div
       class="modal fade updateTimeModal"
@@ -155,120 +173,145 @@
             ></button>
           </div>
           <div class="modal-body">
-            <div class="service-request-summary">
-              <div class="cover">
-                <p id="serviceRequestDateTime">05/10/2021 08:00 - 11:30</p>
-                <p><strong>Duration: </strong> 3.5 Hrs</p>
-              </div>
-              <div class="cover">
-                <p><strong>Duration: </strong> 3.5 Hrs</p>
-                <p><strong>Service Id:</strong> 8485</p>
-                <p><strong>Extras:</strong> Inside cabinets</p>
-                <p class="netAmount">
-                  <span><strong>Net Amount:</strong></span>
-                  <span class="netAmountNo">87,50 &#8364;</span>
-                </p>
-              </div>
-              <div class="cover">
-                <p>
-                  <strong>Service Address: </strong> Ganeshnagar 121, 364004
-                  Bhavnagar
-                </p>
-                <p>
-                  <strong>Billing Address:</strong> Same as clearing Address
-                </p>
-                <p><strong>Phone:</strong> +917433984425</p>
-                <p><strong>Email:</strong> kbsarvaiya123@gmail.com</p>
-              </div>
-              <div class="cover">
-                <p>
-                  <strong>Comments </strong>
-                </p>
-                <p>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="x-icon"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    /></svg
-                  >I don't have pets at home
-                </p>
-              </div>
-              <div class="btn-box">
-                <button type="button" class="reschedule-btn">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="cancel-icon"
-                    width="18"
-                    height="18"
-                    fill="#ffffff"
-                    viewBox="0 0 256 256"
-                  >
-                    <rect width="256" height="256" fill="none"></rect>
-                    <line
-                      x1="128"
-                      y1="80"
-                      x2="128"
-                      y2="128"
+            <div class="serivce-request-summary-box">
+              <div class="service-request-summary">
+                <div class="cover">
+                  <p id="serviceRequestDateTime">05/10/2021 08:00 - 11:30</p>
+                  <p><strong>Duration: </strong> 3.5 Hrs</p>
+                </div>
+                <div class="cover">
+                  <p><strong>Duration: </strong> 3.5 Hrs</p>
+                  <p><strong>Service Id:</strong> 8485</p>
+                  <p><strong>Extras:</strong> Inside cabinets</p>
+                  <p class="netAmount">
+                    <span><strong>Net Amount:</strong></span>
+                    <span class="netAmountNo">87,50 &#8364;</span>
+                  </p>
+                </div>
+                <div class="cover">
+                  <p>
+                    <strong>Service Address: </strong> Ganeshnagar 121, 364004
+                    Bhavnagar
+                  </p>
+                  <p>
+                    <strong>Billing Address:</strong> Same as clearing Address
+                  </p>
+                  <p><strong>Phone:</strong> +917433984425</p>
+                  <p><strong>Email:</strong> kbsarvaiya123@gmail.com</p>
+                </div>
+                <div class="cover">
+                  <p>
+                    <strong>Comments </strong>
+                  </p>
+                  <p>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="x-icon"
                       fill="none"
-                      stroke="#ffffff"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="16"
-                    ></line>
-                    <line
-                      x1="169.6"
-                      y1="152"
-                      x2="128"
-                      y2="128"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      /></svg
+                    >I don't have pets at home
+                  </p>
+                </div>
+                <div class="btn-box">
+                  <button type="button" class="reschedule-btn">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="cancel-icon"
+                      width="18"
+                      height="18"
+                      fill="#ffffff"
+                      viewBox="0 0 256 256"
+                    >
+                      <rect width="256" height="256" fill="none"></rect>
+                      <line
+                        x1="128"
+                        y1="80"
+                        x2="128"
+                        y2="128"
+                        fill="none"
+                        stroke="#ffffff"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="16"
+                      ></line>
+                      <line
+                        x1="169.6"
+                        y1="152"
+                        x2="128"
+                        y2="128"
+                        fill="none"
+                        stroke="#ffffff"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="16"
+                      ></line>
+                      <polyline
+                        points="184.2 99.7 224.2 99.7 224.2 59.7"
+                        fill="none"
+                        stroke="#ffffff"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="16"
+                      ></polyline>
+                      <path
+                        d="M190.2,190.2a88,88,0,1,1,0-124.4l34,33.9"
+                        fill="none"
+                        stroke="#ffffff"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="24"
+                      ></path>
+                    </svg>
+                    Reschedule
+                  </button>
+                  <button type="button" class="Cancel-btn">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="cancel-icon"
                       fill="none"
-                      stroke="#ffffff"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="16"
-                    ></line>
-                    <polyline
-                      points="184.2 99.7 224.2 99.7 224.2 59.7"
-                      fill="none"
-                      stroke="#ffffff"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="16"
-                    ></polyline>
-                    <path
-                      d="M190.2,190.2a88,88,0,1,1,0-124.4l34,33.9"
-                      fill="none"
-                      stroke="#ffffff"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="24"
-                    ></path>
-                  </svg>
-                  Reschedule
-                </button>
-                <button type="button" class="Cancel-btn">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="cancel-icon"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="3"
-                      d="M6 18L18 6M6 6l12 12"
-                    /></svg
-                  >Cancel
-                </button>
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="3"
+                        d="M6 18L18 6M6 6l12 12"
+                      /></svg
+                    >Cancel
+                  </button>
+                </div>
+              </div>
+              <div class="service-request-provider-box">
+                <h5 class="login-title">Service Provider Details</h5>
+
+                <div class="service-provider-average-rating">
+                  <div>
+                    <img class="cap-icon1" src="cap.png" alt="cap">
+                   
+                  </div>
+                  <div>
+                    <div><span>Lyum Watson</span></div>
+                    <div class="d-flex align-items-center">
+                      <div class="average-rating">
+                        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                      </div>
+                      <div style="padding-top: 4px; padding-left: 3px">
+                        <span>5</span>
+                      </div>
+                    </div>
+                  </div>
+                 
+                </div>
+                <p>0 cleaning</p>
               </div>
             </div>
           </div>
@@ -380,9 +423,7 @@
                 <div><span>Lyum Watson</span></div>
                 <div class="d-flex align-items-center">
                   <div class="average-rating">
-                    <span></span><span></span><span></span><span></span
-                    ><span></span><span></span><span></span><span></span
-                    ><span></span><span></span>
+                    <span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span><span class=" half-star"></span>
                   </div>
                   <div style="padding-top: 4px; padding-left: 3px">
                     <span>5</span>
@@ -402,7 +443,7 @@
             <!-- on time starts -->
             <div class="spSkills">
               <div><p>On Time Arrival</p></div>
-              <div class="spRatings">
+              <div id="ontime" class="spRatings">
                 <input type="radio" name="onTime" />
                 <input type="radio" name="onTime" />
                 <input type="radio" name="onTime" />
@@ -420,7 +461,7 @@
             <!-- friendly starts -->
             <div class="spSkills">
               <p>friendly</p>
-              <div class="spRatings">
+              <div id="friendly" class="spRatings">
                 <input type="radio" name="friendly" />
                 <input type="radio" name="friendly" />
                 <input type="radio" name="friendly" />
@@ -438,7 +479,7 @@
             <!-- Quality of Service starts -->
             <div class="spSkills">
               <p>Quality of Service</p>
-              <div class="spRatings">
+              <div  if="quality" class="spRatings">
                 <input type="radio" name="qualityService" />
                 <input type="radio" name="qualityService" />
                 <input type="radio" name="qualityService" />
@@ -468,10 +509,159 @@
         </div>
       </div>
     </div>
+
+
+    <!-- delete user address  -->
+
+    <div
+      class="modal fade delete-address"
+      id="staticBackdrop4"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title login-title" id="staticBackdropLabel">
+              Delete Address
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+                <p>Are you sure you want to delete this address?</p>
+              <button type="button" class="delete-btn"  data-bs-dismiss="modal" >Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- service provider service all details -->
+
+
+<div
+      class="modal fade serviceRequestSummery"
+      id="staticBackdrop5"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabe3"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title login-title" id="staticBackdropLabe3">
+              Service Details
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="serivce-request-summary-box">
+              <div class="service-request-summary">
+                <div class="cover">
+                  <p id="serviceRequestDateTime">05/10/2021 08:00 - 11:30</p>
+                  <p><strong>Duration: </strong> 3.5 Hrs</p>
+                </div>
+                <div class="cover">
+                  <p><strong>Duration: </strong> 3.5 Hrs</p>
+                  <p><strong>Service Id:</strong> 8485</p>
+                  <p><strong>Extras:</strong> Inside cabinets</p>
+                  <p class="netAmount">
+                    <span><strong>Net Amount:</strong></span>
+                    <span class="netAmountNo">87,50 &#8364;</span>
+                  </p>
+                </div>
+                <div class="cover">
+                  <p>
+                    <strong>Customer Name:</strong> Kirpalsinhh Sarvaiya
+                  </p>
+                  <p>
+                    <strong>Service Address: </strong> Ganeshnagar 121, 364004
+                    Bhavnagar
+                  </p>
+                  
+                  <p><strong>Distance:</strong> 25 Km</p>
+                
+                </div>
+                <div class="cover">
+                  <p>
+                    <strong>Comments </strong>
+                  </p>
+                  <p>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="x-icon"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      /></svg
+                    >I don't have pets at home
+                  </p>
+                </div>
+                <div class="btn-box">
+                  <button type="button" class="reschedule-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="cancel-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Accept
+                  </button>
+                  <button type="button" class="Cancel-btn">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="cancel-icon"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="3"
+                        d="M6 18L18 6M6 6l12 12"
+                      /></svg
+                    >Cancel
+                  </button>
+                </div>
+              </div>
+              <div class="service-request-provider-box">
+                <iframe class="customer-address-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d470029.1604841957!2d72.29955005258641!3d23.019996818380896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1646385203415!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+    <script src="script.js"></script>
   </body>
 </html>
