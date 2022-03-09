@@ -411,6 +411,7 @@ namespace HelperLand.Controllers
                 
                 u.DateOfBirth = data.DateOfBirth;
                 u.ModifiedDate = DateTime.Now;
+                
                 if (_db.Users.Where(x => x.Mobile == data.Mobile && x.UserId == Id).Count() == 1 || _db.Users.Where(x => x.Mobile == data.Mobile).Count() == 0)
                 {
                     _db.Users.Update(u);

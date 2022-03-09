@@ -157,7 +157,7 @@ namespace HelperLand.Controllers
                         }
                         else if (U.UserTypeId == 2)
                         {
-                            return RedirectToAction("UpcomingService", "ServiceProvider");
+                            return RedirectToAction("ServiceProviderPage", "ServiceProvider");
 
                         }
                         else if (U.UserTypeId == 3)

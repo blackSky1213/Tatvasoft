@@ -1,0 +1,64 @@
+﻿@model IEnumerable<HelperLand.Models.ServiceProviderService>
+
+<div id="Dashboard" class="contant-right ">
+    <div>
+        <div class="table-head">
+            <div style="color: #4f4f4f">
+                <input type="checkbox" name="havepet" id="havepet" /> Include Pet
+                at Home
+            </div>
+        </div>
+        <table id="mytable1">
+            <thead style="background-color: #f9f9f9">
+
+                <tr>
+                    <th>Service Id <img src="/image/sort.png" alt="short" /></th>
+                    <th>Service Date <img src="/image/sort.png" alt="short" /></th>
+                    <th class="text-center">Customer Details</th>
+                    <th class="text-center">
+                        Payment <img src="/image/sort.png" alt="short" />
+                    </th>
+                    <th>Time conflict</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count() > 0)
+                {
+                    @foreach (var obj in Model)
+                    {
+                        <tr>
+                            <td>@obj.ServiceRequestId</td>
+                            <td>
+                                <img src="/image/calendar2.png" alt="calendar" />
+                                <strong> @obj.ServiceStartDate</strong><span>
+                                    <img src="/image/layer-14.png" alt="" /> @obj.startTime - @obj.endTime
+                                </span>
+                            </td>
+                            <td>
+                                <div class="address-td-box">
+                                    <div style="width: fit-content">
+                                        <img src="/image/layer-15.png" alt="cap" />
+                                    </div>
+                                    <div>
+                                        <span>@obj.CustomerName</span>
+                                        <span>@obj.CustomerAddress1</span>
+                                        <span>@obj.CustomerAddress2</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="payment-td">&#8364; @obj.TotalCost</span>
+                            </td>
+                            <td> @obj.timeConflict</td>
+
+                            <td>
+                                <button class="accept-btn" href="">Accept</button>
+                            </td>
+                        </tr>
+                    }
+                }
+                    </tbody>
+        </table>
+    </div>
+</div>

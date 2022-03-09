@@ -15,16 +15,15 @@ body{
   color:#ffff !important; 
 }
 
-nav{
-  padding:6px 15px 4px 15px;
-  font-family: "Robo";
-  background-color: #757575;
-  position:sticky !important;
-  top:0;
-  left:0;
-  right:0;
-  z-index: 10;
- 
+nav {
+    padding: 6px 15px 4px 15px;
+    font-family: "Robo";
+    background-color: rgba(39,39,39,.7);
+    position: sticky !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
 }
 
 .navbar li a{

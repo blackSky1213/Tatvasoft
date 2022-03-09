@@ -26,9 +26,11 @@ namespace HelperLand
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            
             services.AddDbContext<HelperlandContext>();
             services.AddSession();
             services.AddHttpContextAccessor();
+            
 
 
         }

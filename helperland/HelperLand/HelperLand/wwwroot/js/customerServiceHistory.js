@@ -173,7 +173,7 @@ function getUserdata() {
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             success:
                 function (response) {
-                    console.log(response);
+                    console.table(response);
                     $("#firstname").val(response.firstName);
                     $("#lastname").val(response.lastName);
                     $("#email").val(response.email);
@@ -385,6 +385,7 @@ function getZipcodeCity(zipcode,tagidcity,tagidstate,tagiderror) {
                 $(".addAddress-error").removeClass("d-none").text("please enter valid postalcode!").fadeIn().fadeOut(2000);
              
                 $("#" + tagidcity).val("");
+
 
             } else if (data[0].Status == "Success") {
                 $("#" + tagidcity).val(data[0].PostOffice[0].District);

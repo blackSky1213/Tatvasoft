@@ -76,18 +76,20 @@
                             </td>
 
                             <td>
-                                <button type="button" value="@obj.ServiceStartDate" hidden></button>
-                                <button type="button" value="@obj.startTime" hidden></button>
-                                <button type="button" class="reschedule-btn" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop" value="@obj.ServiceRequestId">
-                                    Reschedule
-                                </button>
+                                <div style="margin:auto;width:fit-content">
+                                    <button type="button" value="@obj.ServiceStartDate" hidden></button>
+                                    <button type="button" value="@obj.startTime" hidden></button>
+                                    <button type="button" class="reschedule-btn" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop" value="@obj.ServiceRequestId">
+                                        Reschedule
+                                    </button>
 
 
-                                <button type="button" class="cancel-btn" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop1" value="@obj.ServiceRequestId">
-                                    Cancel
-                                </button>
+                                    <button type="button" class="cancel-btn" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop1" value="@obj.ServiceRequestId">
+                                        Cancel
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     }

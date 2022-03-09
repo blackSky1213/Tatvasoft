@@ -20,7 +20,7 @@ body {
 }
 
 .sticky {
-    background-color: #757575;
+    background-color: rgba(39,39,39,.7);
 }
 
 .nav-link:hover {
@@ -79,9 +79,17 @@ nav {
     height: 40px;
 }
 
-.collapse.show {
+/*.collapse.show {
     background-color: #757575;
+}*/
+
+@media (max-width:992px){
+
+    nav {
+        background: rgba(39,39,39,.8);
+    }
 }
+
 
 /* login model */
 .login-title {
@@ -225,8 +233,9 @@ nav {
     color: #fff;
     width: 220px;
     height: 53px;
-    background-color: #006072;
+    background-color: rgba(0,95,113,.6);
     font-size: 18px;
+    border-radius:22px;
 }
 
     .center-btn:hover {

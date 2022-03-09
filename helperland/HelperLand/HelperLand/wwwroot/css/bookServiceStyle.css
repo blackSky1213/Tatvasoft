@@ -20,7 +20,7 @@ body {
 nav {
     padding: 6px 15px 4px 15px;
     font-family: "Robo";
-    background-color: #757575;
+    background-color: rgba(39,39,39,.7);
     transition: 0.6s;
     position: sticky !important;
     top: 0;

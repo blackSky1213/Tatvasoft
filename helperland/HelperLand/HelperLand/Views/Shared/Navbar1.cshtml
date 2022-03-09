@@ -124,12 +124,25 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end"
                         aria-labelledby="navbarDropdown">
-                        <li>
-                            <a class="dropdown-item text-black-50"  asp-controller="Customer" asp-action="CustomerServiceHistory" asp-route-customerDashboard="true">Dashboard </a>
-                        </li>
-                        <li>
-                            <a id="mySetting" class="dropdown-item text-black-50"  asp-controller="Customer" asp-action="CustomerServiceHistory" asp-route-customerSetting="true">My Setting </a>
-                        </li>
+
+                        @if (ViewBag.Name.UserTypeId == 1)
+                        {
+                            <li>
+                                <a class="dropdown-item text-black-50" asp-controller="Customer" asp-action="CustomerServiceHistory" asp-route-customerDashboard="true">Dashboard </a>
+                            </li>
+                            <li>
+                                <a id="mySetting" class="dropdown-item text-black-50" asp-controller="Customer" asp-action="CustomerServiceHistory" asp-route-customerSetting="true">My Setting </a>
+                            </li>
+                        }
+                        else if (ViewBag.Name.UserTypeId == 2)
+                        {
+                            <li>
+                                <a class="dropdown-item text-black-50" asp-controller="ServiceProvider" asp-action="ServiceProviderPage" asp-route-ProviderDashboard="true">Dashboard </a>
+                            </li>
+                            <li>
+                                <a id="mySetting" class="dropdown-item text-black-50" asp-controller="ServiceProvider" asp-action="ServiceProviderPage" asp-route-ProviderSetting="true">My Setting </a>
+                            </li>
+                        }
                         <li>
                             <a class="dropdown-item text-black-50" asp-controller="Registration" asp-action="Logout">Log out </a>
                         </li>

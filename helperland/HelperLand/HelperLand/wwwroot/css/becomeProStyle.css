@@ -2,10 +2,8 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.sticky{
- 
-  background-color: #757575;
- 
+.sticky {
+    background-color: rgba(39,39,39,.7);
 }
 body{
   margin:0;
@@ -77,8 +75,11 @@ nav{
   height:40px;
 
 }
-.collapse.show{
-  background-color: #757575;
+@media (max-width:992px) {
+
+    nav {
+        background: rgba(39,39,39,.8);
+    }
 }
 /* service provider registation */
 
