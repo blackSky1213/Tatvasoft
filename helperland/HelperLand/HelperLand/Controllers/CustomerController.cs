@@ -563,6 +563,7 @@ namespace HelperLand.Controllers
                 Details.EndTime = request.ServiceStartDate.AddHours((double)request.SubTotal).ToString("HH:mm");
                 Details.TotalCost = request.TotalCost;
                 Details.Comments = request.Comments;
+                Details.HasPets = request.HasPets;
                
                 foreach (ServiceRequestExtra row in requestExtra)
                 {

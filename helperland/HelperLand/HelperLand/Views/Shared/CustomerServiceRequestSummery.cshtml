@@ -50,7 +50,7 @@
                             <p>
                                 <strong>Comments </strong>
                             </p>
-                            <p>
+                            <p class="havenot-pets d-none">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                      class="x-icon"
                                      fill="none"
@@ -62,9 +62,16 @@
                                           d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>I don't have pets at home
                             </p>
+                            <p class="have-pets d-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="dog-tick-icon" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                          clip-rule="evenodd" />
+                                </svg>I have pets at home
+                            </p>
                         </div>
                         <div class="btn-box">
-                            <button type="button" class="Reschedule-btn" data-bs-dismiss="modal">
+                            <button type="button" class="Reschedule-btn" data-bs-dismiss="modal"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                      class="cancel-icon"
                                      width="18"
@@ -105,7 +112,7 @@
                                 </svg>
                                 Reschedule
                             </button>
-                            <button type="button" class="Cancel-btn" data-bs-dismiss="modal">
+                            <button type="button" class="Cancel-btn" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                      class="cancel-icon"
                                      fill="none"

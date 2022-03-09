@@ -500,6 +500,18 @@ function getServiceRequestAllDetails() {
                         $("#serviceRequestDuration").text(response.duration + " Hrs");
                         $("#ServiceRequestId").text(response.serviceRequestId);
                         $("#SerivceProviderCleaning").text(response.serviceProviderCleaning);
+                        $(".Reschedule-btn").attr("value", response.serviceRequestId);
+                        $(".Cancel-btn").attr("value", response.serviceRequestId);
+                        console.log(response.hasPets);
+                        if (response.hasPets == true) {
+                            $(".havenot-pets").addClass("d-none");
+                            $(".have-pets").removeClass("d-none");
+                        } else {
+                            $(".havenot-pets").removeClass("d-none");
+                            $(".have-pets").addClass("d-none");
+                        }
+                        
+                        
                         if (response.cabinet == true) {
                             $("#serviceExtra1").removeClass("d-none");
                         } else {
@@ -560,14 +572,16 @@ function getServiceRequestAllDetails() {
 }
 
 
-$(".Reschedule-btn").click(() => {
+$(".Reschedule-btn").click((e) => {
 
-    document.getElementsByClassName("reschedule-btn")[0].click();
+    getscheduleDataTime(e.target.value);
+
 });
 
-$(".Cancel-btn").click(() => {
+$(".Cancel-btn").click((e) => {
 
-    document.getElementsByClassName("cancel-btn")[0].click();
+    document.getElementById("cancelId").value = e.target.value;
+
 });
 
 function deleteUserAddress() {

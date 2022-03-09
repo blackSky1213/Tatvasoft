@@ -564,7 +564,7 @@ function payDone() {
     console.log(serviceRequestData.startTime);
     serviceRequestData.duration = $("#Duration").val();
     serviceRequestData.comment = $("#comment").val();
-    serviceRequestData.havePet = $("#havePet").val();
+    serviceRequestData.havePet = $("#havePet").is(":checked");
     serviceRequestData.AddressId = $("#AddressList div input[type=radio]:checked").val();
     serviceRequestData.postalcode = $("#zip").val();
 

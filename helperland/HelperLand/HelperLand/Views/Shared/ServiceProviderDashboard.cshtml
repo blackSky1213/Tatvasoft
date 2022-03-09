@@ -2,6 +2,10 @@
 
 <div id="Dashboard" class="contant-right ">
     <div>
+        <div class="ServiceRequestAlert d-none alert alert-success alert-dismissible fade show" role="alert">
+                <span class="alert-message"></span>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
         <div class="table-head">
             <div style="color: #4f4f4f">
                 <input type="checkbox" name="havepet" id="havepet" /> Include Pet
@@ -18,8 +22,8 @@
                     <th class="text-center">
                         Payment <img src="/image/sort.png" alt="short" />
                     </th>
-                    <th>Time conflict</th>
-                    <th>Action</th>
+                    <th class="text-center">Time conflict</th>
+                    <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,7 +31,10 @@
                 {
                     @foreach (var obj in Model)
                     {
-                        <tr>
+                       
+                        int? x = obj.timeConflict != null ? obj.timeConflict : 0;
+                    
+                        <tr conflict-value="@x" data-value="@obj.ServiceRequestId">
                             <td>@obj.ServiceRequestId</td>
                             <td>
                                 <img src="/image/calendar2.png" alt="calendar" />
@@ -50,15 +57,32 @@
                             <td>
                                 <span class="payment-td">&#8364; @obj.TotalCost</span>
                             </td>
-                            <td> @obj.timeConflict</td>
+                            @if (obj.timeConflict != null)
+                            {
 
-                            <td>
-                                <button class="accept-btn" href="">Accept</button>
-                            </td>
+
+                                <td><button class="conflict-btn accept-btn bg-danger " data-value="@obj.timeConflict">Confilict</button> </td>
+
+
+                                <td>
+                                    <button class="accept-btn btn disabled">Accept</button>
+                                </td>
+                            }
+                            else
+                            {
+                                <td> <span class=" completed-label">No Conflict</span></td>
+
+
+                                <td>
+                                    <button data-value="@obj.ServiceRequestId" class="AcceptServiceBtn accept-btn ">Accept</button>
+                                </td>
+
+                            }
+
                         </tr>
                     }
                 }
-                    </tbody>
+            </tbody>
         </table>
     </div>
 </div>

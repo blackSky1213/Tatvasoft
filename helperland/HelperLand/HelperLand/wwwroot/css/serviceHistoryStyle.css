@@ -1015,3 +1015,10 @@ table.dataTable thead td {
 .service-provider-average-rating span{
     display:inline-block !important;
 }
+
+
+.dog-tick-icon {
+    width: 24px;
+    height: 24px;
+    fill: rgb(35, 187, 60);
+}
