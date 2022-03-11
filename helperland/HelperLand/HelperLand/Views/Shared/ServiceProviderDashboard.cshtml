@@ -8,7 +8,7 @@
 </div>
         <div class="table-head">
             <div style="color: #4f4f4f">
-                <input type="checkbox" name="havepet" id="havepet" /> Include Pet
+                <input type="checkbox" name="havepet" id="havepetCheck" checked /> Include Pet
                 at Home
             </div>
         </div>
@@ -66,15 +66,24 @@
 
                                 <td>
                                     <button class="accept-btn btn disabled">Accept</button>
+                                    @if(obj.HavePets == false)
+                        {
+                            <div class="d-none">nopets</div>
+                        }
                                 </td>
                             }
                             else
                             {
+                              
                                 <td> <span class=" completed-label">No Conflict</span></td>
 
 
                                 <td>
                                     <button data-value="@obj.ServiceRequestId" class="AcceptServiceBtn accept-btn ">Accept</button>
+                                    @if (obj.HavePets == false)
+                        {
+                            <div class="d-none">nopets</div>
+                        }
                                 </td>
 
                             }

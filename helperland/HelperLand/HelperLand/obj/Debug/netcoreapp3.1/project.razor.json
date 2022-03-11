@@ -14457,6 +14457,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\ServiceProviderCustomerDetailsSummery.cshtml",
+      "TargetPath": "Views\\Shared\\ServiceProviderCustomerDetailsSummery.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\Navbar3.cshtml",
       "TargetPath": "Views\\Shared\\Navbar3.cshtml",
       "FileKind": "mvc"

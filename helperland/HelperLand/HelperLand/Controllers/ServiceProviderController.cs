@@ -53,6 +53,7 @@ namespace HelperLand.Controllers
                         sps.CustomerAddress2 = data.ZipCode + " " + requestaddr.City;
                         User u = _db.Users.FirstOrDefault(x => x.UserId == data.UserId);
                         sps.CustomerName = u.FirstName + " " + u.LastName;
+                        sps.HavePets = data.HasPets;
                         request.Add(sps);
 
                     }
@@ -210,11 +211,20 @@ namespace HelperLand.Controllers
             if (Id != null)
             {
                 ServiceRequest request = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
-                request.ServiceProviderId = (int)Id;
-                _db.ServiceRequests.Update(request);
-                _db.SaveChanges();
+                if (request.ServiceProviderId == null)
+                {
+                    request.ServiceProviderId = (int)Id;
+                    _db.ServiceRequests.Update(request);
+                    _db.SaveChanges();
 
-                return Ok(Json("true"));
+                    return Ok(Json("true"));
+                }
+                else
+                {
+/*TODO : show the message in front end that service is taken*/
+                    return Ok(Json("alreadyTake"));
+                }
+               
             }
             return Ok(Json("false"));
         }
@@ -237,6 +247,7 @@ namespace HelperLand.Controllers
                 Details.TotalCost = request.TotalCost;
                 Details.Comments = request.Comments;
                 Details.HasPets = request.HasPets;
+               
 
                 foreach (ServiceRequestExtra row in requestExtra)
                 {
@@ -264,6 +275,7 @@ namespace HelperLand.Controllers
                 Details.Address = requestAddress.AddressLine1 + ", " + requestAddress.AddressLine2 + ", " + requestAddress.City + "- " + requestAddress.PostalCode;
                 Details.PhoneNo = requestAddress.Mobile;
                 Details.Email = requestAddress.Email;
+                Details.PostalCode = requestAddress.PostalCode;
                
                     User customerName = _db.Users.Where(x => x.UserId == request.UserId).FirstOrDefault();
 

@@ -23,6 +23,9 @@
 
     <script type="text/javascript" charset="utf8"
             src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin="" />
     <link rel="stylesheet" href="/css/serviceProviderStyle.css" />
     <link rel="stylesheet" href="/css/commonStyle.css">
 
@@ -59,7 +62,7 @@
 
         @await Html.PartialAsync("ServiceProviderRating")
 
-       @await Html.PartialAsync("ServiceProviderCustomerDetailsSummery") 
+        @await Html.PartialAsync("ServiceProviderCustomerDetailsSummery")
 
 
 
@@ -80,6 +83,9 @@
     <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
     <script src="/js/CustomDate.min.js"></script>
     <script>
         $("#example").dateDropdowns({

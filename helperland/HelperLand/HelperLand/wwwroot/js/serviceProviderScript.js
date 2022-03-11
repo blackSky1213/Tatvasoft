@@ -10,7 +10,6 @@
 
 
 
-
     const dt = new DataTable("#mytable1", {
         dom: 't<"table-bottom paging d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
     responsive: true,
@@ -31,7 +30,14 @@
 
    
 
+$("#havepetCheck").change(() => {
 
+    if ($("#havepetCheck").is(":checked")) {
+        dt.search("").draw();
+    } else {
+        dt.search("nopets").draw();
+    }
+});
 
    
 
@@ -452,6 +458,14 @@ $("#mytable1").click((e) => {
 
 });
 
+
+
+
+
+
+
+
+
 $("#AcceptModalbtn").click(() => {
     AcceptService($("#AcceptModalbtn").attr("data-value"));
 });
@@ -487,6 +501,25 @@ function AcceptService(serviceRequestId) {
 
 
 
+
+
+async function getlon_len(zipcode) {
+    var map = L.map("issMap").setView([0, 0], 1);
+    const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+    const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    const tiles = L.tileLayer(tileUrl, { attribution });
+    tiles.addTo(map);
+    const response = await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q=india,' + zipcode);
+    const data = await response.json();
+    const { lat, lon } = data[0];
+    map.flyTo([lat, lon], 15);
+    console.log(data[0]);
+    L.marker([lat, lon]).addTo(map);
+
+
+}
+
+
 function getServiceRequestAllDetails(service_request_id) {
 
     var data = {};
@@ -500,6 +533,8 @@ function getServiceRequestAllDetails(service_request_id) {
             success:
                 function (response) {
                     if (response != null) {
+                        
+                        getlon_len(response.postalCode);
                         console.log(response);
                         $("#serviceRequestDateTime").text(response.date + " " + response.startTime + " - " + response.endTime);
                         $("#serviceRequestDuration").text(response.duration + " Hrs");
@@ -554,6 +589,7 @@ function getServiceRequestAllDetails(service_request_id) {
 
                         }
                         
+                        
                     }
 
 
@@ -588,7 +624,7 @@ function getUpcomingService() {
                         $("#UpcomingServiceTboady").empty();
                         for (var i = 0; i < response.length; i++) {
 
-                            $("#UpcomingServiceTboady").append('<tr><td>' + response[i].serviceRequestId + '</td ><td><img src="/image/calendar2.png" alt="calendar" /><strong> ' + response[i].serviceStartDate + '</strong><span><img src="/image/layer-14.png" alt="" /> ' + response[i].startTime + ' - ' + response[i].endTime + '</span></td><td><div class="address-td-box"><div style="width: fit-content"><img src="/image/layer-15.png" alt="cap" /></div><div><span>' + response[i].customerName + '</span><span>' + response[i].customerAddress1 + '</span><span>' + response[i].customerAddress2 + '</span></div></div></td><td><span class="payment-td">&#8364;63</span></td><td></td><td><button class="cancel-btn" data-value="' + response[i].serviceRequestId + '">cancel</button></td></tr >');
+                            $("#UpcomingServiceTboady").append('<tr data-value="' + response[i].serviceRequestId + '"><td>' + response[i].serviceRequestId + '</td ><td><img src="/image/calendar2.png" alt="calendar" /><strong> ' + response[i].serviceStartDate + '</strong><span><img src="/image/layer-14.png" alt="" /> ' + response[i].startTime + ' - ' + response[i].endTime + '</span></td><td><div class="address-td-box"><div style="width: fit-content"><img src="/image/layer-15.png" alt="cap" /></div><div><span>' + response[i].customerName + '</span><span>' + response[i].customerAddress1 + '</span><span>' + response[i].customerAddress2 + '</span></div></div></td><td><span class="payment-td">&#8364;'+response[i].totalCost+'</span></td><td></td><td><button class="cancel-btn" data-value="' + response[i].serviceRequestId + '">cancel</button></td></tr >');
                         }
                         const table2 = new DataTable("#mytable2", {
                             dom: 't<"table-bottom paging d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
@@ -627,10 +663,53 @@ function getUpcomingService() {
 
 document.getElementById("mytable2").addEventListener("click", (e) => {
 
-    console.log(e.target.dataset.value);
+
+
+    var btnClass = e.target.classList;
+    var service_request_id = e.target.closest('tr').getAttribute("data-value");
+
+    if (service_request_id != null && !Object.values(btnClass).includes("cancel-btn")) {
+        console.log($(".conflict-btn").attr("data-value"));
+
+        $(".btn-box").addClass("d-none");
+
+        $("#AcceptModalbtn").attr("data-value", service_request_id);
+        document.getElementById("CustomerServiceSummery-btn").click();
+        console.log(service_request_id);
+        getServiceRequestAllDetails(service_request_id);
+
+    }
+
+
     if (e.target.className == "cancel-btn") {
         RejectService(e.target.dataset.value);
     }
+
+});
+
+
+
+
+document.getElementById("mytable3").addEventListener("click", (e) => {
+
+
+
+  
+    var service_request_id = e.target.closest('tr').getAttribute("data-value");
+
+    if (service_request_id != null) {
+       
+
+        $(".btn-box").addClass("d-none");
+
+        $("#AcceptModalbtn").attr("data-value", service_request_id);
+        document.getElementById("CustomerServiceSummery-btn").click();
+        console.log(service_request_id);
+        getServiceRequestAllDetails(service_request_id);
+
+    }
+
+
 
 });
 
@@ -688,7 +767,7 @@ function getServiceHistory() {
                         $("#ServiceProviderHistoryTbody").empty();
                         for (var i = 0; i < response.length; i++) {
 
-                            $("#ServiceProviderHistoryTbody").append('<tr><td>' + response[i].serviceRequestId + '</td ><td><img src="/image/calendar2.png" alt="calendar" /><strong> ' + response[i].serviceStartDate + '</strong><span><img src="/image/layer-14.png" alt="" /> ' + response[i].startTime + ' - ' + response[i].endTime + '</span></td><td><div class="address-td-box"><div style="width: fit-content"><img src="/image/layer-15.png" alt="cap" /></div><div><span>' + response[i].customerName + '</span><span>' + response[i].customerAddress1 + '</span><span>' + response[i].customerAddress2 + '</span></div></div></td>');
+                            $("#ServiceProviderHistoryTbody").append('<tr data-value="' + response[i].serviceRequestId + '"><td>' + response[i].serviceRequestId + '</td ><td><img src="/image/calendar2.png" alt="calendar" /><strong> ' + response[i].serviceStartDate + '</strong><span><img src="/image/layer-14.png" alt="" /> ' + response[i].startTime + ' - ' + response[i].endTime + '</span></td><td><div class="address-td-box"><div style="width: fit-content"><img src="/image/layer-15.png" alt="cap" /></div><div><span>' + response[i].customerName + '</span><span>' + response[i].customerAddress1 + '</span><span>' + response[i].customerAddress2 + '</span></div></div></td>');
                         }
                         const table3 = new DataTable("#mytable3", {
                             dom: 't<"table-bottom paging d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
@@ -855,3 +934,10 @@ document.getElementById("export1").addEventListener("click", () => {
 
     html_table_to_excel("xlsx", "mytable4");
 });
+
+
+
+
+
+
+

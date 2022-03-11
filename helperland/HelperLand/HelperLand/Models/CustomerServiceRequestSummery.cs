@@ -41,6 +41,7 @@ namespace HelperLand.Models
 
         public String Address { get; set; }
 
+        public string PostalCode { get; set; }
 
         public string PhoneNo { get; set; }
 

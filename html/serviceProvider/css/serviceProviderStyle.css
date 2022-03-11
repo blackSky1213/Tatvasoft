@@ -10,7 +10,8 @@ body {
 #mytable1_filter,
 #mytable2_filter,
 #mytable3_filter,
-#mytable4_filter {
+#mytable4_filter,
+#mytable5_filter {
   display: none !important;
 }
 
@@ -75,6 +76,9 @@ body {
   text-align: center;
   background-color: #29626d;
   opacity: 100%;
+}
+.dropdown-item {
+  color: #1e2125 !important;
 }
 
 /* header */
@@ -176,19 +180,22 @@ body {
 #mytable1_length,
 #mytable2_length,
 #mytable3_length,
-#mytable4_length {
+#mytable4_length,
+#mytable5_length {
   color: #646464;
 }
 #mytable1_length label,
 #mytable2_length label,
 #mytable3_length label,
-#mytable4_length label {
+#mytable4_length label,
+#mytable5_length label {
   margin-top: 15px;
 }
 #mytable1_length select,
 #mytable2_length select,
 #mytable3_length select,
-#mytable4_length select {
+#mytable4_length select,
+#mytable5_length select {
   margin: 0px 10px;
   border: solid 1px #e1e1e1;
   color: #646464;
@@ -227,7 +234,8 @@ body {
 #mytable1_info,
 #mytable2_info,
 #mytable3_info,
-#mytable4_info {
+#mytable4_info,
+#mytable5_info {
   margin-top: 7px;
   margin-left: 7px;
   color: #646464;
@@ -355,6 +363,9 @@ table.dataTable thead td {
     text-align: center;
     padding: 5px;
   }
+}
+
+@media (max-width: 740px) {
   .paging {
     display: flex !important;
     flex-direction: column;
@@ -384,7 +395,8 @@ table.dataTable thead td {
   #mytable1,
   #mytable2,
   #mytable3,
-  #mytable4 {
+  #mytable4,
+  #mytable5 {
     max-width: 900px !important;
   }
   tbody {
@@ -512,6 +524,7 @@ a {
   display: flex;
   gap: 10px;
   margin-top: 5px;
+  flex-wrap: wrap;
 }
 
 .avtar-activate {
@@ -522,6 +535,22 @@ a {
 .avtar-box img {
   width: 75px;
   height: 75px;
+}
+
+.avtar {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.avtar + img {
+  cursor: pointer;
+}
+
+.avtar:checked + img {
+  outline: 2px solid #146371;
+  border-radius: 50%;
 }
 
 .Gender-box label {
@@ -552,7 +581,8 @@ a {
   color: #646464 !important;
 }
 
-.save-btn {
+.save-btn,
+.block-btn {
   color: #fff;
   background-color: #146371;
   border-radius: 26px;
@@ -686,4 +716,91 @@ a {
 
 #serviceProviderCustomerRating #mytable4 thead {
   display: none !important;
+}
+
+.block-btn {
+  padding: 8px 16px;
+  margin: 0;
+  background-color: #ff6b6b;
+}
+
+.cap-upgrade {
+  width: 100px;
+  height: 100px;
+  margin: 0;
+  padding: 0;
+}
+.listOfBlocks {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.block {
+  border: 1px solid #e1e1e1;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.block-icon {
+  margin: 20px;
+}
+
+.block p {
+  color: #646464;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  text-align: center;
+}
+#mytable5 {
+  border: none;
+  border-collapse: separate;
+}
+#mytable5 tbody {
+  display: flex;
+}
+
+#mytable5 tr {
+  border: 1px solid #e1e1e1;
+  margin: 15px;
+}
+#mytable5 tbody td {
+  display: block;
+  padding: 0;
+}
+
+#mytable5 thead {
+  display: none !important;
+}
+
+@media (max-width: 962px) {
+  #mytable5 tbody {
+    flex-direction: column;
+  }
+  #mytable5 tr {
+    border: 1px solid #e1e1e1;
+    margin: 15px;
+  }
+  #mytable5 tbody td {
+    display: block;
+    padding: 0;
+    border: none;
+  }
+}
+
+@media (max-width: 782px) {
+  .contant-right {
+    width: 100%;
+  }
+  #mytable5 tr {
+    border: 1px solid #e1e1e1;
+    margin: 15px;
+  }
+  #mytable5 tbody td {
+    display: block;
+    padding: 0;
+  }
 }

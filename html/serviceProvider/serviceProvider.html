@@ -77,15 +77,15 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <li>
-              <a class="dropdown-item" href="#"><img src="" alt="" /> <span>India</span>
+              <a class="dropdown-item" onclick="form2()">Dashboard
               </a>
             </li>
             <li>
-              <a class="dropdown-item" href="#"><img src="image/admin-user.png" alt="" /> <span>U.K.</span>
+              <a class="dropdown-item" onclick="opensetting()">My Setting
               </a>
             </li>
             <li>
-              <a class="dropdown-item" href="#"><img src="image/admin-user.png" alt="" /> <span>U.S.A.</span>
+              <a class="dropdown-item">Logout
               </a>
             </li>
           </ul>
@@ -100,7 +100,7 @@
   <section id="contant">
     <div id="contant-menu">
       <ul>
-        <li id="1" role="button" onclick="form1()" style="background-color: #146371">
+        <li id="1" role="button">
           Dashboard
         </li>
         <li id="2" role="button" onclick="form2()">New Service Requests</li>
@@ -108,7 +108,7 @@
         <li id="4" role="button" onclick="form4()">Service Schedule</li>
         <li id="5" role="button" onclick="form5()">Service History</li>
         <li id="6" role="button" onclick="form6()">My Ratings</li>
-        <li id="7" role="button" onclick="form6()">Block Customer</li>
+        <li id="7" role="button" onclick="form7()">Block Customer</li>
       </ul>
     </div>
 
@@ -189,25 +189,31 @@
             <div class="row cover Gender-box">
               <label for="gender">Gender</label>
               <div>
-                <input type="radio" name="gender" id="gender" value="male" />
+                <input type="radio" name="gender" class="gender" value="male" />
                 Male
-                <input type="radio" name="gender" id="gender" value="female" />
+                <input type="radio" name="gender" class="gender" value="female" />
                 Female
-                <input type="radio" name="gender" id="gender" value="no" />
+                <input type="radio" name="gender" class="gender" value="no" />
                 Rather not to say
               </div>
             </div>
             <div class="row mt-4">
               <label for="avatar">Select avtar</label>
-              <div class="col-lg-12 avtar-box">
-                <div><img src="image/cap.jpg" alt="" /></div>
-                <div><img src="image/car.jpg" alt="" /></div>
+              <div class="avtar-box">
+                <div><label><input type="radio" class="avtar" name="avtar" value="cap"><img src="image/cap.jpg"
+                      alt="" /></label></div>
+                <div><label><input type="radio" class="avtar" name="avtar" val="car"><img src="image/car.jpg"
+                      alt="" /></label></div>
                 <div>
-                  <img class="avtar-activate" src="image/man.jpg" alt="" />
+                  <label><input type="radio" class="avtar" name="avtar" value="man"><img src="image/man.jpg"
+                      alt="" /></label>
                 </div>
-                <div><img src="image/ship.jpg" alt="" /></div>
-                <div><img src="image/window.jpg" alt="" /></div>
-                <div><img src="image/woman.jpg" alt="" /></div>
+                <div><label><input type="radio" class="avtar" name="avtar" value="ship"><img src="image/ship.jpg"
+                      alt="" /></label></div>
+                <div><label><input type="radio" class="avtar" name="avtar" value="window"><img src="image/window.jpg"
+                      alt="" /></label></div>
+                <div><label><input type="radio" class="avtar" name="avtar" value="woman"><img src="image/woman.jpg"
+                      alt="" /></label></div>
               </div>
             </div>
           </div>
@@ -264,8 +270,8 @@
       </div>
     </div>
 
-    <div class="contant-right d-none">
-      <div id="Dashboard">
+    <div id="Dashboard" class="contant-right d-none">
+      <div>
         <div class="table-head">
           <div style="color: #4f4f4f">
             <input type="checkbox" name="havepet" id="havepet" /> Include Pet
@@ -319,8 +325,8 @@
       </div>
     </div>
 
-    <div class="contant-right d-none">
-      <div id="UpcomingService">
+    <div id="UpcomingService" class="contant-right d-none">
+      <div>
         <table id="mytable2">
           <thead style="background-color: #f9f9f9">
             <tr>
@@ -368,8 +374,8 @@
       </div>
     </div>
 
-    <div class="contant-right d-none">
-      <div id="ServiceProviderHistory">
+    <div id="ServiceProviderHistory" class="contant-right d-none">
+      <div>
         <div class="table-head">
           <h2 class="table-title">Service History</h2>
           <a class="export-btn" id="export" onclick="exportData()" href="">Export</a>
@@ -408,8 +414,8 @@
       </div>
     </div>
 
-    <div class="contant-right">
-      <div id="serviceProviderCustomerRating">
+    <div id="serviceProviderCustomerRating" class="contant-right d-none">
+      <div>
         <div class="table-head">
           <h2 class="table-title">Service History</h2>
           <a class="export-btn" id="export" onclick="exportData()" href="">Export</a>
@@ -486,6 +492,39 @@
         </table>
       </div>
     </div>
+
+    <div id="blockCustomer" class="contant-right">
+      <table id="mytable5">
+        <tbody>
+          <tr class="block">
+            <td>
+              <div><img class="cap-icon cap-upgrade" src="image/cap.jpg" alt="cap"></div>
+            </td>
+            <td>
+              <div class="block-icon">
+                <p>Sarvaiya Kirpalsinh</p>
+              </div>
+            </td>
+            <td>
+              <button class="block-btn">Block</button>
+            </td>
+          </tr>
+          <tr class="block">
+            <td>
+              <div><img class="cap-icon cap-upgrade" src="image/cap.jpg" alt="cap"></div>
+            </td>
+            <td>
+              <div class="block-icon">
+                <p>Sarvaiya Kirpalsinh</p>
+              </div>
+            </td>
+            <td>
+              <button class="block-btn">Block</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <section id="footer">
@@ -534,6 +573,7 @@
       $("#mytable2").DataTable();
       $("#mytable3").DataTable();
       $("#mytable4").DataTable();
+      $("#mytable5").DataTable();
 
     });
 
@@ -608,6 +648,160 @@
       buttons: ["excel"],
       columnDefs: [{ orderable: false, targets: 3 }],
     });
+
+    const table5 = new DataTable("#mytable5", {
+      dom: 't<"table-bottom paging d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
+      responsive: true,
+      pagingType: "full_numbers",
+      language: {
+        paginate: {
+          first: '<img src="image/first-page.png" alt="first" style= />',
+          previous: '<img src="image/previous.png" alt="previous" />',
+          next: '<img src="image/previous.png" alt="next" style="transform: rotate(180deg)" />',
+          last: "<img src='image/first-page.png' alt='first' style='transform: rotate(180deg)' />",
+        },
+        info: "Total Record: _MAX_",
+        lengthMenu: "Show_MENU_Entries",
+      },
+      buttons: ["excel"],
+      columnDefs: [{ orderable: false, targets: 2 }],
+    });
+
+
+
+    var dashboard = document.getElementById("2");
+    var UpcomingService = document.getElementById("3");
+
+    var ServiceHistory = document.getElementById("5");
+    var MyRating = document.getElementById("6");
+    var mysetting = document.getElementsByClassName("my-setting-box")[0];
+
+    function form2() {
+      document.getElementById("Dashboard").classList.remove("d-none");
+      document.getElementById("UpcomingService").classList.add("d-none");
+      document.getElementById("ServiceProviderHistory").classList.add("d-none");
+      document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
+      document.getElementById("blockCustomer").classList.add("d-none");
+      document.getElementById("7").style.background = "#1d7a8c";
+      mysetting.classList.add("d-none");
+
+
+      dashboard.style.background = "#146371";
+      UpcomingService.style.background = "#1d7a8c";
+      ServiceHistory.style.background = "#1d7a8c";
+      MyRating.style.background = "#1d7a8c";
+    }
+
+    function form3() {
+      document.getElementById("Dashboard").classList.add("d-none");
+      document.getElementById("UpcomingService").classList.remove("d-none");
+      document.getElementById("ServiceProviderHistory").classList.add("d-none");
+      document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
+      document.getElementById("blockCustomer").classList.add("d-none");
+      document.getElementById("7").style.background = "#1d7a8c";
+      mysetting.classList.add("d-none");
+
+      dashboard.style.background = "#1d7a8c";
+      UpcomingService.style.background = "#146371";
+      ServiceHistory.style.background = "#1d7a8c";
+      MyRating.style.background = "#1d7a8c";
+    }
+
+    function form5() {
+      document.getElementById("Dashboard").classList.add("d-none");
+      document.getElementById("UpcomingService").classList.add("d-none");
+      document.getElementById("ServiceProviderHistory").classList.remove("d-none");
+      document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
+      document.getElementById("blockCustomer").classList.add("d-none");
+      document.getElementById("7").style.background = "#1d7a8c";
+      mysetting.classList.add("d-none");
+
+      dashboard.style.background = "#1d7a8c";
+      UpcomingService.style.background = "#1d7a8c";
+      ServiceHistory.style.background = "#146371";
+      MyRating.style.background = "#1d7a8c";
+    }
+
+
+    function form6() {
+      document.getElementById("Dashboard").classList.add("d-none");
+      document.getElementById("UpcomingService").classList.add("d-none");
+      document.getElementById("ServiceProviderHistory").classList.add("d-none");
+      document.getElementById("serviceProviderCustomerRating").classList.remove("d-none");
+      document.getElementById("blockCustomer").classList.add("d-none");
+      document.getElementById("7").style.background = "#1d7a8c";
+      mysetting.classList.add("d-none");
+
+      dashboard.style.background = "#1d7a8c";
+      UpcomingService.style.background = "#1d7a8c";
+      ServiceHistory.style.background = "#1d7a8c";
+      MyRating.style.background = "#146371";
+    }
+
+
+    function form7() {
+      document.getElementById("Dashboard").classList.add("d-none");
+      document.getElementById("UpcomingService").classList.add("d-none");
+      document.getElementById("ServiceProviderHistory").classList.add("d-none");
+      document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
+      document.getElementById("blockCustomer").classList.remove("d-none");
+      mysetting.classList.add("d-none");
+
+      dashboard.style.background = "#1d7a8c";
+      UpcomingService.style.background = "#1d7a8c";
+      ServiceHistory.style.background = "#1d7a8c";
+      MyRating.style.background = "#1d7a8c";
+      document.getElementById("7").style.background = "#146371";
+    }
+
+
+    function opensetting() {
+
+      document.getElementById("Dashboard").classList.add("d-none");
+      document.getElementById("UpcomingService").classList.add("d-none");
+      document.getElementById("ServiceProviderHistory").classList.add("d-none");
+      document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
+      document.getElementsByClassName("my-setting-box")[0].classList.remove("d-none");
+    }
+
+    var useroption = [
+      document.getElementById("user-setting-option-1"),
+      document.getElementById("user-setting-option-3"),
+    ];
+    var my_user_details =
+      document.getElementsByClassName("my-setting-details")[0];
+    var my_user_change_password = document.getElementsByClassName(
+      "my-setting-change-password"
+    )[0];
+    var my_user_option_icon =
+      document.getElementsByClassName("user-menu-icon");
+    useroption[0].addEventListener("click", () => {
+      useroption[0].classList.add("active-setting-option");
+      useroption[1].classList.remove("active-setting-option");
+
+
+      my_user_details.classList.remove("d-none");
+
+      my_user_change_password.classList.add("d-none");
+
+      my_user_option_icon[0].style.stroke = "#146371";
+      my_user_option_icon[1].style.stroke = "#646464";
+
+    });
+
+    useroption[1].addEventListener("click", () => {
+      useroption[0].classList.remove("active-setting-option");
+      useroption[1].classList.add("active-setting-option");
+
+
+      my_user_details.classList.add("d-none");
+
+      my_user_change_password.classList.remove("d-none");
+
+      my_user_option_icon[0].style.stroke = "#646464";
+      my_user_option_icon[1].style.stroke = "#146371";
+    });
+
   </script>
 
   <!-- bootstrap js cdn  -->
