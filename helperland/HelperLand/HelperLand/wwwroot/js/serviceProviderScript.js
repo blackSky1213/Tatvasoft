@@ -2,7 +2,6 @@
     $(document).ready(function () {
     $("#mytable1").DataTable();
     
-    
 
     });
 
@@ -14,6 +13,8 @@
         dom: 't<"table-bottom paging d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
     responsive: true,
     pagingType: "full_numbers",
+    "order": [0, 'desc'],
+    'ordering': true,
     language: {
         paginate: {
         first: '<img src="/image/first-page.png" alt="first" style= />',
@@ -28,7 +29,7 @@
     columnDefs: [{orderable: false, targets: 4 }],
     });
 
-   
+
 
 $("#havepetCheck").change(() => {
 
@@ -52,21 +53,26 @@ $("#havepetCheck").change(() => {
         document.getElementById("Dashboard").classList.remove("d-none");
     document.getElementById("UpcomingService").classList.add("d-none");
     document.getElementById("ServiceProviderHistory").classList.add("d-none");
-    document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
+        document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
+        document.getElementById("blockCustomer").classList.add("d-none");
+        document.getElementById("7").style.background = "#1d7a8c";
     mysetting.classList.add("d-none");
 
 
     dashboard.style.background = "#146371";
     UpcomingService.style.background = "#1d7a8c";
     ServiceHistory.style.background = "#1d7a8c";
-    MyRating.style.background = "#1d7a8c";
+        MyRating.style.background = "#1d7a8c";
+        window.location.reload();
     }
 
     function form3() {
         document.getElementById("Dashboard").classList.add("d-none");
     document.getElementById("UpcomingService").classList.remove("d-none");
     document.getElementById("ServiceProviderHistory").classList.add("d-none");
-    document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
+        document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
+        document.getElementById("blockCustomer").classList.add("d-none");
+        document.getElementById("7").style.background = "#1d7a8c";
     mysetting.classList.add("d-none");
 
     dashboard.style.background = "#1d7a8c";
@@ -81,7 +87,9 @@ $("#havepetCheck").change(() => {
         document.getElementById("Dashboard").classList.add("d-none");
     document.getElementById("UpcomingService").classList.add("d-none");
     document.getElementById("ServiceProviderHistory").classList.remove("d-none");
-    document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
+        document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
+        document.getElementById("blockCustomer").classList.add("d-none");
+        document.getElementById("7").style.background = "#1d7a8c";
     mysetting.classList.add("d-none");
 
     dashboard.style.background = "#1d7a8c";
@@ -99,7 +107,9 @@ $("#havepetCheck").change(() => {
     document.getElementById("Dashboard").classList.add("d-none");
     document.getElementById("UpcomingService").classList.add("d-none");
     document.getElementById("ServiceProviderHistory").classList.add("d-none");
-    document.getElementById("serviceProviderCustomerRating").classList.remove("d-none");
+        document.getElementById("serviceProviderCustomerRating").classList.remove("d-none");
+        document.getElementById("blockCustomer").classList.add("d-none");
+        document.getElementById("7").style.background = "#1d7a8c";
     mysetting.classList.add("d-none");
 
     dashboard.style.background = "#1d7a8c";
@@ -111,6 +121,22 @@ $("#havepetCheck").change(() => {
     }
 
 
+function form7() {
+    document.getElementById("Dashboard").classList.add("d-none");
+    document.getElementById("UpcomingService").classList.add("d-none");
+    document.getElementById("ServiceProviderHistory").classList.add("d-none");
+    document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
+    document.getElementById("blockCustomer").classList.remove("d-none");
+    mysetting.classList.add("d-none");
+
+    dashboard.style.background = "#1d7a8c";
+    UpcomingService.style.background = "#1d7a8c";
+    ServiceHistory.style.background = "#1d7a8c";
+    MyRating.style.background = "#1d7a8c";
+    document.getElementById("7").style.background = "#146371";
+
+    getCompleteServiceUserList();
+}
     function opensetting() {
 
     document.getElementById("Dashboard").classList.add("d-none");
@@ -435,6 +461,7 @@ $("#mytable1").click((e) => {
         } else {
             $(".btn-box").addClass("d-none");
         }
+        $(".btn-box1").addClass("d-none");
         $("#AcceptModalbtn").attr("data-value", service_request_id);
         document.getElementById("CustomerServiceSummery-btn").click();
         console.log(service_request_id);
@@ -451,6 +478,7 @@ $("#mytable1").click((e) => {
    
         console.log(e.target.dataset.value);
         $(".btn-box").addClass("d-none");
+        $(".btn-box1").addClass("d-none");
         document.getElementById("CustomerServiceSummery-btn").click();
         getServiceRequestAllDetails(e.target.dataset.value);
     }
@@ -460,9 +488,47 @@ $("#mytable1").click((e) => {
 
 
 
+$("#mytable5").click((e) => {
+
+    var btnClass = e.target.classList;
+   
+    if (Object.values(btnClass).includes("block-btn")) {
+       
+        blockCustomer(e.target.dataset.value);
+    }
 
 
 
+});
+
+function blockCustomer(id) {
+    
+    var data = {};
+    data.userIdTo= id;
+    $.ajax(
+        {
+            type: 'POST',
+            url: '/ServiceProvider/BlockCustomer',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data,
+            success:
+                function (response) {
+                    if (response.value == "true") {
+                        getCompleteServiceUserList();
+                      
+                    }
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+
+
+
+}
 
 
 
@@ -500,11 +566,17 @@ function AcceptService(serviceRequestId) {
 
 
 
-
-
+var count = 0;
+var map = {};
 
 async function getlon_len(zipcode) {
-    var map = L.map("issMap").setView([0, 0], 1);
+    if (count > 0) {
+        
+       map.off();
+        map.remove();
+    }
+   
+    map = L.map("issMap").setView([0, 0], 1);
     const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
     const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     const tiles = L.tileLayer(tileUrl, { attribution });
@@ -513,9 +585,8 @@ async function getlon_len(zipcode) {
     const data = await response.json();
     const { lat, lon } = data[0];
     map.flyTo([lat, lon], 15);
-    console.log(data[0]);
     L.marker([lat, lon]).addTo(map);
-
+    count++;
 
 }
 
@@ -534,12 +605,25 @@ function getServiceRequestAllDetails(service_request_id) {
                 function (response) {
                     if (response != null) {
                         
-                        getlon_len(response.postalCode);
-                        console.log(response);
+                        
+                        
                         $("#serviceRequestDateTime").text(response.date + " " + response.startTime + " - " + response.endTime);
                         $("#serviceRequestDuration").text(response.duration + " Hrs");
                         $("#ServiceRequestId").text(response.serviceRequestId);
                         $("#ServiceCustomerName").text(response.serviceProviderName);
+
+                        var now = new Date();
+                        
+                       
+                        console.log("now :- " + now);
+                        var date = response.date.split("/")[2] + "/" + response.date.split("/")[1] + "/" + response.date.split("/")[0];
+                        var endTime = new Date(date +" "+ response.endTime);
+                        if (now >= endTime) {
+                            $("#CompleteModalbtn").removeClass("d-none");
+                        } else {
+                            $("#CompleteModalbtn").addClass("d-none");
+                        }
+                        
                         if (response.hasPets == true) {
                             $(".havenot-pets").addClass("d-none");
                             $(".have-pets").removeClass("d-none");
@@ -589,7 +673,7 @@ function getServiceRequestAllDetails(service_request_id) {
 
                         }
                         
-                        
+                        getlon_len(response.postalCode);
                     }
 
 
@@ -607,7 +691,43 @@ function getServiceRequestAllDetails(service_request_id) {
 
 }
 
+$("#CompleteModalbtn").click((e) => {
 
+    CompleteService(e.target.dataset.value);
+
+});
+
+
+
+function CompleteService(id) {
+    var data = {};
+    data.serviceRequestId = id;
+
+
+    $.ajax(
+        {
+            type: 'POST',
+            url: '/ServiceProvider/CompleteService',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data,
+            success:
+                function (response) {
+                    if (response.value == "true") {
+
+                        window.location.reload();
+
+                    }
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+
+
+}
 
 function getUpcomingService() {
 
@@ -672,8 +792,10 @@ document.getElementById("mytable2").addEventListener("click", (e) => {
         console.log($(".conflict-btn").attr("data-value"));
 
         $(".btn-box").addClass("d-none");
+        $(".btn-box1").removeClass("d-none");
 
-        $("#AcceptModalbtn").attr("data-value", service_request_id);
+        $("#CancelServiceModalbtn").attr("data-value", service_request_id);
+        $("#CompleteModalbtn").attr("data-value", service_request_id);
         document.getElementById("CustomerServiceSummery-btn").click();
         console.log(service_request_id);
         getServiceRequestAllDetails(service_request_id);
@@ -687,7 +809,11 @@ document.getElementById("mytable2").addEventListener("click", (e) => {
 
 });
 
+$("#CancelServiceModalbtn").click((e) => {
 
+    RejectService(e.target.dataset.value);
+    
+});
 
 
 document.getElementById("mytable3").addEventListener("click", (e) => {
@@ -701,7 +827,7 @@ document.getElementById("mytable3").addEventListener("click", (e) => {
        
 
         $(".btn-box").addClass("d-none");
-
+        $(".btn-box1").addClass("d-none");
         $("#AcceptModalbtn").attr("data-value", service_request_id);
         document.getElementById("CustomerServiceSummery-btn").click();
         console.log(service_request_id);
@@ -729,7 +855,7 @@ function RejectService(id) {
             success:
                 function (response) {
                     if (response.value == "true") {
-
+                       
                         window.location.reload();
                       
                     }
@@ -938,6 +1064,77 @@ document.getElementById("export1").addEventListener("click", () => {
 
 
 
+
+
+
+
+function getCompleteServiceUserList() {
+
+
+    $.ajax(
+        {
+            type: 'GET',
+            url: '/ServiceProvider/GetCompleteServiceUserList',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success:
+                function (response) {
+                    if (response != null) {
+                        console.table(response);
+                        
+                        $("#mytable5 tbody").empty();
+                        for (var i = 0; i < response.length; i++) {
+                            var block_btn = ' <button  class="block-btn " data-value="' + response[i].userIdTo + '">Block</button>';
+                            if (response[i].isBlock == true) {
+                                block_btn = ` <button class="block-btn " data-value="` + response[i].userIdTo + `">Unblock</button>`;
+                            }
+
+                            $("#mytable5 tbody").append(` <tr class="block">
+                <td>
+                    <div><img class="cap-icon cap-upgrade" src="/image/cap.jpg" alt="cap"></div>
+                </td>
+                <td>
+                    <div class="block-icon">
+                        <p>`+response[i].customerName+`</p>
+                    </div>
+                </td>
+                <td>
+                    `+block_btn+`
+                </td>
+            </tr>`)
+                        }
+                    }
+                    const table5 = new DataTable("#mytable5", {
+                        dom: 't<"table-bottom paging d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
+                        responsive: true,
+                        retrieve:true,
+                        pagingType: "full_numbers",
+                        language: {
+                            paginate: {
+                                first: '<img src="/image/first-page.png" alt="first" style= />',
+                                previous: '<img src="/image/previous.png" alt="previous" />',
+                                next: '<img src="/image/previous.png" alt="next" style="transform: rotate(180deg)" />',
+                                last: "<img src='/image/first-page.png' alt='first' style='transform: rotate(180deg)' />",
+                            },
+                            info: "Total Record: _MAX_",
+                            lengthMenu: "Show_MENU_Entries",
+                        },
+                        buttons: ["excel"],
+                        columnDefs: [{ orderable: false, targets: 2 }],
+                    });
+
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+
+
+
+
+}
 
 
 

@@ -26,42 +26,49 @@ namespace HelperLand.Controllers
                 User obj = _db.Users.FirstOrDefault(x => x.UserId == Id);
                 if (obj.UserTypeId == 2)
                 {
+
                     ViewBag.Name = obj;
                     UserAddress user = _db.UserAddresses.FirstOrDefault(x => x.UserId == Id);
                     List<ServiceProviderService> request = new List<ServiceProviderService>();
                     var table = _db.ServiceRequests.Where(x => x.ServiceProviderId == null && x.ZipCode == user.PostalCode && x.Status == 2).ToList();
                     foreach(var data in table)
                     {
-                        ServiceProviderService sps = new ServiceProviderService();
-                        sps.ServiceRequestId = data.ServiceRequestId;
-                        sps.ServiceStartDate = data.ServiceStartDate.ToString("dd/MM/yyyy");
+                        FavoriteAndBlocked fab = _db.FavoriteAndBlockeds.FirstOrDefault(x => x.UserId == (int)Id && x.TargetUserId == data.UserId);
 
-                        sps.startTime = data.ServiceStartDate.ToString("HH:mm");
-                        var thistimeStart = data.ServiceStartDate;
-                        var thistimeEnd = data.ServiceStartDate.AddHours((double)data.SubTotal+1);
-                        ServiceRequest conflictService = _db.ServiceRequests.FirstOrDefault(
-                            x=>(x.ServiceProviderId==(int)Id && x.ServiceStartDate <= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal+1)>=thistimeStart) || (x.ServiceProviderId == (int)Id && x.ServiceStartDate <= thistimeEnd && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeEnd) || (x.ServiceProviderId == (int)Id && x.ServiceStartDate >= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) <= thistimeEnd)
-                            );
-                        if (conflictService!=null)
+                        if (fab.IsBlocked == false)
                         {
-                            sps.timeConflict = conflictService.ServiceRequestId;
+                            ServiceProviderService sps = new ServiceProviderService();
+                            sps.ServiceRequestId = data.ServiceRequestId;
+                            sps.ServiceStartDate = data.ServiceStartDate.ToString("dd/MM/yyyy");
+
+                            sps.startTime = data.ServiceStartDate.ToString("HH:mm");
+                            var thistimeStart = data.ServiceStartDate;
+                            var thistimeEnd = data.ServiceStartDate.AddHours((double)data.SubTotal + 1);
+                            ServiceRequest conflictService = _db.ServiceRequests.FirstOrDefault(
+                                x => (x.ServiceProviderId == (int)Id && x.ServiceStartDate <= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeStart) || (x.ServiceProviderId == (int)Id && x.ServiceStartDate <= thistimeEnd && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeEnd) || (x.ServiceProviderId == (int)Id && x.ServiceStartDate >= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) <= thistimeEnd)
+                                );
+                            if (conflictService != null)
+                            {
+                                sps.timeConflict = conflictService.ServiceRequestId;
+                            }
+                            sps.endTime = data.ServiceStartDate.AddHours((double)data.SubTotal).ToString("HH:mm");
+                            sps.TotalCost = data.TotalCost;
+                            ServiceRequestAddress requestaddr = _db.ServiceRequestAddresses.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
+                            sps.CustomerAddress1 = requestaddr.AddressLine2 + " " + requestaddr.AddressLine1;
+                            sps.CustomerAddress2 = data.ZipCode + " " + requestaddr.City;
+                            User u = _db.Users.FirstOrDefault(x => x.UserId == data.UserId);
+                            sps.CustomerName = u.FirstName + " " + u.LastName;
+                            sps.HavePets = data.HasPets;
+                            request.Add(sps);
                         }
-                        sps.endTime = data.ServiceStartDate.AddHours((double)data.SubTotal).ToString("HH:mm");
-                        sps.TotalCost = data.TotalCost;
-                        ServiceRequestAddress requestaddr = _db.ServiceRequestAddresses.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
-                        sps.CustomerAddress1 = requestaddr.AddressLine2 + " " + requestaddr.AddressLine1;
-                        sps.CustomerAddress2 = data.ZipCode + " " + requestaddr.City;
-                        User u = _db.Users.FirstOrDefault(x => x.UserId == data.UserId);
-                        sps.CustomerName = u.FirstName + " " + u.LastName;
-                        sps.HavePets = data.HasPets;
-                        request.Add(sps);
+                        
 
                     }
                     return PartialView(request);
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home", new { loginModal = "true" });
                 }
             }
             else if (Request.Cookies["userid"] != null)
@@ -195,6 +202,8 @@ namespace HelperLand.Controllers
                 {
                     string HashPass = BCrypt.Net.BCrypt.HashPassword(changePass.NewPassword);
                     u.Password = HashPass;
+                    u.ModifiedBy = (int)Id;
+                    u.ModifiedDate = DateTime.Now;
                     _db.Users.Update(u);
                     _db.SaveChanges();
                     return Ok(Json("true"));
@@ -214,6 +223,8 @@ namespace HelperLand.Controllers
                 if (request.ServiceProviderId == null)
                 {
                     request.ServiceProviderId = (int)Id;
+                    request.ModifiedBy = Id;
+                    request.ModifiedDate = DateTime.Now;
                     _db.ServiceRequests.Update(request);
                     _db.SaveChanges();
 
@@ -341,7 +352,16 @@ namespace HelperLand.Controllers
             if (Id != null)
             {
                 ServiceRequest request = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
+                var endtime= request.ServiceStartDate.AddHours((double)data.SubTotal) ;
+                var now = DateTime.Now;
+                if (now >= endtime)
+                {
+                    request.Status = 1;
 
+                   
+                }
+                request.ModifiedDate = DateTime.Now;
+                request.ModifiedBy = Id;
                 request.ServiceProviderId = null;
 
                 _db.ServiceRequests.Update(request);
@@ -428,6 +448,103 @@ namespace HelperLand.Controllers
                
             }
             return new JsonResult("false");
+        }
+
+        [HttpPost]
+        public IActionResult CompleteService(ServiceRequest data)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+
+            if (Id != null)
+            {
+                ServiceRequest request = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
+                var endtime = request.ServiceStartDate.AddHours((double)data.SubTotal);
+                var now = DateTime.Now;
+                if (now >= endtime)
+                {
+                    request.Status = 0;
+                    request.ModifiedDate = DateTime.Now;
+                    request.ModifiedBy = Id;
+                    _db.Update(request);
+                    _db.SaveChanges();
+                    return Ok(Json("true"));
+                }
+               
+            }
+            return Ok(Json("false"));
+        }
+
+        public JsonResult GetCompleteServiceUserList()
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+
+            if (Id != null)
+            {
+                List<int> request = _db.ServiceRequests.Where(x => x.ServiceProviderId == Id && x.Status==0).Select(x=>x.UserId).Distinct().ToList();
+
+                List<BlockFavouriteUser> userblock = new List<BlockFavouriteUser>();
+                foreach(var obj in request)
+                {
+                    User u = _db.Users.FirstOrDefault(x => x.UserId == obj);
+                    BlockFavouriteUser bfu = new BlockFavouriteUser();
+                    bfu.UserIdFrom = (int)Id;
+                    bfu.UserIdTo = obj;
+                    bfu.CustomerName = u.FirstName + " " + u.LastName;
+                    FavoriteAndBlocked fab = _db.FavoriteAndBlockeds.FirstOrDefault(x => x.UserId == (int)Id && x.TargetUserId == u.UserId);
+                    if (fab != null)
+                    {
+                        bfu.IsBlock = fab.IsBlocked;
+                    }
+                    else
+                    {
+                        bfu.IsBlock = false;
+                    }
+
+                    userblock.Add(bfu);
+
+
+                }
+                return new JsonResult(userblock);
+            }
+            return new JsonResult("false");
+        }
+
+
+        public IActionResult BlockCustomer(BlockFavouriteUser data)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id!=null)
+            {
+                FavoriteAndBlocked fab = _db.FavoriteAndBlockeds.FirstOrDefault(x => x.UserId == (int)Id && x.TargetUserId==data.UserIdTo);
+                if (fab != null)
+                {
+                    if (fab.IsBlocked == false)
+                    {
+                        fab.IsBlocked = true;
+                    }
+                    else
+                    {
+                        fab.IsBlocked = false;
+                    }
+
+                    _db.FavoriteAndBlockeds.Update(fab);
+                    _db.SaveChanges();
+
+                }
+                else
+                {
+                    FavoriteAndBlocked Newfab=new FavoriteAndBlocked();
+                    Newfab.UserId = (int)Id;
+                    Newfab.TargetUserId = data.UserIdTo;
+                    Newfab.IsBlocked = true;
+                    _db.FavoriteAndBlockeds.Add(Newfab);
+                    _db.SaveChanges();
+                }
+
+               
+                return Ok(Json("true"));
+            }
+            return Ok(Json("false"));
         }
 
     }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -326,10 +327,41 @@ namespace HelperLand.Controllers
                     _db.SaveChanges();
                 }
 
+                List<User> ServiceProviderList = _db.Users.Where(x => x.UserTypeId == 2).ToList();
+                string url = Url.ActionLink("ServiceProviderPage", "ServiceProvider");
+                Task task = Task.Run(()=>SendMain(ServiceProviderList,url));
+
                 return Ok(Json(ServiceRequest.Entity.ServiceRequestId));
             }
 
             return Ok(Json("false"));
+        }
+
+
+
+        private static void SendMain(List<User> ServiceProviderList,string url)
+        {
+            SmtpClient setup = new SmtpClient("smtp.gmail.com");
+            setup.Port = 587;
+            setup.UseDefaultCredentials = true;
+            setup.EnableSsl = true;
+            setup.Credentials = new System.Net.NetworkCredential("kripcsarvaiya@gmail.com", "9825106734");
+            foreach (var obj in ServiceProviderList)
+            {
+                string to = obj.Email;
+                string subject = "New Service Request ";
+                string body = "<p>New service coming. get up fast and take it " +
+                    "<a href='" +url+ "'>Check it on New Service</a></p>";
+                MailMessage mm = new MailMessage();
+                mm.To.Add(to);
+                mm.Subject = subject;
+                mm.Body = body;
+                mm.From = new MailAddress("kripcsarvaiya@gmail.com");
+                mm.IsBodyHtml = true;
+
+                setup.Send(mm);
+
+            }
         }
 
         [HttpPost]
@@ -367,7 +399,6 @@ namespace HelperLand.Controllers
                 ServiceRequest request = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
 
                 request.ServiceStartDate = DateTime.Parse(data.ServiceStartDate + " " + data.startTime);
-
                 _db.ServiceRequests.Update(request);
                 _db.SaveChanges();
                 return Ok(Json("true"));

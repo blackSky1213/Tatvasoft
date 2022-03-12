@@ -43,7 +43,7 @@
                 <li id="1" role="button">
                     Dashboard
                 </li>
-                <li id="2" role="button" onclick="form2()">New Service Requests</li>
+                <li id="2" role="button" onclick="form2()" style="background: #146371">New Service Requests</li>
                 <li id="3" role="button" onclick="form3()">Upcoming Services</li>
                 <li id="4" role="button" onclick="form4()">Service Schedule</li>
                 <li id="5" role="button" onclick="form5()">Service History</li>
@@ -63,6 +63,8 @@
         @await Html.PartialAsync("ServiceProviderRating")
 
         @await Html.PartialAsync("ServiceProviderCustomerDetailsSummery")
+
+        @await Html.PartialAsync("ServiceProviderBlockCustomer"); 
 
 
 

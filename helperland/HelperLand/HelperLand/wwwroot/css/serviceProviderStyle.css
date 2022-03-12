@@ -189,28 +189,32 @@ nav {
 #mytable1_filter,
 #mytable2_filter,
 #mytable3_filter,
-#mytable4_filter {
+#mytable4_filter,
+#mytable5_filter {
     display: none !important;
 }
 
 #mytable1_length,
 #mytable2_length,
 #mytable3_length,
-#mytable4_length {
+#mytable4_length,
+#mytable5_length {
     color: #646464;
 }
 
     #mytable1_length label,
     #mytable2_length label,
     #mytable3_length label,
-    #mytable4_length label {
+    #mytable4_length label,
+    #mytable5_length label {
         margin-top: 15px;
     }
 
     #mytable1_length select,
     #mytable2_length select,
     #mytable3_length select,
-    #mytable4_length select {
+    #mytable4_length select,
+    #mytable5_length select {
         margin: 0px 10px;
         border: solid 1px #e1e1e1;
         color: #646464;
@@ -253,7 +257,8 @@ nav {
 #mytable1_info,
 #mytable2_info,
 #mytable3_info,
-#mytable4_info {
+#mytable4_info,
+#mytable5_info {
     margin-top: 7px;
     margin-left: 7px;
     color: #646464;
@@ -397,6 +402,9 @@ table.dataTable thead td {
 }
 
 @media (max-width: 782px) {
+    table.dataTable tbody tr{
+        width:100%;
+    }
     td {
         display: block !important;
         border-bottom: 1px solid #e1e1e1;
@@ -421,7 +429,8 @@ table.dataTable thead td {
     #mytable1,
     #mytable2,
     #mytable3,
-    #mytable4 {
+    #mytable4,
+    #mytable5 {
         max-width: 900px !important;
     }
 
@@ -461,6 +470,9 @@ a {
 }
 
 @media (max-width: 991px) {
+    .contant-right{
+        width:100%;
+    }
     #contant-menu {
         display: none;
     }
@@ -618,7 +630,7 @@ a {
 }
 
 
-.save-btn {
+.save-btn, .block-btn {
     color: #fff;
     background-color: #146371;
     border-radius: 26px;
@@ -684,6 +696,11 @@ a {
 
 #serviceProviderCustomerRating table span {
     display: inline-block;
+}
+
+average-rating{
+    display:flex;
+    flex-wrap:nowrap;
 }
 
 .average-rating span {
@@ -916,7 +933,7 @@ a {
 
 #issMap {
     width: 100%;
-    height: 420px;
+    height: 100%;
 }
 
 
@@ -924,4 +941,87 @@ a {
     width: 24px;
     height: 24px;
     fill: rgb(35, 187, 60);
+}
+
+
+
+.block-btn {
+  padding: 8px 16px;
+  margin: 0;
+  background-color: #ff6b6b;
+}
+
+.cap-upgrade {
+  width: 100px;
+  height: 100px;
+  margin: 0;
+  padding: 0;
+}
+
+.block {
+  border: 1px solid #e1e1e1;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.block-icon {
+  margin: 20px;
+}
+
+.block p {
+  color: #646464;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  text-align: center;
+}
+#mytable5 {
+  border: none;
+  border-collapse: separate;
+}
+#mytable5 tbody {
+  display: flex;
+}
+
+#mytable5 tr {
+  border: 1px solid #e1e1e1;
+  margin: 15px;
+}
+#mytable5 tbody td {
+  display: block;
+  padding: 0;
+}
+
+#mytable5 thead {
+  display: none !important;
+}
+
+@media (max-width: 962px) {
+  #mytable5 tbody {
+    flex-direction: column;
+  }
+  #mytable5 tr {
+    border: 1px solid #e1e1e1;
+    margin: 15px;
+  }
+  #mytable5 tbody td {
+    display: block;
+    padding: 0;
+    border: none;
+  }
+}
+
+@media (max-width: 782px) {
+
+  #mytable5 tr {
+    border: 1px solid #e1e1e1;
+    margin: 15px;
+  }
+  #mytable5 tbody td {
+    display: block;
+    padding: 0;
+  }
 }

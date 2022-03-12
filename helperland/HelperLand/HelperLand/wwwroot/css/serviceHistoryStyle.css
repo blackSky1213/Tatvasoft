@@ -385,6 +385,9 @@ table.dataTable thead td {
 }
 
 @media (max-width: 700px) {
+    table.dataTable tbody tr{
+        width:100%;
+    }
     td {
         display: block !important;
         border-bottom: 1px solid #e1e1e1;
@@ -448,6 +451,10 @@ table.dataTable thead td {
 
 
 @media (max-width:991px){
+
+    .contant-right{
+        width:100%;
+    }
   #contant-menu{
     display:none;
   }
@@ -826,6 +833,11 @@ table.dataTable thead td {
     width: 54px;
     height: 54px;
     border-radius: 100px;
+}
+
+.average-rating{
+    display:flex;
+    flex-wrap:nowrap;
 }
 
 .average-rating span {
