@@ -262,21 +262,17 @@ function checkZipcode() {
                 data: jsonInput,
                 success:
                     function (response) {
+                        console.log(response);
                         $(".spin-btn").removeClass("btn").removeClass("disabled");
                         $(".spin-load").addClass("d-none");
                         $(".loading-text").text("check availability");
                         if (response.value == "true") {
                             $(".postalcode-error").addClass("d-none");
                             $("#postalcode").val($("#zip").val());
-                            var cookie = document.cookie;
-                            var output = {};
-                            cookie.split(/\s*;\s*/).forEach(function (pair) {
-                                pair = pair.split(/\s*=\s*/);
-                                output[pair[0]] = pair.splice(1).join('=');
-                            });
-                            var json = JSON.stringify(output, null, 4);
-                            console.log(JSON.parse(json).city);
-                            $("#city").val(JSON.parse(json).city);
+                            
+                          
+                            getZipcodeCity($("#zip").val(),"city")
+
                             form2();
                         } else {
 
@@ -311,6 +307,43 @@ function checkZipcode() {
                     }
             });
     }
+
+}
+
+
+
+function getZipcodeCity(zipcode, tagidcity) {
+
+
+    $.ajax({
+        url: "https://api.postalpincode.in/pincode/" + zipcode,
+        method: "GET",
+        dataType: "json",
+        cache: false,
+
+        success: (data) => {
+
+            console.log(data);
+            if (data[0].Status == "Error") {
+                console.log("err");
+                $(".addAddress-error").removeClass("d-none").text("please enter valid postalcode!").fadeIn().fadeOut(2000);
+
+                $("#" + tagidcity).val("");
+
+
+            } else if (data[0].Status == "Success") {
+                $("#" + tagidcity).val(data[0].PostOffice[0].District);
+                $("#" + tagidstate).val(data[0].PostOffice[0].State);
+                $(".addAddress-error").addClass("d-none");
+                $("." + tagiderror).removeClass("btn disabled");
+
+            }
+        },
+        error: (err) => {
+            console.log(err);
+        }
+
+    });
 
 }
 

@@ -51,6 +51,11 @@ function form1() {
 
     document.getElementsByClassName("my-setting-box")[0].classList.add("d-none");
     document.getElementsByClassName("contant-right")[0].classList.remove("d-none");
+    var url = new URL(window.location.href);
+    url.search = "";
+    window.location.replace(url.toString());
+  
+   
 }
 
 function form2() {
@@ -86,6 +91,9 @@ useroption[0].addEventListener("click", () => {
     useroption[0].classList.add("active-setting-option");
     useroption[1].classList.remove("active-setting-option");
     useroption[2].classList.remove("active-setting-option");
+
+    dashboard.style.background = "#1d7a8c";
+    serviceRequest.style.background = "#1d7a8c";
 
     my_user_details.classList.remove("d-none");
     my_user_address.classList.add("d-none");

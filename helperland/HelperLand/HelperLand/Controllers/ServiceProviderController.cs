@@ -28,9 +28,9 @@ namespace HelperLand.Controllers
                 {
 
                     ViewBag.Name = obj;
-                    UserAddress user = _db.UserAddresses.FirstOrDefault(x => x.UserId == Id);
+                    User user = _db.Users.FirstOrDefault(x => x.UserId == Id);
                     List<ServiceProviderService> request = new List<ServiceProviderService>();
-                    var table = _db.ServiceRequests.Where(x => x.ServiceProviderId == null && x.ZipCode == user.PostalCode && x.Status == 2).ToList();
+                    var table = _db.ServiceRequests.Where(x => x.ServiceProviderId == null && x.ZipCode == user.ZipCode && x.Status == 2).ToList();
                     foreach(var data in table)
                     {
                         FavoriteAndBlocked fab = _db.FavoriteAndBlockeds.FirstOrDefault(x => x.UserId == (int)Id && x.TargetUserId == data.UserId);
@@ -146,20 +146,24 @@ namespace HelperLand.Controllers
                 u.UserProfilePicture = data.UserProfilePicture;
                 u.ModifiedDate = DateTime.Now;
                 u.ModifiedBy = u.UserId;
+                u.ZipCode = data.UserAddresses.Last().PostalCode;
+                var userAddr = _db.UserAddresses.FirstOrDefault(x => x.UserId == u.UserId);
                 
-
-                if (u.UserAddresses.Count() > 0)
+                if (userAddr!=null)
                 {
                     
-                    data.UserAddresses.Last().IsDefault = u.UserAddresses.Last().IsDefault;
-                    data.UserAddresses.Last().IsDeleted = u.UserAddresses.Last().IsDeleted;
-                    data.UserAddresses.Last().UserId = u.UserId;
-                    data.UserAddresses.Last().Mobile = u.Mobile;
-                    data.UserAddresses.Last().Email = u.Email;
 
 
 
-                    _db.UserAddresses.Update(data.UserAddresses.Last());
+                    userAddr.AddressLine1 = data.UserAddresses.Last().AddressLine1;
+                    userAddr.AddressLine2 = data.UserAddresses.Last().AddressLine2;
+                    userAddr.City = data.UserAddresses.Last().City;
+                    userAddr.Mobile = data.UserAddresses.Last().Mobile;
+                    userAddr.PostalCode = data.UserAddresses.Last().PostalCode;
+
+                  
+                   
+                    _db.UserAddresses.Update(userAddr);
 
                 }
                 else
@@ -167,12 +171,22 @@ namespace HelperLand.Controllers
                     data.UserAddresses.Last().IsDefault = true;
                     data.UserAddresses.Last().IsDeleted = false;
                     data.UserAddresses.Last().UserId = u.UserId;
+                    data.UserAddresses.Last().Mobile = data.Mobile;
 
+                  
+
+                  
 
                     _db.UserAddresses.Add(data.UserAddresses.Last());
 
+
+
+
                 }
+
+
                 
+              
                
                 if (_db.Users.Where(x => x.Mobile == data.Mobile && x.UserId == Id).Count() == 1 || _db.Users.Where(x => x.Mobile == data.Mobile).Count() == 0)
                 {

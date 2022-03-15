@@ -150,21 +150,25 @@ namespace HelperLand.Controllers
         [HttpPost]
         public ActionResult IsValidZipcode(setupService setupservice)
         {
-            Thread.Sleep(1500);
-            var zipcodes = _db.Zipcodes.Where(x => x.ZipcodeValue == setupservice.postalCode);
-            if (zipcodes.Count() > 0)
+            /*Thread.Sleep(1500);*/
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
             {
-                var cityId = zipcodes.FirstOrDefault().CityId;
-                string city = _db.Cities.FirstOrDefault(x => x.Id == cityId).CityName;
-                CookieOptions cookie = new CookieOptions();
-                Response.Cookies.Append("zipcode", setupservice.postalCode, cookie);
-                Response.Cookies.Append("city", city, cookie);
-                return Ok(Json("true"));
+                var zipcode = _db.Users.Where(x => x.UserTypeId == 2 && x.ZipCode == setupservice.postalCode);
+                if (zipcode.Count()>0)
+                {
+
+
+                    CookieOptions cookie = new CookieOptions();
+                    Response.Cookies.Append("zipcode", setupservice.postalCode, cookie);
+
+                    return Ok(Json("true"));
+                }
+               
             }
-            else
-            {
+            
                 return Ok(Json("false"));
-            }
+            
         }
 
         [HttpPost]
@@ -327,7 +331,7 @@ namespace HelperLand.Controllers
                     _db.SaveChanges();
                 }
 
-                List<User> ServiceProviderList = _db.Users.Where(x => x.UserTypeId == 2).ToList();
+                List<User> ServiceProviderList = _db.Users.Where(x => x.UserTypeId == 2 && x.ZipCode==address.PostalCode).ToList();
                 string url = Url.ActionLink("ServiceProviderPage", "ServiceProvider");
                 Task task = Task.Run(()=>SendMain(ServiceProviderList,url));
 
@@ -346,22 +350,26 @@ namespace HelperLand.Controllers
             setup.UseDefaultCredentials = true;
             setup.EnableSsl = true;
             setup.Credentials = new System.Net.NetworkCredential("kripcsarvaiya@gmail.com", "9825106734");
+          
+            string subject = "New Service Request ";
+            string body = "<p>New service coming. get up fast and take it " +
+                "<a href='" + url + "'>Check it on New Service</a></p>";
+            MailMessage mm = new MailMessage();
+            mm.Subject = subject;
+            mm.Body = body;
+            mm.From = new MailAddress("kripcsarvaiya@gmail.com");
+            mm.IsBodyHtml = true;
             foreach (var obj in ServiceProviderList)
             {
                 string to = obj.Email;
-                string subject = "New Service Request ";
-                string body = "<p>New service coming. get up fast and take it " +
-                    "<a href='" +url+ "'>Check it on New Service</a></p>";
-                MailMessage mm = new MailMessage();
-                mm.To.Add(to);
-                mm.Subject = subject;
-                mm.Body = body;
-                mm.From = new MailAddress("kripcsarvaiya@gmail.com");
-                mm.IsBodyHtml = true;
 
-                setup.Send(mm);
+                mm.To.Add(to);
+               
+
+               
 
             }
+            setup.Send(mm);
         }
 
         [HttpPost]

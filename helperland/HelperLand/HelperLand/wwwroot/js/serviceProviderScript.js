@@ -63,7 +63,9 @@ $("#havepetCheck").change(() => {
     UpcomingService.style.background = "#1d7a8c";
     ServiceHistory.style.background = "#1d7a8c";
         MyRating.style.background = "#1d7a8c";
-        window.location.reload();
+        var url = new URL(window.location.href);
+        url.search = "";
+        window.location.replace(url.toString());
     }
 
     function form3() {
@@ -227,7 +229,7 @@ function getUserdata() {
                             $(".avtar").filter('[value="' + response.userProfilePicture+'"]').attr('checked', true);
                         }
                         if (response.gender != null) {
-                            $("#gender").val(response.gender);
+                            $(".gender").filter('[value="' + response.gender + '"]').attr('checked', true);
                         }
                         if (response["userAddresses"].length != 0) {
                             
@@ -366,7 +368,7 @@ function updateUserDetails() {
                                     if (response.value == "true") {
 
                                         $(".setting-details-alert").removeClass("d-none alert-danger").addClass("alert-success").text("successfully data is update!").fadeIn().fadeOut(7000);
-                                        $(".setting-address-details-alert").addlass("d-none");
+                                        $(".setting-address-details-alert").addClass("d-none");
 
                                         getUserdata();
                                     } else if (response.value == "mobileThere") {
@@ -566,17 +568,13 @@ function AcceptService(serviceRequestId) {
 
 
 
-var count = 0;
-var map = {};
+
+var map = L.map("issMap");
 
 async function getlon_len(zipcode) {
-    if (count > 0) {
-        
-       map.off();
-        map.remove();
-    }
+  
    
-    map = L.map("issMap").setView([0, 0], 1);
+    map.setView([0, 0], 1);
     const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
     const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     const tiles = L.tileLayer(tileUrl, { attribution });
@@ -586,7 +584,7 @@ async function getlon_len(zipcode) {
     const { lat, lon } = data[0];
     map.flyTo([lat, lon], 15);
     L.marker([lat, lon]).addTo(map);
-    count++;
+   
 
 }
 
