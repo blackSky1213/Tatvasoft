@@ -14557,6 +14557,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\ServiceProviderBlockCustomer.cshtml",
+      "TargetPath": "Views\\Shared\\ServiceProviderBlockCustomer.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\customerServiceRescheduleModal.cshtml",
       "TargetPath": "Views\\Shared\\customerServiceRescheduleModal.cshtml",
       "FileKind": "mvc"

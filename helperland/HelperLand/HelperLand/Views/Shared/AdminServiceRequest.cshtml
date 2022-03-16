@@ -1,0 +1,226 @@
+﻿<div id="ServiceRequest" class="contant-right d-none">
+    <div class="table-head">
+        <div>
+            <h2>Service Requests</h2>
+        </div>
+
+    </div>
+    <div>
+        <form class="form-search">
+            <input type="text" class="form-control" placeholder="Service Id" aria-label="telephone"
+                   aria-describedby="basic-addon1">
+            <select class="form-select">
+                <option selected>Customer</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+            <select class="form-select">
+                <option selected>Service Provider</option>
+                <option value=" 1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+            <div class="input-group me-2">
+                <span class="input-group-text" id="basic-addon1"> <img src="/image/shape-1.png" alt="calander"> </span>
+                <input type="text" class="form-control" placeholder="From Date" aria-label="date"
+                       aria-describedby="basic-addon1" onfocus="(this.type='date')"
+                       onblur="if(this.value==''){this.type='text'}">
+
+            </div>
+            <div class="input-group me-2">
+                <span class="input-group-text" id="basic-addon1"> <img src="/image/shape-1.png" alt="calander"></span>
+                <input type="text" class="form-control" placeholder="To Date" aria-label="date"
+                       aria-describedby="basic-addon1" onfocus="(this.type='date')"
+                       onblur="if(this.value==''){this.type='text'}">
+
+            </div>
+            <input class="submit-btn" type="submit" value="search">
+            <input class="reset-btn" type="reset" value="clear">
+
+
+
+        </form>
+    </div>
+
+    <div class="contant-table">
+        <div class="Export">
+            <div><a id="export" class="export-btn" href="">Export</a></div>
+        </div>
+        <table id="mytable" style="width:100% !important;">
+            <thead>
+                <tr>
+                    <th>Service Id</th>
+                    <th>Service Date</th>
+                    <th>Customer Details</th>
+                    <th>Service Provider</th>
+                    <th style="text-align: center;">User Status</th>
+                    <th style="text-align:center;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>323436 </td>
+                    <td>
+                        <img src="/image/calendar2.png" alt="calendar" />
+                        <strong> 09/04/2018</strong>
+                        <p>
+                            <img src="/image/layer-14.png" alt="" /> 12:00- 18:00
+                        </p>
+                    </td>
+                    <td>
+                        David Bough <p><img src="/image/layer-15.png" alt="home"> Musterstrabe 5,12345 Bonn</p>
+                    </td>
+                    <td>
+                        <div style="display: flex">
+                            <div>
+                                <img class="cap-icon" src="/image/cap.png" alt="cap" />
+                            </div>
+                            <div>
+                                Lyum Watson
+                                <p>
+                                    <img src="/image/star1.png" alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="text-align: center;"> <span class="complete-label">complete</span> </td>
+                    <td style="text-align:center;" class="admin-table-action">
+                        <button type="button" class="admin-table-actionbtn" >
+                            <i class="fa fa-ellipsis-v" aria-hidden="true" style="color:#646464"></i>
+                        </button>
+                        <div id="Actions" class="admin-table-action-menu">
+                            <ul>
+                                <li><a href="">Edit</a> </li>
+                                <li><a href="">Deactivate</a></li>
+                                <li><a href="">Service History</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>323436 </td>
+                    <td>
+                        <img src="/image/calendar2.png" alt="calendar" />
+                        <strong> 09/04/2018</strong>
+                        <p>
+                            <img src="/image/layer-14.png" alt="" /> 12:00- 18:00
+                        </p>
+                    </td>
+                    <td>
+                        David Bough <p><img src="/image/layer-15.png" alt="home"> Musterstrabe 5,12345 Bonn</p>
+                    </td>
+                    <td>
+                        <div style="display: flex">
+                            <div>
+                                <img class="cap-icon" src="/image/cap.png" alt="cap" />
+                            </div>
+                            <div>
+                                Lyum Watson
+                                <p>
+                                    <img src="/image/star1.png" alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="text-align: center;"> <span class="cancel-label">cancel</span> </td>
+                    <td style="text-align:center;" class="admin-table-action">
+                        <button type="button" class="admin-table-actionbtn" >
+                            <i class="fa fa-ellipsis-v" aria-hidden="true" style="color:#646464"></i>
+                        </button>
+                        <div class="admin-table-action-menu">
+                            <ul>
+                                <li><a href="">Edit</a> </li>
+                                <li><a href="">Deactivate</a></li>
+                                <li><a href="">Service History</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>323436 </td>
+                    <td>
+                        <img src="/image/calendar2.png" alt="calendar" />
+                        <strong> 09/04/2018</strong>
+                        <p>
+                            <img src="/image/layer-14.png" alt="" /> 12:00- 18:00
+                        </p>
+                    </td>
+                    <td>
+                        David Bough <p><img src="/image/layer-15.png" alt="home"> Musterstrabe 5,12345 Bonn</p>
+                    </td>
+                    <td>
+                        <div style="display: flex">
+                            <div>
+                                <img class="cap-icon" src="/image/cap.png" alt="cap" />
+                            </div>
+                            <div>
+                                Lyum Watson
+                                <p>
+                                    <img src="/image/star1.png" alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="text-align: center;"> <span class="pending-label">pendig</span> </td>
+                    <td style="text-align:center;" class="admin-table-action">
+                        <button type="button" class="admin-table-actionbtn" >
+                            <i class="fa fa-ellipsis-v" aria-hidden="true" style="color:#646464"></i>
+                        </button>
+                        <div class="admin-table-action-menu">
+                            <ul>
+                                <li><a href="">Edit</a> </li>
+                                <li><a href="">Deactivate</a></li>
+                                <li><a href="">Service History</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>323436 </td>
+                    <td>
+                        <img src="/image/calendar2.png" alt="calendar" />
+                        <strong> 09/04/2018</strong>
+                        <p>
+                            <img src="/image/layer-14.png" alt="" /> 12:00- 18:00
+                        </p>
+                    </td>
+                    <td>
+                        David Bough <p><img src="/image/layer-15.png" alt="home"> Musterstrabe 5,12345 Bonn</p>
+                    </td>
+                    <td>
+                        <div style="display: flex">
+                            <div>
+                                <img class="cap-icon" src="/image/cap.png" alt="cap" />
+                            </div>
+                            <div>
+                                Lyum Watson
+                                <p>
+                                    <img src="/image/star1.png" alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star1.png" alt="star" /><img src="/image/star2.png" alt="star" /> 4
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="text-align: center;"> <span class="new-label">New</span> </td>
+                    <td style="text-align:center;" class="admin-table-action">
+                        <button type="button" class="admin-table-actionbtn" >
+                            <i class="fa fa-ellipsis-v" aria-hidden="true" style="color:#646464"></i>
+                        </button>
+                        <div class="admin-table-action-menu">
+                            <ul>
+                                <li><a href="">Edit</a> </li>
+                                <li><a href="">Deactivate</a></li>
+                                <li><a href="">Service History</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="copyright">
+        ©2018 Helperland. All rights reserved.
+    </div>
+</div>
