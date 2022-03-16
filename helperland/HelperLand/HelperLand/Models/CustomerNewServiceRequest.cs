@@ -9,7 +9,19 @@ namespace HelperLand.Models
     {
         public int ServiceRequestId { get; set; }
         public string ServiceStartDate { get; set; }
+
+
+        public string FromDate { get; set; }
+
+        public string ToDate { get; set; }
         public string startTime { get; set; }
+
+
+        public string CustomerName { get; set; }
+
+        public string CustomerAddress1 { get; set; }
+
+        public string CustomerAddress2 { get; set; }
 
         public string endTime { get; set; }
         public decimal TotalCost { get; set; }

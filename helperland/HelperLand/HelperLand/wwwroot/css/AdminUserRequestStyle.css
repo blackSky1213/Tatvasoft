@@ -1,4 +1,4 @@
-* {
+﻿* {
     font-family: "Roboto", sans-serif;
 }
 
@@ -124,7 +124,7 @@ form {
     margin: 20px;
 }
 
-#mytable {
+#mytable,#mytable2 {
     width: 100% !important;
     border: solid 1px #e1e1e1;
 }
@@ -149,7 +149,7 @@ table.dataTable tbody td {
         background: #565656;
     }
 
-#mytable tr {
+#mytable tr,#mytable2 tr {
     border-bottom: solid 1px #e1e1e1;
 }
 
@@ -159,7 +159,7 @@ table.dataTable tbody td {
     color: #646464;
 }
 
-#mytable tbody {
+#mytable tbody,#mytable2 tbody {
     background: #ffffff;
 }
 
@@ -249,21 +249,21 @@ a:hover {
     text-decoration: none;
 }
 
-#mytable_length {
+#mytable_length,#mytable2_length {
     color: #646464;
 }
 
-    #mytable_length label {
+    #mytable_length label,#mytable2_length label {
         margin-top: 15px;
     }
 
-    #mytable_length select {
+    #mytable_length select,#mytable2_length select {
         margin: 0px 10px;
         border: solid 1px #e1e1e1;
         color: #646464;
     }
 
-#mytable_info {
+#mytable_info,#mytable2_info {
     display: none;
 }
 
@@ -273,7 +273,7 @@ a:hover {
 }
 
 #mytable_first,
-#mytable_last {
+#mytable_last,#mytable2_first,#mytable2_last {
     display: none;
 }
 
@@ -368,4 +368,67 @@ a:hover {
     .input-group {
         margin: 10px 10px 20px 10px;
     }
+}
+
+
+.service-provider-average-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.average-rating {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+    .average-rating span {
+        display: inline-block;
+        position: relative;
+        height: 30px;
+        width: 10px;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+        .average-rating span::before {
+            content: "★";
+            position: absolute;
+            color: #64646466;
+            font-size: 24px;
+            width: fit-content;
+        }
+
+    .average-rating .half-start::before {
+        content: "★";
+        position: absolute;
+        color: orangered;
+        font-size: 24px;
+        width: fit-content;
+    }
+
+    .average-rating span:nth-child(2n)::before {
+        right: 0px;
+        left: initial;
+    }
+
+.service-provider-average-rating span {
+    display: inline-block !important;
+}
+
+
+.address-td-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+#mytable2 td:nth-child(4), #mytable2 td:nth-child(1) {
+    text-align: center;
+}
+
+#mytable2 th{
+    text-align:center;
 }
