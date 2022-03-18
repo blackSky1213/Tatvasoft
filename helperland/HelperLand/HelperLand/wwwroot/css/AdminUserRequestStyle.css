@@ -432,3 +432,222 @@ a:hover {
 #mytable2 th{
     text-align:center;
 }
+
+
+
+
+/* all modal css */
+
+.serivce-request-summary-box {
+    display: flex;
+}
+
+.login-title {
+    color: #646464;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.updateTimeModal .modal-dialog {
+    text-align: left;
+    width: fit-content;
+}
+
+.updateTimeModal .modal-header {
+    border: none;
+}
+
+.updateTimeModal .modal-body {
+    max-width: 100%;
+    margin: 16px;
+    padding: 0;
+    color: #646464;
+}
+
+    .updateTimeModal .modal-body .update-btn {
+        background-color: #1d7a8c;
+        border: none;
+        font-size: 18px;
+        color: white;
+        padding: 10px 30px;
+        border-radius: 50px;
+        width: 100%;
+        font-weight: bold;
+    }
+
+.update-time-form {
+    max-width: 335px;
+}
+
+    .update-time-form label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+.date-input,
+#rescheduletime {
+    border: solid 1px #e1e1e1;
+    padding: 10px 5px;
+    flex-grow: 1;
+    text-align: center;
+    height: 46px;
+    border-radius: 3px;
+    margin-right: 10px;
+    color: #646464;
+    margin-bottom: 20px;
+}
+
+    .date-input img {
+        margin-left: 10px;
+    }
+
+    .date-input input[type="date"] {
+        border: none;
+        color: #646464;
+        padding: 0px;
+    }
+
+#comment {
+    width: 100%;
+    height: 70px;
+    margin-bottom: 10px;
+}
+
+.serviceRequestSummery {
+    color: #646464;
+}
+
+.cover {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+    .cover p {
+        margin: 0;
+    }
+
+#serviceRequestDateTime {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.netAmount {
+    max-width: 300px;
+    display: flex;
+    justify-content: space-between;
+}
+
+    .netAmount span:last-child {
+        color: #1d7a8c;
+        font-size: 24px;
+        font-weight: bolder;
+    }
+
+.Reschedule-btn,
+.Cancel-btn {
+    display: inline-block;
+    background: #146371;
+    color: #ffffff;
+    font-size: 16px;
+    width: fit-content;
+    height: 34px;
+    padding: 4px 14px 7px 16px;
+    border-radius: 17px;
+    border: none;
+}
+
+.Cancel-btn {
+    background-color: #ff6b6b;
+}
+
+.x-icon {
+    fill: red;
+    width: 24px;
+    height: 24px;
+    stroke: white;
+}
+
+.cancel-icon {
+    stroke: white;
+    width: 18px;
+    height: 18px;
+    padding-bottom: 3px;
+}
+
+
+
+
+
+
+
+.service-request-provider-box {
+    width: 50%;
+    border-left: 1px solid #e1e1e1;
+}
+
+
+#issMap {
+    width: 100%;
+    height: 100%;
+}
+
+
+.dog-tick-icon {
+    width: 24px;
+    height: 24px;
+    fill: rgb(35, 187, 60);
+}
+
+
+
+.serviceAddressTitle {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #646464;
+}
+
+.AdminserviceRequest input {
+    padding: 10px;
+}
+
+    .AdminserviceRequest input[type="date"] {
+        color: #646464;
+        border-left: none;
+    }
+
+    .AdminserviceRequest input[type="time"] {
+        text-align: left;
+    }
+
+.AdminserviceRequest label {
+    color: #646464;
+    margin-bottom:3px;
+}
+
+.AdminserviceRequest .input-group-text {
+    background-color: #fff;
+    padding-right: 0;
+}
+
+.addmin-edit-service-btn {
+    width: 100%;
+    border: none;
+    color: #fff;
+    background-color: #1fb6ff;
+    margin: 20px 0;
+}
+
+.AdminserviceRequest #Whycomment {
+    width: 100%;
+}
+
+
+@media (min-width: 576px) {
+    .AdminserviceRequest .modal-dialog {
+        max-width: 601px;
+        margin: 1.75rem auto;
+    }
+}

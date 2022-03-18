@@ -1,0 +1,76 @@
+﻿<button type="button" class="btn btn-primary d-none" id="ServiceRequestUpdateByAdminBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop6">
+    addmin service request edit
+</button>
+
+
+<div class="modal fade AdminserviceRequest" id="staticBackdrop6" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="staticBackdropLabe2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title login-title" id="staticBackdropLabe2">
+                    Edit Service Request
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="alert update-alert d-none" role="alert">
+                    
+                </div>
+                <form>
+
+
+                    <div class="container-fluid">
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <label for="date"> Date </label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><img src="shape-1.png" alt=""></span>
+                                    <input type="date" id="date" class="form-control" placeholder="Mobile Number" aria-label="mobile"
+                                           aria-describedby="basic-addon1" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="time"> Time</label>
+
+                                <input type="time" id="time" class="form-control" placeholder="Mobile Number" />
+
+                            </div>
+                        </div>
+                        <span class="serviceAddressTitle">Service Address</span>
+                        <div class="row">
+                            <div class="col-sm-6 mb-2">
+                                <label for="streetname"> Street Name </label>
+                                <input type="text" class="form-control" placeholder="Street Name" id="streetname" />
+                            </div>
+                            <div class="col-sm-6 mb-2">
+                                <label for="housename">House Number </label>
+                                <input type="text" class="form-control" placeholder="House Number" id="housenumber" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 mb-2">
+                                <label for="postalcode"> Postal Code </label>
+                                <input type="text" class="form-control" placeholder="Postal Code" id="postalcode" />
+                            </div>
+                            <div class="col-sm-6 mb-2">
+                                <label for="city"> City </label>
+                                <input type="text" class="form-control" placeholder="Street Name" id="city" disabled />
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mb-2">
+                            <label for="Whycomment"> Why do you want to reschedule service? </label>
+                            <textarea class="mt-1" rows="5" name="comment" id="Whycomment"></textarea>
+                        </div>
+                    </div>
+
+
+                    <input class="addmin-edit-service-btn" type="button" value="Add" />
+
+                </form>
+            </div>
+    </div>
+</div>
+</div>
+

@@ -904,3 +904,4 @@ C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\
 C:\Users\kbsar\source\repos\HelperLand\HelperLand\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\kbsar\source\repos\HelperLand\HelperLand\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\kbsar\source\repos\HelperLand\HelperLand\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Shared\AdminServiceRequestUpdate.cshtml.g.cs

@@ -369,5 +369,213 @@ namespace HelperLand.Controllers
             return Ok(Json("false"));
         }
 
+
+        public IActionResult ActiveDeactiveUser(User user)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                User u = _db.Users.FirstOrDefault(x => x.UserId == user.UserId);
+
+                if (u.IsActive)
+                {
+                    u.IsActive = false;
+                }
+                else
+                {
+                    u.IsActive = true;
+                }
+                u.ModifiedBy = (int)Id;
+                u.ModifiedDate = DateTime.Now;
+                _db.Users.Update(u);
+                _db.SaveChanges();
+
+                return Ok(Json("true"));
+            }
+            return Ok(Json("false"));
         }
+
+
+
+
+        public JsonResult showServiceRequestSummery(ServiceRequest data)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                ServiceRequest request = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
+                List<ServiceRequestExtra> requestExtra = _db.ServiceRequestExtras.Where(x => x.ServiceRequestId == request.ServiceRequestId).ToList();
+                ServiceRequestAddress requestAddress = _db.ServiceRequestAddresses.FirstOrDefault(x => x.ServiceRequestId == request.ServiceRequestId);
+                CustomerServiceRequestSummery Details = new CustomerServiceRequestSummery();
+                Details.ServiceRequestId = request.ServiceRequestId;
+                Details.Date = request.ServiceStartDate.ToString("dd/MM/yyyy");
+                Details.StartTime = request.ServiceStartDate.ToString("HH:mm");
+                Details.Duration = request.SubTotal;
+                Details.EndTime = request.ServiceStartDate.AddHours((double)request.SubTotal).ToString("HH:mm");
+                Details.TotalCost = request.TotalCost;
+                Details.Comments = request.Comments;
+                Details.HasPets = request.HasPets;
+                
+
+
+                foreach (ServiceRequestExtra row in requestExtra)
+                {
+                    if (row.ServiceExtraId == 1)
+                    {
+                        Details.Cabinet = true;
+                    }
+                    else if (row.ServiceExtraId == 2)
+                    {
+                        Details.Oven = true;
+                    }
+                    else if (row.ServiceExtraId == 3)
+                    {
+                        Details.Window = true;
+                    }
+                    else if (row.ServiceExtraId == 4)
+                    {
+                        Details.Fridge = true;
+                    }
+                    else
+                    {
+                        Details.Laundry = true;
+                    }
+                }
+                Details.Address = requestAddress.AddressLine1 + ", " + requestAddress.AddressLine2 + ", " + requestAddress.City + "- " + requestAddress.PostalCode;
+                Details.PhoneNo = requestAddress.Mobile;
+                
+                Details.PostalCode = requestAddress.PostalCode;
+
+                User customerName = _db.Users.Where(x => x.UserId == request.UserId).FirstOrDefault();
+
+                Details.ServiceProviderName = customerName.FirstName + " " + customerName.LastName;
+                Details.Email = customerName.Email;
+
+
+
+
+
+
+                return new JsonResult(Details);
+            }
+
+            return new JsonResult("false");
+
+        }
+
+
+
+        [HttpPost]
+        public IActionResult CancelServiceRequest(ServiceRequest data)
+        {
+
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                ServiceRequest serviceRequestCancel = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
+
+                if (serviceRequestCancel != null)
+                {
+                    serviceRequestCancel.Status = 1;
+                    _db.ServiceRequests.Update(serviceRequestCancel);
+                    _db.SaveChanges();
+
+                    return Ok(Json("true"));
+
+                }
+                
+            }
+
+            return Ok(Json("false"));
+        }
+
+
+
+        [HttpGet]
+        public JsonResult GetEditServiceRequestData(ServiceRequest request)
+        {
+
+            int? Id = HttpContext.Session.GetInt32("id");
+
+            if (Id != null)
+            {
+                ServiceRequest showRequest = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == request.ServiceRequestId);
+                AdminServiceRequestUpdate sr = new AdminServiceRequestUpdate();
+                if (showRequest != null)
+                {
+                   
+                    sr.ServiceRequestId = showRequest.ServiceRequestId;
+                    sr.ServiceStartDate = showRequest.ServiceStartDate;
+                    
+                   
+
+                }
+                if (showRequest.ServiceProviderId != null)
+                {
+                    sr.IsTaken = true;
+                }
+                else
+                {
+                    sr.IsTaken = false;
+                }
+
+                ServiceRequestAddress sraddr = _db.ServiceRequestAddresses.FirstOrDefault(x => x.ServiceRequestId == request.ServiceRequestId);
+
+                if (sraddr != null)
+                {
+                    sr.StreetName = sraddr.AddressLine2;
+                    sr.HouseNumber = sraddr.AddressLine1;
+                    sr.PostalCode = sraddr.PostalCode;
+                    sr.City = sraddr.City;
+                    sr.State = sraddr.State;
+                    return new JsonResult(sr);
+                }
+
+                
+            }
+
+            return new JsonResult("false");
+        }
+
+
+        [HttpPost]
+         public IActionResult UpdateServiceRequest(AdminServiceRequestUpdate request)
+        {
+
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                ServiceRequest srRequest = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == request.ServiceRequestId);
+
+                if (srRequest != null)
+                {
+                    srRequest.ServiceStartDate = DateTime.Parse(request.ServiceStartDate.ToString("M/d/yyyy") + " " + request.StartTime.ToString().Split(" ")[1]);
+                    _db.Update(srRequest);
+                    _db.SaveChanges();
+
+                    ServiceRequestAddress srAddr = _db.ServiceRequestAddresses.FirstOrDefault(x => x.ServiceRequestId == request.ServiceRequestId);
+
+                    if (srAddr != null)
+                    {
+                        srAddr.AddressLine1 = request.HouseNumber;
+                        srAddr.AddressLine2 = request.StreetName;
+                        srAddr.PostalCode = request.PostalCode;
+                        srAddr.City = request.City;
+
+                        _db.ServiceRequestAddresses.Update(srAddr);
+                        _db.SaveChanges();
+                        return Ok(Json("true"));
+                    }
+
+                }
+
+              
+
+               
+
+            }
+
+            return Ok(Json("false"));
+        }
+    }
 }

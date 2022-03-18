@@ -1,7 +1,40 @@
 ﻿
-$(document).ready(function () {
+
+$("#mytable").on("click",".userActivation",(e) => {
+
+    ActiveDeactiveUser(e.target.dataset.value);
+
+});
    
 
+
+function ActiveDeactiveUser(id) {
+    var data = {};
+    data.userId = id;
+    $.ajax(
+        {
+            type: 'POST',
+            url: '/Admin/ActiveDeactiveUser',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data,
+            success:
+                function (response) {
+                    if (response.value == "true") {
+
+                        dt.ajax.reload();
+                    }
+
+
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+
+}
 
 
 $("#userListSearch").click(() => {
@@ -66,19 +99,26 @@ const dt = new DataTable("#mytable", {
         {
             "data": {},
             "render": function (data, row) {
+
+                var lists = "";
+                if (data.userStatus == true) {
+                    lists = `<li><a role="button" class="dropdown-item userActivation" data-value="` + data.userId + `">Deactive</a></li>`;
+                } else {
+                    lists = ` <li><a role="button" class="dropdown-item userActivation" data-value="` + data.userId + `">Active</a></li>`;
+                }
                 return `<div class="dropdown text-center">
                     <button class="admin-table-actionbtn" type="button" id = "dropdownMenuButton`+data.userId+`"
                 data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-ellipsis-v" aria-hidden="true" style="color:#646464"></i>
                             </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton`+data.userId+`">
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
+        `+lists+`
+       
+
     </ul>
                         </div>`; }
         },
-    ],
+    ], 
     responsive: true,
     pagingType: "full_numbers",
     language: {
@@ -110,6 +150,8 @@ const export_button = document.getElementById('export');
 export_button.addEventListener('click', () => {
     html_table_to_excel('xlsx');
 });
+
+
 
 
 var option1 = document.getElementById("1");
@@ -277,20 +319,31 @@ const table2 = new DataTable("#mytable2", {
         {
             "data": {},
             "render": function (data, row) {
+
+            
+                var button = ``;
+                if (data.status == 0 || data.status == 1) {
+                    button = `btn disabled`;
+                }
+                if (data.status == 2) {
+
+                }
                 return `<div class="dropdown text-center">
-                    <button class="admin-table-actionbtn" type="button" id = "dropdownMenuButton`+ data.serviceRequestId + `"
+                    <button class="admin-table-actionbtn `+button+` " type="button" id = "dropdownMenuButton`+ data.serviceRequestId + `"
                 data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-ellipsis-v" aria-hidden="true" style="color:#646464"></i>
                             </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton`+ data.serviceRequestId + `">
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
+        <li><a class="dropdown-item EditServiceRequest" data-value="`+ data.serviceRequestId +`">Edit</a></li>
+        <li><a class="dropdown-item CancelServiceRequest" data-value="`+ data.serviceRequestId +`">Cancel</a></li>
+       
     </ul>
                         </div>`;
             }
         },
-    ],
+    ], "createdRow": function (row, data, dataIndex) {
+        $(row).attr('data-value', data.serviceRequestId);
+    },
     responsive: true,
     pagingType: "full_numbers",
     language: {
@@ -305,7 +358,318 @@ const table2 = new DataTable("#mytable2", {
     },
     buttons: ["excel"],
     columnDefs: [{ orderable: false, targets: 6 }],
+
 });
 
 
+
+$("#mytable2").click((e) => {
+
+    var btnClass = e.target.classList;
+    var service_request_id = e.target.closest('tr').getAttribute("data-value");
+    var btn_class = e.target.closest('.admin-table-actionbtn')
+    if (service_request_id != null && !btn_class && !Object.values(btnClass).includes("dropdown-item")) {
+        console.log($(".conflict-btn").attr("data-value"));
+       
+        $(".btn-box").addClass("d-none");
+        
+        $(".btn-box1").addClass("d-none");
+       
+        document.getElementById("CustomerServiceSummery-btn").click();
+        console.log(service_request_id);
+        getServiceRequestAllDetails(service_request_id);
+
+    }
+
+
+    if (Object.values(btnClass).includes("CancelServiceRequest")) {
+
+        CancelServiceRequest(service_request_id);
+    }
+
+    if (Object.values(btnClass).includes("EditServiceRequest")) {
+
+
+        document.getElementById("ServiceRequestUpdateByAdminBtn").click();
+        $(".addmin-edit-service-btn").attr("data-value", service_request_id);
+        GetEditServiceRequestData(service_request_id);
+    }
+
+    
+
+   
+
 });
+
+
+$(".addmin-edit-service-btn").click((e) => {
+    var data = {};
+    data.serviceRequestId = e.target.dataset.value;
+    data.serviceStartDate = $("#date").val();
+    data.startTime = $("#time").val();
+    data.streetName = $("#streetname").val();
+    data.houseNumber = $("#housenumber").val();
+    data.postalCode = $("#postalcode").val();
+    data.city = $("#city").val();
+
+   
+
+    if (data.serviceStartDate == "") {
+
+        $(".update-alert").addClass("alert-danger ").removeClass("d-none").text("Please select valid date!").fadeIn().fadeOut(2000);
+
+    } else if (data.startTime == "") {
+        $(".update-alert").addClass("alert-danger ").removeClass("d-none").text("Please select valid time!").fadeIn().fadeOut(2000);
+
+    } else if (data.streetName == "") {
+        $(".update-alert").addClass("alert-danger ").removeClass("d-none").text("Please select valid Street Name!").fadeIn().fadeOut(2000);
+    } else if (data.houseNumber == "") {
+        $(".update-alert").addClass("alert-danger ").removeClass("d-none").text("Please select valid House Number!").fadeIn().fadeOut(2000);
+    } else if (data.postalCode == "") {
+        $(".update-alert").addClass("alert-danger ").removeClass("d-none").text("Please select valid Postal Code!").fadeIn().fadeOut(2000);
+    } else if (data.city == "") {
+        $(".update-alert").addClass("alert-danger ").removeClass("d-none").text("Please select valid City Name!").fadeIn().fadeOut(2000);
+    } else {
+      
+        $.ajax(
+            {
+                type: 'POST',
+                url: '/Admin/UpdateServiceRequest',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: data,
+                success:
+                    function (response) {
+                        if (response.value == "true") {
+                            $(".update-alert").addClass("alert-success ").removeClass("alert-danger d-none").text("successfully update data!").fadeIn().fadeOut(2000);
+                            table2.ajax.reload();
+                        }
+
+
+
+                    },
+                error:
+                    function (response) {
+                        console.error(response);
+                        alert("fail");
+                    }
+            });
+
+    }
+
+
+});
+
+
+function GetEditServiceRequestData(id) {
+    var data = {};
+    data.serviceRequestId = id;
+    $.ajax(
+        {
+            type: 'GET',
+            url: '/Admin/GetEditServiceRequestData',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data,
+            success:
+                function (response) {
+                    if (response != null) {
+
+                        console.log(response);
+                        var dateTime = response.serviceStartDate.split("T");
+                        var now = new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+                        console.log(response.serviceStartDate);
+                        $("#date").attr("min", now);
+                        $("#date").val(dateTime[0]);
+                        $("#time").val(dateTime[1]);
+                        $("#streetname").val(response.streetName);
+                        $("#housenumber").val(response.houseNumber);
+
+                        if (response.isTaken == true) {
+                            $("#postalcode").prop('disabled', true);
+                        } else {
+                            $("#postalcode").prop('disabled', false);
+                        }
+                        $("#postalcode").val(response.postalCode);
+                        $("#city").val(response.city);
+
+                    }
+
+
+
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+}
+
+
+
+function CancelServiceRequest(id) {
+
+
+    var data = {};
+    data.serviceRequestId = id;
+    $.ajax(
+        {
+            type: 'POST',
+            url: '/Admin/CancelServiceRequest',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data,
+            success:
+                function (response) {
+                    if (response.value == "true") {
+
+                        table2.ajax.reload();
+                    }
+
+
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+
+}
+
+
+
+function getServiceRequestAllDetails(service_request_id) {
+
+    var data = {};
+    data.serviceRequestId = service_request_id;
+    $.ajax(
+        {
+            type: 'GET',
+            url: '/Admin/showServiceRequestSummery',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data,
+            success:
+                function (response) {
+                    if (response != null) {
+
+
+
+                        $("#serviceRequestDateTime").text(response.date + " " + response.startTime + " - " + response.endTime);
+                        $("#serviceRequestDuration").text(response.duration + " Hrs");
+                        $("#ServiceRequestId").text(response.serviceRequestId);
+                        $("#ServiceCustomerName").text(response.serviceProviderName);
+
+                        var now = new Date();
+
+
+                        console.log("now :- " + now);
+                        var date = response.date.split("/")[2] + "/" + response.date.split("/")[1] + "/" + response.date.split("/")[0];
+                        var endTime = new Date(date + " " + response.endTime);
+                        if (now >= endTime) {
+                            $("#CompleteModalbtn").removeClass("d-none");
+                        } else {
+                            $("#CompleteModalbtn").addClass("d-none");
+                        }
+
+                        if (response.hasPets == true) {
+                            $(".havenot-pets").addClass("d-none");
+                            $(".have-pets").removeClass("d-none");
+                        } else {
+                            $(".havenot-pets").removeClass("d-none");
+                            $(".have-pets").addClass("d-none");
+                        }
+                        if (response.cabinet == true) {
+                            $("#serviceExtra1").removeClass("d-none");
+                        } else {
+                            $("#serviceExtra1").addClass("d-none");
+                        }
+                        if (response.oven == true) {
+                            $("#serviceExtra2").removeClass("d-none");
+                        } else {
+                            $("#serviceExtra2").addClass("d-none");
+                        }
+                        if (response.fridge == true) {
+                            $("#serviceExtra3").removeClass("d-none");
+                        } else {
+                            $("#serviceExtra3").addClass("d-none");
+                        }
+                        if (response.laundry == true) {
+                            $("#serviceExtra4").removeClass("d-none");
+                        } else {
+                            $("#serviceExtra4").addClass("d-none");
+                        }
+                        if (response.window == true) {
+                            $("#serviceExtra5").removeClass("d-none");
+                        } else {
+                            $("#serviceExtra5").addClass("d-none");
+                        }
+
+                        $(".netAmountNo").html(response.totalCost + " &#8364;");
+                        $("#serviceRequestAddress").text(response.address);
+                        $("#ServiceRequestPhone").text(response.phoneNo);
+                        $("#ServiceRequestEmail").text(response.email);
+
+                        if (response.serviceProviderName != null) {
+                            $("#ServiceProviderName").text(response.serviceProviderName);
+                            $("#ServiceProviderRating").text(response.serviceProviderRating);
+                            $(".service-request-provider-box").removeClass("d-none");
+                            $(".serivce-request-summary-box").removeClass("d-block").addClass("d-flex");
+                        } else {
+                            $(".service-request-provider-box").addClass("d-none");
+                            $(".serivce-request-summary-box").addClass("d-block").removeClass("d-flex");
+
+                        }
+
+                        getlon_len(response.postalCode);
+                    }
+
+
+
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+
+
+
+}
+
+
+var map = L.map("issMap");
+
+async function getlon_len(zipcode) {
+
+
+    map.setView([0, 0], 1);
+    const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+    const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    const tiles = L.tileLayer(tileUrl, { attribution });
+    tiles.addTo(map);
+    const response = await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q=india,' + zipcode);
+    const data = await response.json();
+    const { lat, lon } = data[0];
+    map.flyTo([lat, lon], 15);
+    L.marker([lat, lon]).addTo(map);
+
+
+}
+
+document.getElementById("postalcode").addEventListener("focusout", () => {
+    var zip = $("#postalcode").val();
+    if (zip.length == 6) {
+        getZipcodeCity(zip, "city", "state", "addmin-edit-service-btn");
+    }
+    else {
+        $(".update-alert").addClass("alert-danger").removeClass("alert-success d-none").text("please enter valid postalcode!").fadeIn().fadeOut(2000);
+        $(".addmin-edit-service-btn").addClass("btn disabled");
+
+    }
+
+
+});
+
