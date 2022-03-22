@@ -6,6 +6,7 @@
 const dt = new DataTable("#mytable1", {
     dom: 't<"table-bottom paging d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
     responsive: true,
+    "order": [0, 'desc'],
     pagingType: "full_numbers",
     language: {
         paginate: {
@@ -102,6 +103,7 @@ useroption[0].addEventListener("click", () => {
     my_user_option_icon[0].style.stroke = "#146371";
     my_user_option_icon[1].style.stroke = "#646464";
     my_user_option_icon[2].style.stroke = "#646464";
+    getUserdata();
 });
 
 
@@ -112,6 +114,20 @@ function showUserAddress() {
             type: 'GET',
             url: '/Customer/getAllAddressDetails',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            beforeSend:function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+            
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     console.log(response);
@@ -178,7 +194,20 @@ function getUserdata() {
         {
             type: 'GET',
             url: '/Customer/getUserDetails',
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     console.table(response);
@@ -244,7 +273,20 @@ function updateUserData() {
                         type: 'POST',
                         url: '/Customer/updateUserDetails',
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                        data: data,
+                        data: data, beforeSend: function () {
+                            $("html").css("overflow", "hidden");
+                            $(".lds-roller").css("display", "inline-block");
+                            $(".overlayer").css("display", "block");
+
+                        },
+                        complete: function () {
+                            setTimeout(function () {
+                                $("html").css("overflow", "auto");
+
+                                $(".lds-roller").css("display", "none");
+                                $(".overlayer").css("display", "none");
+                            }, 500);
+                        },
                         success:
                             function (response) {
                                 if (response.value == "true") {
@@ -326,7 +368,20 @@ function getscheduleDataTime(id) {
             type: 'GET',
             url: '/Customer/getscheduleDataTime',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response != null) {
@@ -383,7 +438,20 @@ function getZipcodeCity(zipcode,tagidcity,tagidstate,tagiderror) {
         url: "https://api.postalpincode.in/pincode/" + zipcode,
         method: "GET",
         dataType: "json",
-        cache: false,
+        cache: false, beforeSend: function () {
+            $("html").css("overflow", "hidden");
+            $(".lds-roller").css("display", "inline-block");
+            $(".overlayer").css("display", "block");
+
+        },
+        complete: function () {
+            setTimeout(function () {
+                $("html").css("overflow", "auto");
+
+                $(".lds-roller").css("display", "none");
+                $(".overlayer").css("display", "none");
+            }, 500);
+        },
        
         success: (data) => {
 
@@ -422,7 +490,20 @@ function getAddressField() {
             type: 'GET',
             url: '/Customer/getAddressFieldData',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response != null) {
@@ -434,7 +515,7 @@ function getAddressField() {
                         $("#Updatepostalcode").val(response.postalCode);
                         $("#Updatecity").val(response.city);
                         $("#UpdateMobile").val(response.mobile);
-                        $("UpdateState").val(response.state);
+                        $("#UpdateState").val(response.state);
                     }
 
 
@@ -499,7 +580,20 @@ function getServiceRequestAllDetails() {
             type: 'GET',
             url: '/Customer/showServiceRequestSummery',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response!=null) {
@@ -602,7 +696,20 @@ function deleteUserAddress() {
             type: 'POST',
             url: '/Customer/deleteUserAddress',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response.value == "true") {
@@ -645,7 +752,20 @@ document.getElementById("rescheduleServiceRequestID").addEventListener("click", 
             type: 'POST',
             url: '/Customer/UpdateServiceRequest',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response.value == "true") {
@@ -678,7 +798,20 @@ document.getElementById("CancelRequestbtn").addEventListener("click", () => {
             type: 'POST',
             url: '/Customer/CancelServiceRequest',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response.value == "true") {
@@ -730,7 +863,20 @@ $("#updateUserPassword").click(() => {
                 type: 'POST',
                 url: '/Customer/UpdateUserPassword',
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                data: data,
+                data: data, beforeSend: function () {
+                    $("html").css("overflow", "hidden");
+                    $(".lds-roller").css("display", "inline-block");
+                    $(".overlayer").css("display", "block");
+
+                },
+                complete: function () {
+                    setTimeout(function () {
+                        $("html").css("overflow", "auto");
+
+                        $(".lds-roller").css("display", "none");
+                        $(".overlayer").css("display", "none");
+                    }, 500);
+                },
                 success:
                     function (response) {
                         if (response.value == "true") {
@@ -797,7 +943,20 @@ $(".user-address-add-btn").click(() => {
                 type: 'POST',
                 url: '/Customer/UserAddAddress',
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                data: data,
+                data: data, beforeSend: function () {
+                    $("html").css("overflow", "hidden");
+                    $(".lds-roller").css("display", "inline-block");
+                    $(".overlayer").css("display", "block");
+
+                },
+                complete: function () {
+                    setTimeout(function () {
+                        $("html").css("overflow", "auto");
+
+                        $(".lds-roller").css("display", "none");
+                        $(".overlayer").css("display", "none");
+                    }, 500);
+                },
                 success:
                     function (response) {
                         if (response.value == "true") {
@@ -864,7 +1023,20 @@ $(".user-address-update-btn").click(() => {
                 type: 'POST',
                 url: '/Customer/UserUpdateAddress',
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                data: data,
+                data: data, beforeSend: function () {
+                    $("html").css("overflow", "hidden");
+                    $(".lds-roller").css("display", "inline-block");
+                    $(".overlayer").css("display", "block");
+
+                },
+                complete: function () {
+                    setTimeout(function () {
+                        $("html").css("overflow", "auto");
+
+                        $(".lds-roller").css("display", "none");
+                        $(".overlayer").css("display", "none");
+                    }, 500);
+                },
                 success:
                     function (response) {
                         if (response.value == "true") {
@@ -893,7 +1065,20 @@ function getServiceHistory() {
         {
             type: 'GET',
             url: '/Customer/ServiceHistory',
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response!=null) {
@@ -987,7 +1172,20 @@ $("#ServiceProviderRatingBtn").click(() => {
             type: 'POST',
             url: '/Customer/addServiceProviderRating',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response.value == "true") {

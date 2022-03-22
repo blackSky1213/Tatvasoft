@@ -55,7 +55,11 @@ const dt = new DataTable("#mytable", {
             data.userName = $("#searchUserName").val(),
                 data.userType = $("#searchUserTypeId").val(),
                 data.mobile = $("#searchMobile").val(),
-                data.postalCode = $("#searchZipCode").val()
+                data.postalCode = $("#searchZipCode").val(),
+                data.email = $("#searchEmail").val(),
+                data.fromDate = $("#searchCreateFromDate").val(),
+                data.toDate = $("#searchCreateToDate").val()
+                
         },
         "datatype": "json"
     }, "columnDefs": [{
@@ -135,8 +139,8 @@ const dt = new DataTable("#mytable", {
     columnDefs: [{ orderable: false, targets:7 }],
 });
 
-function html_table_to_excel(type) {
-    var data = document.getElementById('mytable');
+function html_table_to_excel(table,type) {
+    var data = document.getElementById(table);
 
     var file = XLSX.utils.table_to_book(data, { sheet: "sheet1" });
 
@@ -148,10 +152,12 @@ function html_table_to_excel(type) {
 const export_button = document.getElementById('export');
 
 export_button.addEventListener('click', () => {
-    html_table_to_excel('xlsx');
+    html_table_to_excel("mytable",'xlsx');
 });
 
-
+document.querySelector("#export2").addEventListener('click', () => {
+    html_table_to_excel("mytable2", 'xlsx');
+});
 
 
 var option1 = document.getElementById("1");
@@ -210,11 +216,14 @@ const table2 = new DataTable("#mytable2", {
         "url": "/Admin/GetSeviceList",
         "type": "POST",
         "data": function (data) {
-            data.serviceRequestId = $("#searchServiceId").val();
-            data.customerName = $("#searchCustomerName").val();
-            data.serviceProvider = $("#searchServiceProviderName").val();
-            data.fromDate = $("#searchFromDate").val();
-            data.toDate = $("#searchToDate").val();
+            data.serviceRequestId = $("#searchServiceId").val(),
+            data.customerName = $("#searchCustomerName").val(),
+            data.serviceProvider = $("#searchServiceProviderName").val(),
+            data.fromDate = $("#searchFromDate").val(),
+            data.toDate = $("#searchToDate").val(),
+            data.postalCode = $("#searchServiceZipcode").val(),
+                data.email = $("#searchServiceEmail").val(),
+                data.status = $("#searchServiceStatus").val()
         },
         "datatype": "json"
     }, "columnDefs": [{
@@ -245,9 +254,9 @@ const table2 = new DataTable("#mytable2", {
                                         <img src="/image/layer-15.png" alt="cap">
                                     </div>
                                     <div>
-                                        <span> `+ data.customerName +`</span>
-                                        <span> `+ data.customerAddress1 + `</span>
-                                        <span> `+ data.customerAddress2 +`</span>
+                                        <p> `+ data.customerName +`</p>
+                                        <p> `+ data.customerAddress1 + `</p>
+                                        <p> `+ data.customerAddress2 +`</p>
                                     </div>
                                 </div>`;
             }
@@ -323,22 +332,32 @@ const table2 = new DataTable("#mytable2", {
             
                 var button = ``;
                 if (data.status == 0 || data.status == 1) {
-                    button = `btn disabled`;
-                }
-                if (data.status == 2) {
-
-                }
-                return `<div class="dropdown text-center">
-                    <button class="admin-table-actionbtn `+button+` " type="button" id = "dropdownMenuButton`+ data.serviceRequestId + `"
+                    button = `<div class="dropdown text-center">
+                    <button class="admin-table-actionbtn `+ button + ` " type="button" id = "dropdownMenuButton` + data.serviceRequestId + `"
                 data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-ellipsis-v" aria-hidden="true" style="color:#646464"></i>
                             </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton`+ data.serviceRequestId + `">
-        <li><a class="dropdown-item EditServiceRequest" data-value="`+ data.serviceRequestId +`">Edit</a></li>
-        <li><a class="dropdown-item CancelServiceRequest" data-value="`+ data.serviceRequestId +`">Cancel</a></li>
+        <li><a class="dropdown-item RefundServiceRequestBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop7" data-value="`+ data.serviceRequestId + `">Refund</a></li>
+        
        
     </ul>
                         </div>`;
+                }
+                if (data.status == 2) {
+                    button = `<div class="dropdown text-center">
+                    <button class="admin-table-actionbtn `+ button + ` " type="button" id = "dropdownMenuButton` + data.serviceRequestId + `"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-ellipsis-v" aria-hidden="true" style="color:#646464"></i>
+                            </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton`+ data.serviceRequestId + `">
+        <li><a class="dropdown-item EditServiceRequest" data-value="`+ data.serviceRequestId + `">Edit</a></li>
+        <li><a class="dropdown-item CancelServiceRequest" data-bs-toggle="modal" data-bs-target="#staticBackdrop4" data-value="`+ data.serviceRequestId + `">Cancel</a></li>
+       
+    </ul>
+                        </div>`;
+                }
+                return button;
             }
         },
     ], "createdRow": function (row, data, dataIndex) {
@@ -384,7 +403,7 @@ $("#mytable2").click((e) => {
 
     if (Object.values(btnClass).includes("CancelServiceRequest")) {
 
-        CancelServiceRequest(service_request_id);
+        $(".CancelServiceRequestbtn").attr("data-value", service_request_id);
     }
 
     if (Object.values(btnClass).includes("EditServiceRequest")) {
@@ -402,6 +421,10 @@ $("#mytable2").click((e) => {
 });
 
 
+$(".CancelServiceRequestbtn").click((e) => {
+    CancelServiceRequest(e.target.dataset.value);
+})
+
 $(".addmin-edit-service-btn").click((e) => {
     var data = {};
     data.serviceRequestId = e.target.dataset.value;
@@ -411,8 +434,8 @@ $(".addmin-edit-service-btn").click((e) => {
     data.houseNumber = $("#housenumber").val();
     data.postalCode = $("#postalcode").val();
     data.city = $("#city").val();
-
-   
+    data.comment = $("#Whycomment").val();
+    
 
     if (data.serviceStartDate == "") {
 
@@ -440,8 +463,10 @@ $(".addmin-edit-service-btn").click((e) => {
                 success:
                     function (response) {
                         if (response.value == "true") {
-                            $(".update-alert").addClass("alert-success ").removeClass("alert-danger d-none").text("successfully update data!").fadeIn().fadeOut(2000);
+                            $(".update-alert").addClass("alert-success ").removeClass("alert-danger d-none").text("successfully update data!").fadeIn().fadeOut(7000);
                             table2.ajax.reload();
+                        } else if (response.value == "conflict") {
+                            $(".update-alert").addClass("alert-danger ").removeClass("alert-success d-none").text("service time conflict with other service !").fadeIn().fadeOut(7000);
                         }
 
 
@@ -490,6 +515,7 @@ function GetEditServiceRequestData(id) {
                         }
                         $("#postalcode").val(response.postalCode);
                         $("#city").val(response.city);
+                        $("#state").val(response.state);
 
                     }
 
@@ -521,7 +547,7 @@ function CancelServiceRequest(id) {
             success:
                 function (response) {
                     if (response.value == "true") {
-
+                        $(".admin-service-request-alert").addClass('alert-success').removeClass("d-none alert-danger").text("successfully cancel service ").fadeIn().fadeOut(7000);
                         table2.ajax.reload();
                     }
 
@@ -672,4 +698,147 @@ document.getElementById("postalcode").addEventListener("focusout", () => {
 
 
 });
+
+
+function getZipcodeCity(zip, tagCity, tagState, button) {
+
+    var data = {};
+    data.zipCode = zip;
+    $.ajax(
+        {
+            type: 'GET',
+            url: '/Admin/GetZipcodeCity',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data,
+            success:
+                function (response) {
+                    if (response != "false") {
+                        $("#" + tagCity).val(response.city);
+                        $("#" + tagState).val(response.state);
+                        $(".addmin-edit-service-btn").removeClass("btn disabled");
+                        
+                        console.log(response);
+                      /*  table2.ajax.reload();*/
+                    } else {
+                        $(".update-alert").addClass("alert-danger").removeClass("alert-success d-none").text("please enter valid postalcode!").fadeIn().fadeOut(2000);
+                        $(".addmin-edit-service-btn").addClass("btn disabled");
+                        $("#" + tagCity).val("");
+                        $("#" + tagState).val("");
+                        console.log("not found");
+                    }
+
+
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+}
+
+
+$("#mytable2").on("click", ".RefundServiceRequestBtn", (e) => {
+    console.log(e.target.dataset.value);
+    payInfo(e.target.dataset.value);
+
+});
+
+function payInfo(id) {
+    var data = {};
+    data.serviceRequestId = id;
+    $.ajax(
+        {
+            type: 'GET',
+            url: '/Admin/PayInfo',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data,
+            success:
+                function (response) {
+                    if (response != "false") {
+
+                        $("#paidAmount").text(response.pay + "€");
+                        $("#refundAmount").text('0 ' + "€")
+                        $("#inPaidAmount").text(response.pay + "€");
+                        $(".addmin-refund-service-btn").attr("data-value", id);
+                    }
+
+
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+
+
+}
+
+
+var refundAmount;
+document.getElementById("amount").addEventListener("focusout", () => {
+    var unit = $("#calType").val();
+    var payTotal = Number($("#paidAmount").text().split("€")[0]);
+    var Amount = Number($("#amount").val());
+
+    console.log(payTotal);
+    console.log(Amount);
+   
+    if (unit == "1") {
+        refundAmount =Math.round( payTotal * (Amount / 100),2);
+    } if (unit == "2") {
+        refundAmount = Amount;
+    }
+
+    $("#calculate").val(refundAmount);
+    $("#refundAmount").text(refundAmount + "€");
+});
+
+
+
+$(".addmin-refund-service-btn").click((e) => {
+    var data = {};
+    data.refundedAmount = $("#calculate").val();
+    data.serviceRequestId = e.target.dataset.value;
+    data.comments = $("#WhyRefundcomment").val();
+    if (!data.refundedAmount) {
+        $(".refund-alert").addClass("alert-danger").removeClass("d-none").text("please calculate refund value!").fadeIn().fadeOut(5000);
+    } else {
+        $.ajax(
+            {
+                type: 'POST',
+                url: '/Admin/RefundMoney',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: data,
+                success:
+                    function (response) {
+                        if (response.value == "true") {
+                            $(".refund-alert").removeClass("alert-danger d-none").addClass("alert-success").text("refund amount successfully!").fadeIn().fadeOut(5000);
+
+                        }
+                        else if (response.value == "tooHigh") {
+                            $(".refund-alert").addClass("alert-danger").removeClass("d-none").text(" refund amount must be below total cost!").fadeIn().fadeOut(5000);
+                        }
+                        else if (response.value == "alreadyRefund") {
+                            $(".refund-alert").addClass("alert-danger").removeClass("d-none").text("you already refund amount!").fadeIn().fadeOut(5000);
+                        }
+
+
+                    },
+                error:
+                    function (response) {
+                        console.error(response);
+                        alert("fail");
+                    }
+            });
+    }
+  
+
+   
+
+});
+
 

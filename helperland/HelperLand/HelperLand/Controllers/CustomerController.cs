@@ -204,6 +204,7 @@ namespace HelperLand.Controllers
                 addr.AddressLine1 = address.AddressLine1;
                 addr.AddressLine2 = address.AddressLine2;
                 addr.City = address.City;
+                addr.State = address.State;
                 addr.Mobile = address.Mobile;
                 addr.PostalCode = address.PostalCode;
                 addr.IsDefault = address.IsDefault;

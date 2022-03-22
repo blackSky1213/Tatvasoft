@@ -7,23 +7,32 @@
     </div>
     <div>
         <form class="form-search">
-            <input id="searchServiceId" type="text" class="form-control m-2" placeholder="Service Id">
-           <input id="searchCustomerName" type="text" class="form-control m-2" placeholder="Customer Name"/>
-           <input id="searchServiceProviderName" type="text" class="form-control m-2" placeholder="Service Provider name" />
-            <div class="input-group m-2">
+            <input id="searchServiceId" type="text" class="form-control " placeholder="Service Id">
+            <input id="searchServiceZipcode" type="text" class="form-control" placeholder="Postal code" />
+            <input id="searchServiceEmail" type="text" class="form-control" placeholder="Email" />
+            <input id="searchCustomerName" type="text" class="form-control" placeholder="Customer Name" />
+            <input id="searchServiceProviderName" type="text" class="form-control " placeholder="Service Provider name" />
+            <div class="input-group mobile-box">
                 <span class="input-group-text" id="basic-addon1"> <img src="/image/shape-1.png" alt="calander"> </span>
                 <input id="searchFromDate" type="text" class="form-control" placeholder="From Date" aria-label="date"
                        aria-describedby="basic-addon1" onfocus="(this.type='date')"
                        onblur="if(this.value==''){this.type='text'}">
 
             </div>
-            <div class="input-group m-2">
+            <div class="input-group mobile-box">
                 <span class="input-group-text" id="basic-addon1"> <img src="/image/shape-1.png" alt="calander"></span>
                 <input id="searchToDate" type="text" class="form-control" placeholder="To Date" aria-label="date"
                        aria-describedby="basic-addon1" onfocus="(this.type='date')"
                        onblur="if(this.value==''){this.type='text'}">
 
             </div>
+            <select id="searchServiceStatus"class="form-select">
+                <option value="" selected="">Service Status</option>
+                <option value="0">Completed</option>
+                <option value="1">Cancel</option>
+                <option value="2">Pending</option>
+                <option value="3">New</option>
+            </select>
             <input id="serviceRequestSearchBtn" class="submit-btn" type="button" value="search">
             <input class="reset-btn" type="reset" value="clear">
 
@@ -34,7 +43,10 @@
 
     <div class="contant-table">
         <div class="Export">
-            <div><a id="export" class="export-btn" href="">Export</a></div>
+            <div><a id="export2" class="export-btn" href="">Export</a></div>
+        </div>
+        <div class="alert admin-service-request-alert  d-none alert-danger" role="alert">
+            
         </div>
         <table id="mytable2" style="width:100% !important;">
             <thead>

@@ -10,7 +10,9 @@ namespace HelperLand.Models
         public int ServiceRequestId { get; set; }
         public string ServiceStartDate { get; set; }
 
+        public string postalCode { get; set; }
 
+        public string email { get; set; }
         public string FromDate { get; set; }
 
         public string ToDate { get; set; }

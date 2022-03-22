@@ -1,0 +1,74 @@
+﻿
+<div class="modal fade AdminserviceRequest" id="staticBackdrop7" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="staticBackdropLabe2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title login-title" id="staticBackdropLabe2">
+                    Refund Amount
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="refund-alert d-none alert alert-danger" role="alert">
+                  
+                </div>
+                <form>
+
+
+                    <div class="container-fluid">
+                        <div class="row mb-3">
+                            <div class="payInfo col-sm-4">
+                                <p>Paid amount</p>
+                                <p id="paidAmount">54,00 $</p>
+                            </div>
+                            <div class="payInfo col-sm-4">
+                                <p>Refund amount</p>
+                                <p id="refundAmount">54,00 $</p>
+                            </div>
+                            <div class="payInfo col-sm-4">
+                                <p>InPaid amount</p>
+                                <p id="inPaidAmount">54,00 $</p>
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-sm-6">
+                                <label for="netAmountNo"> Amount </label>
+                                <div class="input-group">
+                                    <input type="text" id="amount" class="form-control" />
+                                    <select id="calType" data-live-search="true" class="form-select">
+
+                                        <option value="1">Percentage</option>
+                                        <option value="2">fix amount</option>
+
+                                    </select>
+
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="calculate"> Calculate</label>
+                                <div class="input-group">
+                                    <span class="input-group-text calculateBtn">calculate</span>
+                                    <input type="text" id="calculate" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-12 mb-2">
+                            <label for="WhyRefundcomment"> Why you want to refund amount? </label>
+                            <textarea class="mt-1" rows="5" name="comment" id="WhyRefundcomment"></textarea>
+                        </div>
+                    </div>
+
+
+                    <input class="addmin-refund-service-btn" type="button" value="Refund" />
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    </div>

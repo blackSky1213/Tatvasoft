@@ -7,25 +7,39 @@
         
     </div>
     <div>
-        <form class="form-search" >
+        <form class="form-search">
 
-           
-            <input id="searchUserName" type="text" class="form-control" placeholder="Enter UserName"/>
-            <select id="searchUserTypeId" class="form-select" >
+
+            <input id="searchUserName" type="text" class="form-control " placeholder="Enter UserName" />
+            <select id="searchUserTypeId" data-live-search="true" class="form-select">
                 <option value="" selected>User type</option>
                 <option value="1">Customer</option>
                 <option value="2">ServiceProvider</option>
                 <option value="3">Admin</option>
             </select>
-            <div class="input-group me-2">
+            <div class="input-group mobile-box ">
                 <span class="input-group-text" id="basic-addon1">+49</span>
                 <input id="searchMobile" type="text" class="form-control" placeholder="Phone number" aria-label="telephone"
                        aria-describedby="basic-addon1">
 
             </div>
-            <input id="searchZipCode" type="text" class="form-control" placeholder="Zip code" aria-label="telephone"
-                   aria-describedby="basic-addon1">
-            <input id="userListSearch" class="submit-btn m-2" type="button" value="search">
+            <input id="searchZipCode" type="text" class="form-control " placeholder="Zip code">
+            <input id="searchEmail" type="text" class="form-control " placeholder="Email">
+            <div class="input-group mobile-box">
+                <span class="input-group-text" id="basic-addon1"> <img src="/image/shape-1.png" alt="calander"> </span>
+                <input id="searchCreateFromDate" type="text" class="form-control" placeholder="From Date" aria-label="date"
+                       aria-describedby="basic-addon1" onfocus="(this.type='date')"
+                       onblur="if(this.value==''){this.type='text'}">
+
+            </div>
+            <div class="input-group mobile-box">
+                <span class="input-group-text" id="basic-addon1"> <img src="/image/shape-1.png" alt="calander"></span>
+                <input id="searchCreateToDate" type="text" class="form-control" placeholder="To Date" aria-label="date"
+                       aria-describedby="basic-addon1" onfocus="(this.type='date')"
+                       onblur="if(this.value==''){this.type='text'}">
+
+            </div>
+            <input id="userListSearch" class="submit-btn " type="button" value="search">
             <input id="userListReset" class="reset-btn " type="reset" value="clear">
 
 

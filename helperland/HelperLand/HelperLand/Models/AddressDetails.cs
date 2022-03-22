@@ -17,6 +17,8 @@ namespace HelperLand.Models
         public string Mobile { get; set; }
         public string Email { get; set; }
 
+        public string State { get; set; }
+
         public bool IsDefault { get; set; }
 
 

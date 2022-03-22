@@ -45,7 +45,7 @@ namespace HelperLand.Controllers
                             var thistimeStart = data.ServiceStartDate;
                             var thistimeEnd = data.ServiceStartDate.AddHours((double)data.SubTotal + 1);
                             ServiceRequest conflictService = _db.ServiceRequests.FirstOrDefault(
-                                x => (x.ServiceProviderId == (int)Id && x.ServiceStartDate <= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeStart) || (x.ServiceProviderId == (int)Id && x.ServiceStartDate <= thistimeEnd && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeEnd) || (x.ServiceProviderId == (int)Id && x.ServiceStartDate >= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) <= thistimeEnd)
+                                x =>x.Status == 2 && (x.ServiceProviderId == (int)Id && x.ServiceStartDate <= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeStart) || (x.ServiceProviderId == (int)Id && x.ServiceStartDate <= thistimeEnd && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeEnd) || (x.ServiceProviderId == (int)Id && x.ServiceStartDate >= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) <= thistimeEnd)
                                 );
                             if (conflictService != null)
                             {
@@ -158,6 +158,7 @@ namespace HelperLand.Controllers
                     userAddr.AddressLine1 = data.UserAddresses.Last().AddressLine1;
                     userAddr.AddressLine2 = data.UserAddresses.Last().AddressLine2;
                     userAddr.City = data.UserAddresses.Last().City;
+                    userAddr.State = data.UserAddresses.Last().State;
                     userAddr.Mobile = data.UserAddresses.Last().Mobile;
                     userAddr.PostalCode = data.UserAddresses.Last().PostalCode;
 

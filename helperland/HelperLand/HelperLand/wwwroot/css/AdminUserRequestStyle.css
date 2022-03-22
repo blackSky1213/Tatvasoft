@@ -67,17 +67,20 @@ form {
 
 .form-search {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     margin: 0px 20px 20px 20px;
     padding: 10px;
+    flex-wrap:wrap;
+    gap:7px;
 }
 
-    .form-search select {
-        margin: 10px;
+    .form-search select, .mobile-box {
+   
         color: #a0a0a0;
         border: solid 1px #dedddd;
         height: 46px;
+        width: 16%;
     }
 
     .form-search input[type="submit"] {
@@ -88,6 +91,7 @@ form {
         color: #a0a0a0;
         border: solid 1px #dedddd;
         height: 46px;
+        width:16%;
     }
 
 .input-group-text {
@@ -627,12 +631,12 @@ a:hover {
     margin-bottom:3px;
 }
 
-.AdminserviceRequest .input-group-text {
+.inputGrounpText {
     background-color: #fff;
     padding-right: 0;
 }
 
-.addmin-edit-service-btn {
+.addmin-edit-service-btn, .addmin-refund-service-btn {
     width: 100%;
     border: none;
     color: #fff;
@@ -640,7 +644,7 @@ a:hover {
     margin: 20px 0;
 }
 
-.AdminserviceRequest #Whycomment {
+.AdminserviceRequest #Whycomment, .AdminserviceRequest #WhyRefundcomment {
     width: 100%;
 }
 
@@ -650,4 +654,45 @@ a:hover {
         max-width: 601px;
         margin: 1.75rem auto;
     }
+}
+
+.address-td-box p{
+    margin-bottom:0;
+}
+
+
+.payInfo {
+    color: #646464;
+    font-size: 16px;
+}
+
+    .payInfo p {
+        margin-bottom: 0;
+    }
+
+#calType, .calculateBtn {
+    color: #646464;
+    background-color: #e1e1e1;
+}
+
+
+
+.delete-address .modal-body {
+    color: #646464;
+}
+
+.delete-address p {
+    font-size: 20px;
+}
+
+.delete-btn {
+    color: white;
+    border: none;
+    background-color: #146371;
+    border-radius: 25px;
+    padding: 9px 16px;
+    font-size: 18px;
+    margin-top: 10px;
+    display: inline-block;
+    text-align: center;
 }

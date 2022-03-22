@@ -139,7 +139,17 @@ namespace HelperLand.Controllers
                 }
                 if (Admindata.UserName != null)
                 {
-                    customerData = customerData.Where(x => x.FirstName.Contains(Admindata.UserName) || x.LastName.Contains(Admindata.UserName));
+                    var list = Admindata.UserName.Split(" ");
+                    if (list.Length == 2)
+                    {
+                        customerData = customerData.Where(x => (x.FirstName.Contains(list[0]) && x.LastName.Contains(list[1])) ||(x.FirstName.Contains(list[1]) && x.LastName.Contains(list[0])));
+                        
+                    }
+                    else
+                    {
+                        customerData = customerData.Where(x => x.FirstName.Contains(Admindata.UserName) || x.LastName.Contains(Admindata.UserName));
+                    }
+                    
                 }
 
                 if (Admindata.UserType != null)
@@ -166,6 +176,14 @@ namespace HelperLand.Controllers
                 if (Admindata.PostalCode != null)
                 {
                     customerData = customerData.Where(x => x.ZipCode.Contains(Admindata.PostalCode));
+                }
+                if(Admindata.Email != null)
+                {
+                    customerData = customerData.Where(x => x.Email.Contains(Admindata.Email));
+                }
+                if (Admindata.FromDate != null && Admindata.ToDate != null)
+                {
+                    customerData = customerData.Where(x => (x.CreatedDate >= DateTime.Parse(Admindata.FromDate)) && (x.CreatedDate <= DateTime.Parse(Admindata.ToDate).AddDays(1)));
                 }
                 recordsTotal = customerData.Count();
                var Tempdata = customerData.Skip(skip).Take(pageSize).ToList();
@@ -311,11 +329,41 @@ namespace HelperLand.Controllers
                 {
                     customerData = customerData.Where(x => x.ServiceProvider.FirstName.Contains(Admindata.ServiceProvider));
                 }
-                
-                if (Admindata.FromDate != null && Admindata.ToDate!=null)
+
+                if (Admindata.FromDate != null && Admindata.ToDate != null)
                 {
-                    customerData = customerData.Where(x => (x.ServiceStartDate>=DateTime.Parse(Admindata.FromDate)) && (x.ServiceStartDate<=DateTime.Parse(Admindata.ToDate)));
+                    customerData = customerData.Where(x => (x.ServiceStartDate >= DateTime.Parse(Admindata.FromDate)) && (x.ServiceStartDate <= DateTime.Parse(Admindata.ToDate).AddDays(1)));
                 }
+
+                if(Admindata.postalCode != null)
+                {
+                    customerData = customerData.Where(x => x.ZipCode.Contains(Admindata.postalCode));
+                }
+
+                if (Admindata.email != null)
+                {
+                    customerData = customerData.Where(x => x.ZipCode.Contains(Admindata.email));
+                }
+
+                if (Admindata.Status != null)
+                {
+                    if(Admindata.Status == 0)
+                    {
+                        customerData = customerData.Where(x => x.Status ==0);
+                    }else if(Admindata.Status == 1)
+                    {
+                        customerData = customerData.Where(x => x.Status == 1);
+
+                    }else if(Admindata.Status == 3)
+                    {
+                        customerData = customerData.Where(x => x.Status == 2 && x.ServiceProviderId==null);
+                    }else if(Admindata.Status == 2)
+                    {
+                        customerData = customerData.Where(x => x.Status == 2 && x.ServiceProviderId != null);
+                    }
+                    
+                }
+
 
 
 
@@ -549,7 +597,20 @@ namespace HelperLand.Controllers
 
                 if (srRequest != null)
                 {
-                    srRequest.ServiceStartDate = DateTime.Parse(request.ServiceStartDate.ToString("M/d/yyyy") + " " + request.StartTime.ToString().Split(" ")[1]);
+                    var thistimeStart =  DateTime.Parse(request.ServiceStartDate.ToString("M/d/yyyy") + " " + request.StartTime.ToString("HH:mm"));
+                    var thistimeEnd = thistimeStart.AddHours((double)srRequest.SubTotal + 1);
+                    ServiceRequest conflictService = _db.ServiceRequests.FirstOrDefault(
+                        x => x.Status == 2 && (x.ServiceProviderId == srRequest.ServiceProviderId && x.ServiceStartDate <= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeStart) || (x.ServiceProviderId == srRequest.ServiceProviderId && x.ServiceStartDate <= thistimeEnd && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeEnd) || (x.ServiceProviderId == srRequest.ServiceProviderId && x.ServiceStartDate >= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) <= thistimeEnd)
+                        );
+
+                    if (conflictService != null) {
+                        return Ok(Json("conflict"));
+                    }
+                    srRequest.ServiceStartDate = DateTime.Parse(request.ServiceStartDate.ToString("M/d/yyyy") + " " + request.StartTime.ToString("HH:mm"));
+                    srRequest.Comments = request.Comment;
+                    srRequest.ModifiedDate = DateTime.Now;
+                    srRequest.ModifiedBy = (int)Id;
+                    srRequest.ZipCode = request.PostalCode;
                     _db.Update(srRequest);
                     _db.SaveChanges();
 
@@ -573,6 +634,87 @@ namespace HelperLand.Controllers
 
                
 
+            }
+
+            return Ok(Json("false"));
+        }
+
+
+        [HttpGet]
+        public JsonResult GetZipcodeCity(User user)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+
+            if (Id != null)
+            {
+                User isThereZip = _db.Users.FirstOrDefault(x => x.UserTypeId == 2 && x.ZipCode == user.ZipCode);
+                if (isThereZip != null)
+                {
+                    UserAddress userAddr = _db.UserAddresses.FirstOrDefault(x => x.UserId == isThereZip.UserId);
+                    if (userAddr != null)
+                    {
+                        AddressDetails addrDetails = new AddressDetails();
+                        addrDetails.City = userAddr.City;
+                        addrDetails.State = userAddr.State;
+
+                        return new JsonResult(addrDetails);
+                    }
+
+                }
+
+            }
+            return new JsonResult("false");
+        }
+
+        [HttpGet]
+        public JsonResult PayInfo(ServiceRequest sr)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                ServiceRequest payInfo = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == sr.ServiceRequestId);
+                if (payInfo != null)
+                {
+                    var info = new {pay = payInfo.TotalCost};
+
+                    return new JsonResult(info);
+                }
+
+            }
+            return new JsonResult("false");
+        }
+
+        [HttpPost]
+        public IActionResult RefundMoney(ServiceRequest request)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                ServiceRequest IsRefund = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == request.ServiceRequestId );
+
+                if (IsRefund != null)
+                {
+                 if(IsRefund.RefundedAmount != null)
+                    {
+                        return Ok(Json("alreadyRefund"));
+                    }
+                    else
+                    {
+                        if (request.RefundedAmount > IsRefund.TotalCost)
+                        {
+                            return Ok(Json("tooHigh"));
+                        }
+                        else
+                        {
+                            IsRefund.RefundedAmount = request.RefundedAmount;
+                            IsRefund.Comments = request.Comments;
+                            _db.Update(IsRefund);
+                            _db.SaveChanges();
+                            return Ok(Json("true"));
+                        }
+                        
+                    }
+                }
             }
 
             return Ok(Json("false"));

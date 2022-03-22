@@ -10,10 +10,13 @@ namespace HelperLand.Models
         public int UserId { get; set; }
         public string UserName { get; set; }
 
+        public string Email { get; set; }
         public string UserType { get; set; }
       
         public string? PostalCode { get; set; }
+        public string FromDate { get; set; }
 
+        public string ToDate { get; set; }
         public string? City { get; set; }
 
         public string Mobile { get; set; }

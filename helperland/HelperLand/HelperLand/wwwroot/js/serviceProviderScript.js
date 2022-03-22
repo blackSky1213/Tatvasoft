@@ -237,6 +237,7 @@ function getUserdata() {
                             $("#housenumber").val(response["userAddresses"][0].addressLine1);
                             $("#postalcode").val(response["userAddresses"][0].postalCode);
                             $("#City").val(response["userAddresses"][0].city);
+                            $("#State").val(response['userAddresses'][0].state);
                         }
 
                     },
