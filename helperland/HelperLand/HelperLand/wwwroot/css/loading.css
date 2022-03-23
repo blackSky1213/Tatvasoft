@@ -1,5 +1,5 @@
 ﻿.lds-roller {
-    display:none;
+    display:inline-block;
     position: fixed;
     width: 90px;
     height: 90px;
@@ -7,7 +7,7 @@
     left:50%;
 }
 html {
-    overflow: auto;
+    overflow: hidden;
 }
 
 
@@ -112,12 +112,63 @@ html {
 .overlayer{
     background-color:rgba(0,0,0,0.4);
     width:100%;
-    height:100vh;
-    position:absolute;
+    height:100%;
+    position:fixed;
     top:0;
     left:0;
-    display:none;
-    
+    display:block;
+   
 
 
+}
+
+
+
+.modal-body .Login-btn {
+    background-color: #1d7a8c;
+    border: none;
+    font-size: 18px;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 50px;
+    width: 100%;
+    font-weight: bold;
+}
+
+.done-box {
+    margin: 10px auto;
+    width: fit-content;
+}
+
+#done-tick {
+    fill: #67B644;
+    width: 90px;
+    height: 90px;
+}
+
+.done-box2 {
+    text-align: center;
+}
+
+.expired-message {
+    font-size: 24px;
+    font-weight: normal;
+    margin-bottom: 30px;
+    color:#646464;
+}
+
+.done-btn:hover {
+    color: white;
+}
+
+.done-btn {
+    display: inline-block;
+    text-align: center;
+    background-color: #1d7a8c;
+    color: white;
+    text-decoration: none;
+    width: 80px;
+    height: 40px;
+    padding: 8px;
+    border-radius: 22px;
 }

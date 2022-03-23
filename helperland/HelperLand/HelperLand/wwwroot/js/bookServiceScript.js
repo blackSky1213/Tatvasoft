@@ -5,7 +5,14 @@ var laundry = document.getElementById("laundryCheck");
 var interior = document.getElementById("interiorCheck");
 
 
+$(window).on('load', function () {
 
+    $("html").css("overflow", "auto");
+
+    $(".lds-roller").css("display", "none");
+    $(".overlayer").css("display", "none");
+}
+);
 function onInsideCabinet() {
     if (insideCabinet.checked) {
         document.getElementById("insideCabinetImg").src = "/image/3-green.png";
@@ -259,7 +266,20 @@ function checkZipcode() {
                 type: 'POST',
                 url: '/Customer/IsValidZipcode',
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                data: jsonInput,
+                data: jsonInput, beforeSend: function () {
+                    $("html").css("overflow", "hidden");
+                    $(".lds-roller").css("display", "inline-block");
+                    $(".overlayer").css("display", "block");
+
+                },
+                complete: function () {
+                    setTimeout(function () {
+                        $("html").css("overflow", "auto");
+
+                        $(".lds-roller").css("display", "none");
+                        $(".overlayer").css("display", "none");
+                    }, 500);
+                },
                 success:
                     function (response) {
                         console.log(response);
@@ -366,7 +386,20 @@ function getServiceDetails() {
                 type: 'POST',
                 url: '/Customer/getScheduleServiceDetails',
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                data: jsonInput,
+                data: jsonInput, beforeSend: function () {
+                    $("html").css("overflow", "hidden");
+                    $(".lds-roller").css("display", "inline-block");
+                    $(".overlayer").css("display", "block");
+
+                },
+                complete: function () {
+                    setTimeout(function () {
+                        $("html").css("overflow", "auto");
+
+                        $(".lds-roller").css("display", "none");
+                        $(".overlayer").css("display", "none");
+                    }, 500);
+                },
                 success:
                     function (response) {
                         if (response.value == "true") {
@@ -399,7 +432,20 @@ function getAddress() {
         {
             type: 'GET',
             url: '/Customer/getAddressDetails',
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     console.log(response);
@@ -466,7 +512,20 @@ function AddAddress() {
                 type: 'POST',
                 url: '/Customer/addAddress',
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                data: addData,
+                data: addData, beforeSend: function () {
+                    $("html").css("overflow", "hidden");
+                    $(".lds-roller").css("display", "inline-block");
+                    $(".overlayer").css("display", "block");
+
+                },
+                complete: function () {
+                    setTimeout(function () {
+                        $("html").css("overflow", "auto");
+
+                        $(".lds-roller").css("display", "none");
+                        $(".overlayer").css("display", "none");
+                    }, 500);
+                },
                 success:
                     function (response) {
                         if (response.value == "true") {
@@ -644,7 +703,20 @@ function payDone() {
             type: 'POST',
             url: '/Customer/PayDone',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: serviceRequestData,
+            data: serviceRequestData, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
 

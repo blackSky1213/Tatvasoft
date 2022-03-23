@@ -92,7 +92,11 @@ nav {
 /* Dashboard*/
 
 /* Service history */
-
+#ServiceScheduleTable {
+    width: 75%;
+    padding: 20px;
+    position:relative;
+}
 #contant {
     display: flex;
     justify-content: center;
@@ -113,7 +117,8 @@ nav {
 
 .export-btn,
 .accept-btn,
-.cancel-btn {
+.cancel-btn,
+.complete-btn{
     display: inline-block;
     background: #146371;
     color: #ffffff;
@@ -132,7 +137,8 @@ nav {
 
 .accept-btn{
     display:flex;
-    margin:auto;
+    margin:0 auto;
+
 }
 .serviceRequest-btn {
     background: #146371;
@@ -167,6 +173,7 @@ nav {
 
 .contant-right {
     width: 75%;
+    height:100% !important;
     padding: 20px;
 }
 
@@ -386,6 +393,10 @@ table.dataTable thead td {
         margin: 6px;
     }
 
+    .footer-menu a {
+        color: #F1F1F1;
+        text-decoration: none;
+    }
 @media (max-width: 503px) {
     .footer-menu li {
         display: block;
@@ -405,22 +416,22 @@ table.dataTable thead td {
     table.dataTable tbody tr{
         width:100%;
     }
-    td {
+    .contant-right td {
         display: block !important;
         border-bottom: 1px solid #e1e1e1;
         margin: 0 15px;
         padding-left: 0 !important;
     }
 
-    thead {
+    .contant-right thead {
         display: none;
     }
 
-    th {
+   .contant-right th {
         display: none;
     }
 
-    tr {
+   .contant-right tr {
         width: 300px;
         margin-bottom: 40px;
         box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2);
@@ -434,7 +445,7 @@ table.dataTable thead td {
         max-width: 900px !important;
     }
 
-    tbody {
+    .contant-right tbody {
         overflow: auto;
         display: flex;
         flex-direction: column;
@@ -442,7 +453,7 @@ table.dataTable thead td {
         padding: 10px;
     }
 
-    #contant table {
+     .contant-right table {
         border-collapse: separate;
         border-spacing: 20px 20px;
         margin: 0 !important;
@@ -457,10 +468,7 @@ table.dataTable thead td {
     font-weight: normal;
 }
 
-a {
-    color: #9ba0a3;
-    text-decoration: none;
-}
+
 
 .section-divder {
     width: 80%;
@@ -1024,4 +1032,84 @@ average-rating{
     display: block;
     padding: 0;
   }
+}
+
+
+.upcomingBtnBox{
+    display:flex;
+    gap:5px;
+    justify-content:center;
+    align-content:center;
+}
+
+/*fullcalendar*/
+
+.fc-toolbar-chunk{
+    display:flex;
+    justify-content:center;
+    align-content:center;
+}
+
+.fc-toolbar-title{
+    color:#646464;
+    font-weight:normal;
+   
+}
+
+
+.fc-daygrid-day-number {
+    color: #646464;
+    text-decoration: none;
+}
+.fc-button-primary {
+    background-color: #fff !important;
+    border: 1px solid #646464 !important;
+    color: #646464 !important;
+}
+.fc-col-header-cell-cushion {
+    color:#646464;
+    text-decoration:none;
+}
+
+.label-box-timetable {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 20px;
+}
+
+.label-box-timetable{
+    display: flex;
+    justify-content: center;
+        align-content:center;
+        gap:10px;
+    color: #646464;
+}
+
+.white-box{
+    width:15px;
+    height:15px;
+    background-color:#777777;
+    border:1px solid #e1e1e1;
+    margin:auto;
+    
+}
+
+.blue-box{
+    width:15px;
+    height:15px;
+    background-color:#146371;
+    border:1px solid #e1e1e1;
+    margin:auto;
+    padding:4px;
+}
+
+.label-box{
+    display:flex;
+    align-content:center;
+    gap:5px;
+}
+
+.fc-daygrid-day.fc-day {
+    width: calc(100% / 7) !important;
 }

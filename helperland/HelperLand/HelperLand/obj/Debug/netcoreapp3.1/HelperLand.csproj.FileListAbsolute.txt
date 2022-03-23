@@ -907,3 +907,5 @@ C:\Users\kbsar\source\repos\HelperLand\HelperLand\bin\Debug\netcoreapp3.1\Newton
 C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Shared\AdminServiceRequestUpdate.cshtml.g.cs
 C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Shared\AdminServiceRefund.cshtml.g.cs
 C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Shared\AdminCancelService.cshtml.g.cs
+C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Shared\SuccessfulyDone.cshtml.g.cs
+C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Shared\ServiceProviderTimeTable.cshtml.g.cs

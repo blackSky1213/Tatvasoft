@@ -103,6 +103,35 @@ namespace HelperLand.Controllers
 
         }
 
+        [HttpGet]
+        public JsonResult GetDataForCalendar()
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                
+                List<ServiceProviderService> request = new List<ServiceProviderService>();
+                var table = _db.ServiceRequests.Where(x => x.UserId == Id &&(x.Status!=1)).ToList();
+                foreach (var data in table)
+                {
+                    ServiceProviderService sps = new ServiceProviderService();
+
+                    sps.ServiceRequestId = data.ServiceRequestId;
+                    sps.ServiceStartDate = data.ServiceStartDate.ToString("dd/MM/yyyy");
+                    sps.Status = data.Status;
+                    sps.startTime = data.ServiceStartDate.ToString("HH:mm");
+
+                    sps.endTime = data.ServiceStartDate.AddHours((double)data.SubTotal).ToString("HH:mm");
+
+                    request.Add(sps);
+
+                }
+                return new JsonResult(request);
+            }
+
+            return new JsonResult("false");
+        }
+
 
         public IActionResult BookService()
         {
@@ -407,6 +436,20 @@ namespace HelperLand.Controllers
             {
                 ServiceRequest request = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
 
+                if (request.ServiceProviderId != null)
+                {
+                    var thistimeStart = DateTime.Parse(data.ServiceStartDate + " " + data.startTime);
+                    var thistimeEnd = thistimeStart.AddHours((double)request.SubTotal + 1);
+                    ServiceRequest conflictService = _db.ServiceRequests.FirstOrDefault(
+                        x => x.Status == 2 && (x.ServiceProviderId == request.ServiceProviderId && x.ServiceStartDate <= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeStart) || (x.ServiceProviderId == request.ServiceProviderId && x.ServiceStartDate <= thistimeEnd && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeEnd) || (x.ServiceProviderId == request.ServiceProviderId && x.ServiceStartDate >= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) <= thistimeEnd)
+                        );
+
+                    if (conflictService != null)
+                    {
+                        return Ok(Json("conflict"));
+                    }
+                }
+               
                 request.ServiceStartDate = DateTime.Parse(data.ServiceStartDate + " " + data.startTime);
                 _db.ServiceRequests.Update(request);
                 _db.SaveChanges();

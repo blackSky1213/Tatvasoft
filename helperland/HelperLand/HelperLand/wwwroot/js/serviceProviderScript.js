@@ -1,12 +1,21 @@
 ﻿
     $(document).ready(function () {
     $("#mytable1").DataTable();
+
+        });
+
+$(window).on('load', function () {
+
+    $("html").css("overflow", "auto");
+
+    $(".lds-roller").css("display", "none");
+    $(".overlayer").css("display", "none");
     
+}
+);
 
-    });
 
-
-
+    
 
 
     const dt = new DataTable("#mytable1", {
@@ -47,7 +56,8 @@ $("#havepetCheck").change(() => {
 
     var ServiceHistory = document.getElementById("5");
     var MyRating = document.getElementById("6");
-    var mysetting = document.getElementsByClassName("my-setting-box")[0];
+var mysetting = document.getElementsByClassName("my-setting-box")[0];
+var ServiceScheduleTable = document.getElementById("4");
 
     function form2() {
         document.getElementById("Dashboard").classList.remove("d-none");
@@ -56,8 +66,11 @@ $("#havepetCheck").change(() => {
         document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
         document.getElementById("blockCustomer").classList.add("d-none");
         document.getElementById("7").style.background = "#1d7a8c";
-    mysetting.classList.add("d-none");
+        mysetting.classList.add("d-none");
 
+
+        document.getElementById("ServiceScheduleTable").classList.add("d-none");
+        ServiceScheduleTable.style.background = "#1d7a8c";
 
     dashboard.style.background = "#146371";
     UpcomingService.style.background = "#1d7a8c";
@@ -77,13 +90,119 @@ $("#havepetCheck").change(() => {
         document.getElementById("7").style.background = "#1d7a8c";
     mysetting.classList.add("d-none");
 
+        document.getElementById("ServiceScheduleTable").classList.add("d-none");
+        ServiceScheduleTable.style.background = "#1d7a8c";
+
     dashboard.style.background = "#1d7a8c";
     UpcomingService.style.background = "#146371";
     ServiceHistory.style.background = "#1d7a8c";
         MyRating.style.background = "#1d7a8c";
 
         getUpcomingService();
-    }
+}
+var calendarEl = document.getElementById('calendar');
+var calendar;
+
+function timeTableData() {
+    
+    $.ajax({
+        type: "GET",
+        url: '/ServiceProvider/GetDataForCalendar',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: 'json',
+        beforeSend: function () {
+            $("html").css("overflow", "hidden");
+            $(".lds-roller").css("display", "inline-block");
+            $(".overlayer").css("display", "block");
+
+        },
+        complete: function () {
+            setTimeout(function () {
+                $("html").css("overflow", "auto");
+
+                $(".lds-roller").css("display", "none");
+                $(".overlayer").css("display", "none");
+            }, 500);
+        },
+
+        success: function (doc) {
+           
+            if (doc != "false") {
+                var events = [];
+                console.log(doc);
+                for (var i = 0; i < doc.length; i++) {
+                    var newDate = `${doc[i].serviceStartDate.split("/")[2]}-${doc[i].serviceStartDate.split("/")[1]}-${doc[i].serviceStartDate.split("/")[0]}`;
+                    var date = doc[i].serviceStartDate.split("/")[2] + "/" + doc[i].serviceStartDate.split("/")[1] + "/" + doc[i].serviceStartDate.split("/")[0];
+                    var now = new Date();
+                    var endTime = new Date(date + " " + doc[i].endTime);
+                    var labelColor = '#555';
+                    if (now >= endTime) {
+                        labelColor = "#146371";
+                    }
+                    events.push({
+                        id: doc[i].serviceRequestId,
+                        start: newDate,
+                        title: doc[i].startTime + " - " + doc[i].endTime,
+                        backgroundColor: labelColor,
+                        borderColor: "#fff",
+                        classNames:"work-label"
+                    });
+                }
+
+                console.log(events);
+                    
+            }
+
+            
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                eventClick: function (info) {
+                    $(".btn-box").addClass("d-none");
+                    $(".btn-box1").addClass("d-none");
+
+                    $("#CancelServiceModalbtn").attr("data-value", info.event.id );
+                    $("#CompleteModalbtn").attr("data-value", info.event.id);
+                    document.getElementById("CustomerServiceSummery-btn").click();
+                  
+                    getServiceRequestAllDetails(info.event.id);
+                },
+                events:events,
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next title',
+                    center: '',
+                    right: ''
+                },
+
+            });
+            calendar.render();
+        }
+    });
+
+    
+}
+
+
+
+function form4() {
+    document.getElementById("Dashboard").classList.add("d-none");
+    document.getElementById("UpcomingService").classList.add("d-none");
+    document.getElementById("ServiceProviderHistory").classList.add("d-none");
+    document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
+    document.getElementById("ServiceScheduleTable").classList.remove("d-none");
+    document.getElementById("blockCustomer").classList.add("d-none");
+    document.getElementById("7").style.background = "#1d7a8c";
+
+    mysetting.classList.add("d-none");
+
+    dashboard.style.background = "#1d7a8c";
+    ServiceScheduleTable.style.background = "#146371";
+    UpcomingService.style.background = "#1d7a8c";
+    ServiceHistory.style.background = "#1d7a8c";
+    MyRating.style.background = "#1d7a8c";
+    timeTableData();
+    
+
+}
 
     function form5() {
         document.getElementById("Dashboard").classList.add("d-none");
@@ -92,7 +211,10 @@ $("#havepetCheck").change(() => {
         document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
         document.getElementById("blockCustomer").classList.add("d-none");
         document.getElementById("7").style.background = "#1d7a8c";
-    mysetting.classList.add("d-none");
+        mysetting.classList.add("d-none");
+
+        document.getElementById("ServiceScheduleTable").classList.add("d-none");
+        ServiceScheduleTable.style.background = "#1d7a8c";
 
     dashboard.style.background = "#1d7a8c";
     UpcomingService.style.background = "#1d7a8c";
@@ -112,7 +234,11 @@ $("#havepetCheck").change(() => {
         document.getElementById("serviceProviderCustomerRating").classList.remove("d-none");
         document.getElementById("blockCustomer").classList.add("d-none");
         document.getElementById("7").style.background = "#1d7a8c";
-    mysetting.classList.add("d-none");
+        mysetting.classList.add("d-none");
+
+
+        document.getElementById("ServiceScheduleTable").classList.add("d-none");
+        ServiceScheduleTable.style.background = "#1d7a8c";
 
     dashboard.style.background = "#1d7a8c";
     UpcomingService.style.background = "#1d7a8c";
@@ -131,6 +257,9 @@ function form7() {
     document.getElementById("blockCustomer").classList.remove("d-none");
     mysetting.classList.add("d-none");
 
+    document.getElementById("ServiceScheduleTable").classList.add("d-none");
+    ServiceScheduleTable.style.background = "#1d7a8c";
+
     dashboard.style.background = "#1d7a8c";
     UpcomingService.style.background = "#1d7a8c";
     ServiceHistory.style.background = "#1d7a8c";
@@ -144,7 +273,9 @@ function form7() {
     document.getElementById("Dashboard").classList.add("d-none");
     document.getElementById("UpcomingService").classList.add("d-none");
     document.getElementById("ServiceProviderHistory").classList.add("d-none");
-    document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
+        document.getElementById("serviceProviderCustomerRating").classList.add("d-none");
+        document.getElementById("ServiceScheduleTable").classList.add("d-none");
+        
         document.getElementsByClassName("my-setting-box")[0].classList.remove("d-none");
 
 
@@ -209,7 +340,20 @@ function getUserdata() {
             {
                 type: 'GET',
                 url: '/ServiceProvider/getUserDetails',
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8', beforeSend: function () {
+                    $("html").css("overflow", "hidden");
+                    $(".lds-roller").css("display", "inline-block");
+                    $(".overlayer").css("display", "block");
+
+                },
+                complete: function () {
+                    setTimeout(function () {
+                        $("html").css("overflow", "auto");
+
+                        $(".lds-roller").css("display", "none");
+                        $(".overlayer").css("display", "none");
+                    }, 500);
+                },
                 success:
                     function (response) {
                         console.log(response);
@@ -272,7 +416,20 @@ function getZipcodeCity(zipcode, tagidcity, tagidstate, tagiderror) {
         url: "https://api.postalpincode.in/pincode/" + zipcode,
         method: "GET",
         dataType: "json",
-        cache: false,
+        cache: false, beforeSend: function () {
+            $("html").css("overflow", "hidden");
+            $(".lds-roller").css("display", "inline-block");
+            $(".overlayer").css("display", "block");
+
+        },
+        complete: function () {
+            setTimeout(function () {
+                $("html").css("overflow", "auto");
+
+                $(".lds-roller").css("display", "none");
+                $(".overlayer").css("display", "none");
+            }, 500);
+        },
 
         success: (data) => {
 
@@ -363,7 +520,20 @@ function updateUserDetails() {
                             type: 'POST',
                             url: '/ServiceProvider/updateUserDetails',
                             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                            data: data,
+                            data: data, beforeSend: function () {
+                                $("html").css("overflow", "hidden");
+                                $(".lds-roller").css("display", "inline-block");
+                                $(".overlayer").css("display", "block");
+
+                            },
+                            complete: function () {
+                                setTimeout(function () {
+                                    $("html").css("overflow", "auto");
+
+                                    $(".lds-roller").css("display", "none");
+                                    $(".overlayer").css("display", "none");
+                                }, 500);
+                            },
                             success:
                                 function (response) {
                                     if (response.value == "true") {
@@ -423,7 +593,20 @@ $("#updateUserPassword").click(() => {
                 type: 'POST',
                 url: '/Customer/UpdateUserPassword',
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                data: data,
+                data: data, beforeSend: function () {
+                    $("html").css("overflow", "hidden");
+                    $(".lds-roller").css("display", "inline-block");
+                    $(".overlayer").css("display", "block");
+
+                },
+                complete: function () {
+                    setTimeout(function () {
+                        $("html").css("overflow", "auto");
+
+                        $(".lds-roller").css("display", "none");
+                        $(".overlayer").css("display", "none");
+                    }, 500);
+                },
                 success:
                     function (response) {
                         if (response.value == "true") {
@@ -513,7 +696,20 @@ function blockCustomer(id) {
             type: 'POST',
             url: '/ServiceProvider/BlockCustomer',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response.value == "true") {
@@ -548,13 +744,26 @@ function AcceptService(serviceRequestId) {
             type: 'POST',
             url: '/ServiceProvider/AcceptServiceRequest',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response.value == "true") {
-                        window.location.reload();
-                        $("alert-message").text("Service Request Id :- " + serviceRequestId + " successfully accept");
-                        $(".ServiceRequestAlert").removeClass("d-none");
+                      
+                        $("#successId").text("Accepted service id:- " + serviceRequestId);
+                        $("#SuccessModal").modal("show");
                     }
 
                 },
@@ -599,7 +808,20 @@ function getServiceRequestAllDetails(service_request_id) {
             type: 'GET',
             url: '/ServiceProvider/showServiceRequestSummery',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response != null) {
@@ -708,12 +930,26 @@ function CompleteService(id) {
             type: 'POST',
             url: '/ServiceProvider/CompleteService',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response.value == "true") {
-
-                        window.location.reload();
+                        $("#successId").text("completed  service id:- " + id);
+                        $("#SuccessModal").modal("show");
+                       
 
                     }
 
@@ -735,7 +971,20 @@ function getUpcomingService() {
         {
             type: 'GET',
             url: '/ServiceProvider/GetUpcomingService',
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response != null) {
@@ -743,7 +992,18 @@ function getUpcomingService() {
                         $("#UpcomingServiceTboady").empty();
                         for (var i = 0; i < response.length; i++) {
 
-                            $("#UpcomingServiceTboady").append('<tr data-value="' + response[i].serviceRequestId + '"><td>' + response[i].serviceRequestId + '</td ><td><img src="/image/calendar2.png" alt="calendar" /><strong> ' + response[i].serviceStartDate + '</strong><span><img src="/image/layer-14.png" alt="" /> ' + response[i].startTime + ' - ' + response[i].endTime + '</span></td><td><div class="address-td-box"><div style="width: fit-content"><img src="/image/layer-15.png" alt="cap" /></div><div><span>' + response[i].customerName + '</span><span>' + response[i].customerAddress1 + '</span><span>' + response[i].customerAddress2 + '</span></div></div></td><td><span class="payment-td">&#8364;'+response[i].totalCost+'</span></td><td></td><td><button class="cancel-btn" data-value="' + response[i].serviceRequestId + '">cancel</button></td></tr >');
+                            var now = new Date();
+
+
+                            console.log("now :- " + now);
+                            var date = response[i].serviceStartDate.split("/")[2] + "/" + response[i].serviceStartDate.split("/")[1] + "/" + response[i].serviceStartDate.split("/")[0];
+                            var endTime = new Date(date + " " + response[i].endTime);
+                            var completeButton = '';
+                            if (now >= endTime) {
+                                completeButton = '<button  class="complete-btn" data-value="' + response[i].serviceRequestId + '">Compeleted</button>';
+                            } 
+
+                            $("#UpcomingServiceTboady").append('<tr data-value="' + response[i].serviceRequestId + '"><td>' + response[i].serviceRequestId + '</td ><td><img src="/image/calendar2.png" alt="calendar" /><strong> ' + response[i].serviceStartDate + '</strong><span><img src="/image/layer-14.png" alt="" /> ' + response[i].startTime + ' - ' + response[i].endTime + '</span></td><td><div class="address-td-box"><div style="width: fit-content"><img src="/image/layer-15.png" alt="cap" /></div><div><span>' + response[i].customerName + '</span><span>' + response[i].customerAddress1 + '</span><span>' + response[i].customerAddress2 + '</span></div></div></td><td><span class="payment-td">&#8364;' + response[i].totalCost + '</span></td><td></td><td><div class="upcomingBtnBox">' + completeButton + '<button class="cancel-btn" data-value="' + response[i].serviceRequestId + '">cancel</button></div></td></tr >');
                         }
                         const table2 = new DataTable("#mytable2", {
                             dom: 't<"table-bottom paging d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
@@ -787,7 +1047,7 @@ document.getElementById("mytable2").addEventListener("click", (e) => {
     var btnClass = e.target.classList;
     var service_request_id = e.target.closest('tr').getAttribute("data-value");
 
-    if (service_request_id != null && !Object.values(btnClass).includes("cancel-btn")) {
+    if (service_request_id != null && !Object.values(btnClass).includes("complete-btn") && !Object.values(btnClass).includes("cancel-btn")) {
         console.log($(".conflict-btn").attr("data-value"));
 
         $(".btn-box").addClass("d-none");
@@ -804,6 +1064,10 @@ document.getElementById("mytable2").addEventListener("click", (e) => {
 
     if (e.target.className == "cancel-btn") {
         RejectService(e.target.dataset.value);
+    }
+
+    if (e.target.className == "complete-btn") {
+        CompleteService(e.target.dataset.value);
     }
 
 });
@@ -850,12 +1114,26 @@ function RejectService(id) {
             type: 'POST',
             url: '/ServiceProvider/RejectService',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response.value == "true") {
-                       
-                        window.location.reload();
+                        $("#successId").text("successfully cancel service id:- " + id);
+                        $("#SuccessModal").modal("show");
+                      
                       
                     }
 
@@ -873,7 +1151,10 @@ function RejectService(id) {
 }
 
 
+$("#SuccessDoneBtn").click(() => {
 
+    window.location.reload();
+});
 
 
 
@@ -884,7 +1165,20 @@ function getServiceHistory() {
         {
             type: 'GET',
             url: '/ServiceProvider/GetServiceHistory',
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response != null) {
@@ -938,7 +1232,20 @@ function getServiceProviderRating() {
         {
             type: 'GET',
             url: '/ServiceProvider/GetRatingOfServiceProvider',
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response != null) {
@@ -1074,7 +1381,20 @@ function getCompleteServiceUserList() {
         {
             type: 'GET',
             url: '/ServiceProvider/GetCompleteServiceUserList',
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response != null) {
@@ -1134,6 +1454,7 @@ function getCompleteServiceUserList() {
 
 
 }
+
 
 
 

@@ -1,9 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
-
-<div class="modal fade" id="staticBackdrop2" tabindex="-1">
+﻿
+<div class="modal fade" id="SuccessModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
@@ -16,12 +12,12 @@
                     </svg>
                 </div>
                 <div class="done-box2">
-                    <p class="expired-message">You have succesfully sent message!</p>
-                    <a asp-controller="Home" asp-action="Contact" class="done-btn">OK</a>
+                    <p id="successId" class="expired-message"></p>
+                    <a role="button" id="SuccessDoneBtn" class="done-btn">OK</a>
                 </div>
             </div>
         </div>
 
     </div>
- 
+
 </div>

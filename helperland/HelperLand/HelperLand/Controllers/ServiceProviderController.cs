@@ -428,6 +428,35 @@ namespace HelperLand.Controllers
 
         }
 
+        [HttpGet]
+        public JsonResult GetDataForCalendar()
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                UserAddress user = _db.UserAddresses.FirstOrDefault(x => x.UserId == Id);
+                List<ServiceProviderService> request = new List<ServiceProviderService>();
+                var table = _db.ServiceRequests.Where(x => x.ServiceProviderId == Id &&( x.Status == 2 || x.Status==0) ).ToList();
+                foreach (var data in table)
+                {
+                    ServiceProviderService sps = new ServiceProviderService();
+                    sps.ServiceRequestId = data.ServiceRequestId;
+                    sps.ServiceStartDate = data.ServiceStartDate.ToString("dd/MM/yyyy");
+
+                    sps.startTime = data.ServiceStartDate.ToString("HH:mm");
+
+                    sps.endTime = data.ServiceStartDate.AddHours((double)data.SubTotal).ToString("HH:mm");
+                    
+                    request.Add(sps);
+
+                }
+                return new JsonResult(request);
+            }
+
+            return new JsonResult("false");
+        }
+
+
         public JsonResult GetRatingOfServiceProvider()
         {
             int? Id = HttpContext.Session.GetInt32("id");

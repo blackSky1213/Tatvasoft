@@ -1,7 +1,17 @@
 ﻿$(document).ready(function () {
     $("#mytable1").DataTable();
+ 
    
 });
+
+$(window).on('load', function () {
+
+    $("html").css("overflow", "auto");
+
+    $(".lds-roller").css("display", "none");
+    $(".overlayer").css("display", "none");
+}
+    );
 
 const dt = new DataTable("#mytable1", {
     dom: 't<"table-bottom paging d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
@@ -42,10 +52,12 @@ export_button.addEventListener("click", () => {
 
 var dashboard = document.getElementById("1");
 var serviceRequest = document.getElementById("2");
+var serviceTimeTable = document.getElementById("3");
 
 function form1() {
     document.getElementById("Dashboard").style.display = "block";
     document.getElementById("ServiceHistory").style.display = "none";
+    document.getElementById("ServiceScheduleTable").classList.add("d-none");
 
     dashboard.style.background = "#146371";
     serviceRequest.style.background = "#1d7a8c";
@@ -62,14 +74,28 @@ function form1() {
 function form2() {
     document.getElementById("Dashboard").style.display = "none";
     document.getElementById("ServiceHistory").style.display = "block";
-
+    document.getElementById("ServiceScheduleTable").classList.add("d-none");
     dashboard.style.background = "#1d7a8c";
     serviceRequest.style.background = "#146371";
-
+    serviceTimeTable.style.background = "#1d7a8c";
     document.getElementsByClassName("my-setting-box")[0].classList.add("d-none");
     document.getElementsByClassName("contant-right")[0].classList.remove("d-none");
     getServiceHistory();
 }
+
+
+function form3() {
+    document.getElementById("Dashboard").style.display = "none";
+    document.getElementById("ServiceHistory").style.display = "none";
+    document.getElementById("ServiceScheduleTable").classList.remove("d-none");
+    document.getElementsByClassName("contant-right")[0].classList.add("d-none");
+    document.getElementsByClassName("my-setting-box")[0].classList.add("d-none");
+    dashboard.style.background = "#1d7a8c";
+    serviceRequest.style.background = "#1d7a8c";
+    serviceTimeTable.style.background = "#146371";
+    timeTableData();
+}
+
 
 var useroption = [
     document.getElementById("user-setting-option-1"),
@@ -105,6 +131,131 @@ useroption[0].addEventListener("click", () => {
     my_user_option_icon[2].style.stroke = "#646464";
     getUserdata();
 });
+
+useroption[1].addEventListener("click", () => {
+    useroption[0].classList.remove("active-setting-option");
+    useroption[1].classList.add("active-setting-option");
+    useroption[2].classList.remove("active-setting-option");
+
+    my_user_details.classList.add("d-none");
+    my_user_address.classList.remove("d-none");
+    my_user_change_password.classList.add("d-none");
+
+    my_user_option_icon[0].style.stroke = "#646464";
+    my_user_option_icon[1].style.stroke = "#146371";
+    my_user_option_icon[2].style.stroke = "#646464";
+
+    showUserAddress();
+});
+
+
+function my_user_setting() {
+
+    document.getElementsByClassName("my-setting-box")[0].classList.remove("d-none");
+    document.getElementsByClassName("contant-right")[0].classList.add("d-none");
+    document.getElementById("ServiceScheduleTable").classList.add("d-none");
+
+    getUserdata();
+
+
+
+}
+
+useroption[2].addEventListener("click", () => {
+    useroption[0].classList.remove("active-setting-option");
+    useroption[1].classList.remove("active-setting-option");
+    useroption[2].classList.add("active-setting-option");
+
+    my_user_details.classList.add("d-none");
+    my_user_address.classList.add("d-none");
+    my_user_change_password.classList.remove("d-none");
+
+    my_user_option_icon[0].style.stroke = "#646464";
+    my_user_option_icon[1].style.stroke = "#646464";
+    my_user_option_icon[2].style.stroke = "#146371";
+});
+
+
+var calendarEl = document.getElementById('calendar');
+var calendar;
+
+function timeTableData() {
+
+    $.ajax({
+        type: "GET",
+        url: '/Customer/GetDataForCalendar',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        beforeSend: function () {
+            $("html").css("overflow", "hidden");
+            $(".lds-roller").css("display", "inline-block");
+            $(".overlayer").css("display", "block");
+
+        },
+        complete: function () {
+            setTimeout(function () {
+                $("html").css("overflow", "auto");
+
+                $(".lds-roller").css("display", "none");
+                $(".overlayer").css("display", "none");
+            }, 500);
+        },
+        dataType: 'json',
+
+        success: function (doc) {
+
+            if (doc != "false") {
+                var events = [];
+                console.log(doc);
+                for (var i = 0; i < doc.length; i++) {
+                    var newDate = `${doc[i].serviceStartDate.split("/")[2]}-${doc[i].serviceStartDate.split("/")[1]}-${doc[i].serviceStartDate.split("/")[0]}`;
+                
+                    var labelColor = '#555';
+                    if (doc[i].status == 0) {
+                        labelColor = '#146371';
+                    }
+                  
+                    events.push({
+                        id: doc[i].serviceRequestId,
+                        start: newDate,
+                        title: doc[i].startTime + " - " + doc[i].endTime,
+                        backgroundColor: labelColor,
+                        borderColor: "#fff",
+                        classNames: "work-label"
+                    });
+                }
+
+                console.log(events);
+
+            }
+
+
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                eventClick: function (info) {
+                    $(".btn-box").addClass("d-none");
+                    $(".btn-box1").removeClass("d-none");
+
+                    
+                    document.getElementById("CustomerServiceSummery-btn").click();
+                    console.log(info.event.id);
+                    getServiceRequestAllDetails(info.event.id);
+                },
+                events: events,
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next title',
+                    center: '',
+                    right: ''
+                },
+
+            });
+            calendar.render();
+        }
+    });
+
+
+}
+
+
 
 
 function showUserAddress() {
@@ -156,38 +307,6 @@ function showUserAddress() {
         });
 
 }
-useroption[1].addEventListener("click", () => {
-    useroption[0].classList.remove("active-setting-option");
-    useroption[1].classList.add("active-setting-option");
-    useroption[2].classList.remove("active-setting-option");
-
-    my_user_details.classList.add("d-none");
-    my_user_address.classList.remove("d-none");
-    my_user_change_password.classList.add("d-none");
-
-    my_user_option_icon[0].style.stroke = "#646464";
-    my_user_option_icon[1].style.stroke = "#146371";
-    my_user_option_icon[2].style.stroke = "#646464";
-
-    showUserAddress();
-});
-
-
-
-
-useroption[2].addEventListener("click", () => {
-    useroption[0].classList.remove("active-setting-option");
-    useroption[1].classList.remove("active-setting-option");
-    useroption[2].classList.add("active-setting-option");
-
-    my_user_details.classList.add("d-none");
-    my_user_address.classList.add("d-none");
-    my_user_change_password.classList.remove("d-none");
-
-    my_user_option_icon[0].style.stroke = "#646464";
-    my_user_option_icon[1].style.stroke = "#646464";
-    my_user_option_icon[2].style.stroke = "#146371";
-});
 
 function getUserdata() {
     $.ajax(
@@ -232,16 +351,7 @@ function getUserdata() {
         });
 
 }
-function my_user_setting() {
 
-    document.getElementsByClassName("my-setting-box")[0].classList.remove("d-none");
-    document.getElementsByClassName("contant-right")[0].classList.add("d-none");
-
-    getUserdata();
-
-
-
-}
 
 
 function updateUserData() {
@@ -537,7 +647,7 @@ $("#mytable1").click((e) => {
         $(".btn-box").removeClass("d-none");
         document.getElementById("CustomerServiceSummery-btn").click();
         console.log(service_request_id);
-        getServiceRequestAllDetails();
+        getServiceRequestAllDetails(service_request_id);
        
     }
 
@@ -554,7 +664,7 @@ $("#mytable2").click((e) => {
         $(".btn-box").addClass("d-none");
         document.getElementById("CustomerServiceSummery-btn").click();
         console.log(service_request_id);
-        getServiceRequestAllDetails();
+        getServiceRequestAllDetails(service_request_id);
 
     } 
 
@@ -571,10 +681,10 @@ $("#mytable2").click((e) => {
 
 
 
-function getServiceRequestAllDetails() {
+function getServiceRequestAllDetails(id) {
 
     var data = {};
-    data.serviceRequestId = service_request_id;
+    data.serviceRequestId = id;
     $.ajax(
         {
             type: 'GET',
@@ -746,40 +856,55 @@ document.getElementById("rescheduleServiceRequestID").addEventListener("click", 
     data.serviceRequestId = document.getElementById("rescheduleID").value;
     data.serviceStartDate = document.getElementById("rescheduledate").value;
     data.startTime = document.getElementById("rescheduletime").value;
-  
-    $.ajax(
-        {
-            type: 'POST',
-            url: '/Customer/UpdateServiceRequest',
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data, beforeSend: function () {
-                $("html").css("overflow", "hidden");
-                $(".lds-roller").css("display", "inline-block");
-                $(".overlayer").css("display", "block");
 
-            },
-            complete: function () {
-                setTimeout(function () {
-                    $("html").css("overflow", "auto");
-
-                    $(".lds-roller").css("display", "none");
-                    $(".overlayer").css("display", "none");
-                }, 500);
-            },
-            success:
-                function (response) {
-                    if (response.value == "true") {
-                        window.location.reload();
-                    }
-
+    if (data.serviceStartDate == "") {
+        $(".Reschedule-alert").addClass("alert-danger").removeClass("alert-success d-none").text("please enter date!");
+       
+    } else if (data.startTime == "") {
+        $(".Reschedule-alert").addClass("alert-danger").removeClass("alert-success d-none").text("please enter time!");
+       
+    } else {
+        $.ajax(
+            {
+                type: 'POST',
+                url: '/Customer/UpdateServiceRequest',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: data, beforeSend: function () {
+                    $("html").css("overflow", "hidden");
+                    $(".lds-roller").css("display", "inline-block");
+                    $(".overlayer").css("display", "block");
 
                 },
-            error:
-                function (response) {
-                    console.error(response);
-                    alert("fail");
-                }
-        });
+                complete: function () {
+                    setTimeout(function () {
+                        $("html").css("overflow", "auto");
+
+                        $(".lds-roller").css("display", "none");
+                        $(".overlayer").css("display", "none");
+                    }, 500);
+                },
+                success:
+                    function (response) {
+                        if (response.value == "true") {
+                            $(".Reschedule-alert").addClass("d-none");
+                            $(".updateTimeModal ").modal('hide');
+                            $("#successId").text("successfully reschedule service id:- " + data.serviceRequestId);
+                            $("#SuccessModal").modal("show");
+                        }
+                        else if (response.value == "conflict") {
+                            $(".Reschedule-alert").addClass("alert-danger").removeClass("alert-success d-none").text("Service provider already book on this date and time!");
+                        }
+
+                    },
+                error:
+                    function (response) {
+                        console.error(response);
+                        alert("fail");
+                    }
+            });
+    }
+  
+    
 
 });
 
@@ -815,7 +940,10 @@ document.getElementById("CancelRequestbtn").addEventListener("click", () => {
             success:
                 function (response) {
                     if (response.value == "true") {
-                        window.location.reload();
+                        $("#successId").text("successfully cancel service id:- " + data.serviceRequestId);
+                        $("#SuccessModal").modal('show');
+
+
                     }
 
 
@@ -831,6 +959,9 @@ document.getElementById("CancelRequestbtn").addEventListener("click", () => {
 
 });
 
+$("#SuccessDoneBtn").click(() => {
+    window.location.reload();
+});
 
 $("#confirmPassword").change(() => {
 
@@ -1057,7 +1188,6 @@ $(".user-address-update-btn").click(() => {
 
 
 });
-
 
 function getServiceHistory() {
 
