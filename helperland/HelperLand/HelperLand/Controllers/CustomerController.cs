@@ -810,7 +810,187 @@ namespace HelperLand.Controllers
 
         }
 
+        [HttpGet]
+        public JsonResult GetCompleteServiceUserList()
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+
+            if (Id != null)
+            {
+                List<int?> request = _db.ServiceRequests.Where(x => x.UserId == Id && x.Status == 0).Select(x => x.ServiceProviderId).Distinct().ToList();
+                if (request.Count() > 0)
+                {
+
+                    List<BlockFavouriteUser> userblock = new List<BlockFavouriteUser>();
+                    foreach (var obj in request)
+                    {
+                        int CleaningCount = _db.ServiceRequests.Where(x => x.ServiceProviderId == obj && x.Status == 0).Count();
+
+
+                        FavoriteAndBlocked isCustomerBlock = _db.FavoriteAndBlockeds.FirstOrDefault(x => x.TargetUserId == Id && x.UserId==obj&& x.IsBlocked == true);
+
+                        if (isCustomerBlock==null)
+                        {
+                            User u = _db.Users.FirstOrDefault(x => x.UserId == obj);
+                            BlockFavouriteUser bfu = new BlockFavouriteUser();
+                            bfu.ServiceProviderCleaning = CleaningCount;
+                            bfu.UserIdFrom = (int)Id;
+                            bfu.UserIdTo = (int)obj;
+                            bfu.CustomerName = u.FirstName + " " + u.LastName;
+                            FavoriteAndBlocked fab = _db.FavoriteAndBlockeds.FirstOrDefault(x => x.UserId == (int)Id && x.TargetUserId == u.UserId);
+                            var rating = _db.Ratings.Where(x => x.RatingTo == obj);
+
+                            if (rating.Count() > 0)
+                            {
+
+                                bfu.SPRatings = rating.Average(x => x.Ratings);
+                            }
+                            if (fab != null)
+                            {
+                                bfu.IsBlock = fab.IsBlocked;
+                                bfu.IsFavourite = fab.IsFavorite;
+                            }
+                            else
+                            {
+                                bfu.IsBlock = false;
+                                bfu.IsFavourite = false;
+                            }
+
+                            userblock.Add(bfu);
+
+                        }
+                        }
+                        return new JsonResult(userblock);
+                    
+                }
+            }
+            return new JsonResult("false");
+        }
+
+        [HttpPost]
+        public IActionResult BlockProvider(BlockFavouriteUser data)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                FavoriteAndBlocked fab = _db.FavoriteAndBlockeds.FirstOrDefault(x => x.UserId == (int)Id && x.TargetUserId == data.UserIdTo);
+                if (fab != null)
+                {
+                    if (fab.IsBlocked == false)
+                    {
+                        fab.IsBlocked = true;
+                    }
+                    else
+                    {
+                        fab.IsBlocked = false;
+                    }
+
+                    _db.FavoriteAndBlockeds.Update(fab);
+                    _db.SaveChanges();
+
+                }
+                else
+                {
+                    FavoriteAndBlocked Newfab = new FavoriteAndBlocked();
+                    Newfab.UserId = (int)Id;
+                    Newfab.TargetUserId = data.UserIdTo;
+                    Newfab.IsBlocked = true;
+                    _db.FavoriteAndBlockeds.Add(Newfab);
+                    _db.SaveChanges();
+                }
+
+
+                return Ok(Json("true"));
+            }
+            return Ok(Json("false"));
+        }
+
+
+        [HttpPost]
+        public IActionResult FavouriteProvider(BlockFavouriteUser data)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                FavoriteAndBlocked fab = _db.FavoriteAndBlockeds.FirstOrDefault(x => x.UserId == (int)Id && x.TargetUserId == data.UserIdTo);
+                if (fab != null)
+                {
+                    if (fab.IsFavorite == false)
+                    {
+                        fab.IsFavorite = true;
+                    }
+                    else
+                    {
+                        fab.IsFavorite = false;
+                    }
+
+                    _db.FavoriteAndBlockeds.Update(fab);
+                    _db.SaveChanges();
+
+                }
+                else
+                {
+                    FavoriteAndBlocked Newfab = new FavoriteAndBlocked();
+                    Newfab.UserId = (int)Id;
+                    Newfab.TargetUserId = data.UserIdTo;
+                    Newfab.IsFavorite = true;
+                    _db.FavoriteAndBlockeds.Add(Newfab);
+                    _db.SaveChanges();
+                }
+
+
+                return Ok(Json("true"));
+            }
+            return Ok(Json("false"));
+        }
+
+        [HttpGet]
+        public JsonResult GetFavProvider(User zip)
+        {
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id != null)
+            {
+                var FavPro = _db.FavoriteAndBlockeds.Where(x => x.UserId == Id && x.IsFavorite == true).ToList();
+               
+                if (FavPro.Count() > 0) {
+                    List<BlockFavouriteUser> bfu = new List<BlockFavouriteUser>();
+                    foreach(var obj in FavPro)
+                    {
+                        var isInYourArea = _db.Users.FirstOrDefault(x =>  x.UserId == obj.TargetUserId &&x.UserTypeId==2 && x.ZipCode == zip.ZipCode);
+                        if (isInYourArea != null)
+                        {
+                            var isCustomerBlock = _db.FavoriteAndBlockeds.FirstOrDefault(x => x.UserId == isInYourArea.UserId && x.TargetUserId == Id && x.IsBlocked == true);
+                            if (isCustomerBlock == null)
+                            {
+                                BlockFavouriteUser data = new BlockFavouriteUser();
+
+                                data.UserIdFrom = (int)Id;
+                                data.UserIdTo = isInYourArea.UserId;
+
+
+                                data.ServiceProviderName = isInYourArea.FirstName + " " + isInYourArea.LastName;
+
+                                bfu.Add(data);
+
+                                return new JsonResult(bfu);
+                            }
+
+                        }
+
+                    }
+                    
+                
+                
+                }
+
+               
+            }
+
+            return new JsonResult("false");
+        }
+
 
     }
 
     }
+

@@ -155,7 +155,7 @@ function form2() {
    
 }
 
-function form3() {
+ function form3() {
     pincode_check.style.display = "none";
     schedule_plan.style.display = "none";
     address_list.style.display = "block";
@@ -190,7 +190,8 @@ function form3() {
     address.style.pointerEvents = "auto";
     payment.style.pointerEvents = "none";
 
-    getAddress();
+   getAddress();
+   getFavProvider();
 }
 
 function form4() {
@@ -353,9 +354,9 @@ function getZipcodeCity(zipcode, tagidcity) {
 
             } else if (data[0].Status == "Success") {
                 $("#" + tagidcity).val(data[0].PostOffice[0].District);
-                $("#" + tagidstate).val(data[0].PostOffice[0].State);
+               
                 $(".addAddress-error").addClass("d-none");
-                $("." + tagiderror).removeClass("btn disabled");
+               /* $("." + tagiderror).removeClass("btn disabled");*/
 
             }
         },
@@ -745,3 +746,62 @@ function payDone() {
 
 
 
+
+function getFavProvider() {
+    $.ajax(
+        {
+            type: 'GET',
+            url: '/Customer/GetFavProvider',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: {
+               
+                zipCode: $("#zip").val()
+            },
+            beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
+            success:
+                function (response) {
+                    if (response!= "false") {
+                        console.table(response);
+                    } else {
+
+                        alert("fails");
+                    }
+
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+}
+
+var fav_btn = document.getElementsByClassName("fav-btn");
+
+document.querySelector(".favourite-worker").addEventListener("click", function (e) {
+    console.log(fav_btn);
+    if (e.target.classList.contains("fav-btn")) {
+        for (var i = 0; i < fav_btn.length; i++) {
+            if (fav_btn[i].getAttribute("data-value") != e.target.dataset.value) {
+                fav_btn[i].classList.toggle("disabled");
+            } else {
+                fav_btn[i].classList.toggle("active");
+            }
+        }
+    }
+
+});

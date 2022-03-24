@@ -5,7 +5,15 @@ $("#mytable").on("click",".userActivation",(e) => {
     ActiveDeactiveUser(e.target.dataset.value);
 
 });
-   
+$(window).on('load', function () {
+
+    $("html").css("overflow", "auto");
+
+    $(".lds-roller").css("display", "none");
+    $(".overlayer").css("display", "none");
+
+}
+);
 
 
 function ActiveDeactiveUser(id) {
@@ -16,7 +24,20 @@ function ActiveDeactiveUser(id) {
             type: 'POST',
             url: '/Admin/ActiveDeactiveUser',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response.value == "true") {
@@ -50,7 +71,20 @@ const dt = new DataTable("#mytable", {
     "filter": true,
     "ajax": {
         "url": "/Admin/GetUserList",
-        "type": "POST",
+        "type": "POST", beforeSend: function () {
+            $("html").css("overflow", "hidden");
+            $(".lds-roller").css("display", "inline-block");
+            $(".overlayer").css("display", "block");
+
+        },
+        complete: function () {
+            setTimeout(function () {
+                $("html").css("overflow", "auto");
+
+                $(".lds-roller").css("display", "none");
+                $(".overlayer").css("display", "none");
+            }, 500);
+        },
         "data": function (data) {
             data.userName = $("#searchUserName").val(),
                 data.userType = $("#searchUserTypeId").val(),
@@ -214,7 +248,20 @@ const table2 = new DataTable("#mytable2", {
     "filter": true,
     "ajax": {
         "url": "/Admin/GetSeviceList",
-        "type": "POST",
+        "type": "POST", beforeSend: function () {
+            $("html").css("overflow", "hidden");
+            $(".lds-roller").css("display", "inline-block");
+            $(".overlayer").css("display", "block");
+
+        },
+        complete: function () {
+            setTimeout(function () {
+                $("html").css("overflow", "auto");
+
+                $(".lds-roller").css("display", "none");
+                $(".overlayer").css("display", "none");
+            }, 500);
+        },
         "data": function (data) {
             data.serviceRequestId = $("#searchServiceId").val(),
             data.customerName = $("#searchCustomerName").val(),
@@ -459,7 +506,20 @@ $(".addmin-edit-service-btn").click((e) => {
                 type: 'POST',
                 url: '/Admin/UpdateServiceRequest',
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                data: data,
+                data: data, beforeSend: function () {
+                    $("html").css("overflow", "hidden");
+                    $(".lds-roller").css("display", "inline-block");
+                    $(".overlayer").css("display", "block");
+
+                },
+                complete: function () {
+                    setTimeout(function () {
+                        $("html").css("overflow", "auto");
+
+                        $(".lds-roller").css("display", "none");
+                        $(".overlayer").css("display", "none");
+                    }, 500);
+                },
                 success:
                     function (response) {
                         if (response.value == "true") {
@@ -493,7 +553,20 @@ function GetEditServiceRequestData(id) {
             type: 'GET',
             url: '/Admin/GetEditServiceRequestData',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response != null) {
@@ -543,7 +616,20 @@ function CancelServiceRequest(id) {
             type: 'POST',
             url: '/Admin/CancelServiceRequest',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response.value == "true") {
@@ -574,7 +660,20 @@ function getServiceRequestAllDetails(service_request_id) {
             type: 'GET',
             url: '/Admin/showServiceRequestSummery',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response != null) {
@@ -709,7 +808,20 @@ function getZipcodeCity(zip, tagCity, tagState, button) {
             type: 'GET',
             url: '/Admin/GetZipcodeCity',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response != "false") {
@@ -753,7 +865,20 @@ function payInfo(id) {
             type: 'GET',
             url: '/Admin/PayInfo',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
             success:
                 function (response) {
                     if (response != "false") {
@@ -812,7 +937,20 @@ $(".addmin-refund-service-btn").click((e) => {
                 type: 'POST',
                 url: '/Admin/RefundMoney',
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                data: data,
+                data: data, beforeSend: function () {
+                    $("html").css("overflow", "hidden");
+                    $(".lds-roller").css("display", "inline-block");
+                    $(".overlayer").css("display", "block");
+
+                },
+                complete: function () {
+                    setTimeout(function () {
+                        $("html").css("overflow", "auto");
+
+                        $(".lds-roller").css("display", "none");
+                        $(".overlayer").css("display", "none");
+                    }, 500);
+                },
                 success:
                     function (response) {
                         if (response.value == "true") {

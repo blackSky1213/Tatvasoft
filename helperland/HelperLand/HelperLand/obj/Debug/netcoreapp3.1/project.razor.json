@@ -14467,6 +14467,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\AdminServiceRefund.cshtml",
+      "TargetPath": "Views\\Shared\\AdminServiceRefund.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Home\\About.cshtml",
       "TargetPath": "Views\\Home\\About.cshtml",
       "FileKind": "mvc"
@@ -14474,6 +14479,11 @@
     {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\ServiceProvider\\ServiceProviderPage.cshtml",
       "TargetPath": "Views\\ServiceProvider\\ServiceProviderPage.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\SuccessfulyDone.cshtml",
+      "TargetPath": "Views\\Shared\\SuccessfulyDone.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14512,6 +14522,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\AdminServiceRequestUpdate.cshtml",
+      "TargetPath": "Views\\Shared\\AdminServiceRequestUpdate.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\fogetPass.cshtml",
       "TargetPath": "Views\\Shared\\fogetPass.cshtml",
       "FileKind": "mvc"
@@ -14529,6 +14544,11 @@
     {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Customer\\BookService.cshtml",
       "TargetPath": "Views\\Customer\\BookService.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\AdminUserList.cshtml",
+      "TargetPath": "Views\\Shared\\AdminUserList.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14607,6 +14627,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\AdminCancelService.cshtml",
+      "TargetPath": "Views\\Shared\\AdminCancelService.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Registration\\BecomePro.cshtml",
       "TargetPath": "Views\\Registration\\BecomePro.cshtml",
       "FileKind": "mvc"
@@ -14644,6 +14669,16 @@
     {
       "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\ServiceProviderUpcomingService.cshtml",
       "TargetPath": "Views\\Shared\\ServiceProviderUpcomingService.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\AdminServiceRequest.cshtml",
+      "TargetPath": "Views\\Shared\\AdminServiceRequest.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\tatvasoft\\Tatvasoft\\helperland\\HelperLand\\HelperLand\\Views\\Shared\\ServiceProviderTimeTable.cshtml",
+      "TargetPath": "Views\\Shared\\ServiceProviderTimeTable.cshtml",
       "FileKind": "mvc"
     }
   ],

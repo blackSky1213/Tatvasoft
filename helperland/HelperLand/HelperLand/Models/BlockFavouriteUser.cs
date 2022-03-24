@@ -14,9 +14,14 @@ namespace HelperLand.Models
 
         public string CustomerName { get; set; }
 
+        public string ServiceProviderName { get; set; }
+
         public bool IsBlock { get; set; }
 
         public bool IsFavourite { get; set; }
 
+        public decimal SPRatings { get; set; }
+
+        public int ServiceProviderCleaning { get; set; }
     }
 }

@@ -23,6 +23,7 @@
           crossorigin="" />
 
     <link rel="stylesheet" href="/css/AdminUserRequestStyle.css" />
+    <link rel="stylesheet" href="/css/loading.css" />
     <title>Admin | User management</title>
 </head>
 
@@ -73,10 +74,13 @@
 
         @await Html.PartialAsync("AdminServiceRequestUpdate")
 
-        @await Html.PartialAsync("AdminServiceRefund") 
+        @await Html.PartialAsync("AdminServiceRefund")
 
-        @await Html.PartialAsync("AdminCancelService") 
+        @await Html.PartialAsync("AdminCancelService")
     </section>
+
+    <div class="lds-roller "><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <div class="overlayer"></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
@@ -92,7 +96,7 @@
             crossorigin=""></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
     <script src="/js/adminUserDetailsScript.js"></script>
-    
+
 </body>
 
 </html>

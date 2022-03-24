@@ -909,3 +909,4 @@ C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\
 C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Shared\AdminCancelService.cshtml.g.cs
 C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Shared\SuccessfulyDone.cshtml.g.cs
 C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Shared\ServiceProviderTimeTable.cshtml.g.cs
+C:\Users\kbsar\source\repos\HelperLand\HelperLand\obj\Debug\netcoreapp3.1\Razor\Views\Shared\customerBlockFavProvider.cshtml.g.cs

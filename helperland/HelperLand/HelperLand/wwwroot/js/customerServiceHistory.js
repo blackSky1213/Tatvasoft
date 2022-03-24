@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     $("#mytable1").DataTable();
- 
+  
    
 });
 
@@ -53,6 +53,7 @@ export_button.addEventListener("click", () => {
 var dashboard = document.getElementById("1");
 var serviceRequest = document.getElementById("2");
 var serviceTimeTable = document.getElementById("3");
+var blockfav = document.getElementById("4");
 
 function form1() {
     document.getElementById("Dashboard").style.display = "block";
@@ -61,6 +62,8 @@ function form1() {
 
     dashboard.style.background = "#146371";
     serviceRequest.style.background = "#1d7a8c";
+    blockfav.style.background = "#1d7a8c";
+    document.getElementById("blockCustomer").classList.add("d-none");
 
     document.getElementsByClassName("my-setting-box")[0].classList.add("d-none");
     document.getElementsByClassName("contant-right")[0].classList.remove("d-none");
@@ -80,6 +83,8 @@ function form2() {
     serviceTimeTable.style.background = "#1d7a8c";
     document.getElementsByClassName("my-setting-box")[0].classList.add("d-none");
     document.getElementsByClassName("contant-right")[0].classList.remove("d-none");
+    blockfav.style.background = "#1d7a8c";
+    document.getElementById("blockCustomer").classList.add("d-none");
     getServiceHistory();
 }
 
@@ -93,7 +98,27 @@ function form3() {
     dashboard.style.background = "#1d7a8c";
     serviceRequest.style.background = "#1d7a8c";
     serviceTimeTable.style.background = "#146371";
+    blockfav.style.background = "#1d7a8c";
+    document.getElementById("blockCustomer").classList.add("d-none");
     timeTableData();
+}
+
+
+function form4() {
+    document.getElementById("Dashboard").style.display = "none";
+    document.getElementById("ServiceHistory").style.display = "none";
+    document.getElementById("ServiceScheduleTable").classList.add("d-none");
+    serviceTimeTable.style.background = "#1d7a8c";
+    dashboard.style.background = "#1d7a8c";
+    serviceRequest.style.background = "#1d7a8c";
+    blockfav.style.background = "#146371";
+    document.getElementById("blockCustomer").classList.remove("d-none");
+
+    document.getElementsByClassName("my-setting-box")[0].classList.add("d-none");
+    document.getElementsByClassName("contant-right")[0].classList.remove("d-none");
+
+
+    getFavBlockDetails();
 }
 
 
@@ -1388,6 +1413,203 @@ function showRating(rating,id) {
     }
 
     
+
+
+}
+
+
+
+function getFavBlockDetails() {
+
+    $.ajax(
+        {
+            type: 'GET',
+            url: '/Customer/GetCompleteServiceUserList',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
+            success:
+                function (response) {
+                    if (response!= "false") {
+                        console.table(response);
+
+                        $("#mytable5 tbody").empty();
+                        for (var i = 0; i < response.length; i++) {
+                            var favbtn = `<button class="favourite-btn" data-value="${response[i].userIdTo}">favourite</button>`;
+                            var blockbtn = ` <button class="block-btn" data-value="${response[i].userIdTo}">Block</button>`;
+                            if (response[i].isFavourite == true) {
+                                favbtn = `<button class="favourite-btn" data-value="${response[i].userIdTo}">Remove</button>`;
+                                var blockbtn = ` <button class="block-btn btn disabled" data-value="${response[i].userIdTo}">Block</button>`;
+                            }
+                            if (response[i].isBlock == true) {
+                                favbtn = `<button class="favourite-btn btn disabled" data-value="${response[i].userIdTo}">favourite</button>`;
+                                var blockbtn = ` <button class="block-btn" data-value="${response[i].userIdTo}">Unblock</button>`;
+                            }
+                            $("#mytable5 tbody").append(`<tr class="block">
+                <td>
+                    <div><img class="cap-icon cap-upgrade" src="/image/cap.jpg" alt="cap"></div>
+                </td>
+                <td>
+                    <div class="block-icon">
+                        <p>${response[i].customerName}</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex align-items-center"><div id="spratings${response[i].userIdTo}" class="average-rating"><span class="half-star "></span><span class="half-star "></span><span class="half-star "></span><span class="half-star "></span><span class="half-star "></span><span class="half-star "></span><span class="half-star "></span><span class="half-star"></span><span class="half-star"></span><span class="half-star"></span></div><div style="padding-top: 4px; padding-left: 3px"><span class="sprating">${response[i].spRatings}</span></div></div>
+                    <p>${response[i].serviceProviderCleaning} cleaning</p>
+
+                </td>
+                <td>
+                   ${favbtn}
+                   ${blockbtn}
+                   
+                </td>
+            </tr>`);
+                            showRating(response[i].spRatings, `#spratings${response[i].userIdTo}`)
+                        }
+
+
+                        const table5 = new DataTable("#mytable5", {
+                            dom: 't<"table-bottom paging d-flex justify-content-between"<"table-bottom-inner d-flex"li>p>',
+                            responsive: true,
+                            retrieve: true,
+                            pagingType: "full_numbers",
+                            language: {
+                                paginate: {
+                                    first: '<img src="/image/first-page.png" alt="first" style= />',
+                                    previous: '<img src="/image/previous.png" alt="previous" />',
+                                    next: '<img src="/image/previous.png" alt="next" style="transform: rotate(180deg)" />',
+                                    last: "<img src='/image/first-page.png' alt='first' style='transform: rotate(180deg)' />",
+                                },
+                                info: "Total Record: _MAX_",
+                                lengthMenu: "Show_MENU_Entries",
+                            },
+                            buttons: ["excel"],
+                            columnDefs: [{ orderable: false, targets: 3 }],
+                        });
+                    }
+                    else {
+                        alert("not well");
+                    }
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+}
+
+
+
+
+$("#mytable5").click((e) => {
+
+    var btnClass = e.target.classList;
+
+    if (Object.values(btnClass).includes("block-btn")) {
+
+        blockCustomer(e.target.dataset.value);
+    }
+
+    
+
+    if (Object.values(btnClass).includes("favourite-btn")) {
+
+        favouriteCustomer(e.target.dataset.value);
+    }
+});
+
+function blockCustomer(id) {
+
+    var data = {};
+    data.userIdTo = id;
+    $.ajax(
+        {
+            type: 'POST',
+            url: '/Customer/BlockProvider',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
+            success:
+                function (response) {
+                    if (response.value == "true") {
+                        getFavBlockDetails();
+
+                    }
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
+
+
+
+}
+
+function favouriteCustomer(id) {
+    var data = {};
+    data.userIdTo = id;
+    $.ajax(
+        {
+            type: 'POST',
+            url: '/Customer/FavouriteProvider',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: data, beforeSend: function () {
+                $("html").css("overflow", "hidden");
+                $(".lds-roller").css("display", "inline-block");
+                $(".overlayer").css("display", "block");
+
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $("html").css("overflow", "auto");
+
+                    $(".lds-roller").css("display", "none");
+                    $(".overlayer").css("display", "none");
+                }, 500);
+            },
+            success:
+                function (response) {
+                    if (response.value == "true") {
+                        getFavBlockDetails();
+
+                    }
+
+                },
+            error:
+                function (response) {
+                    console.error(response);
+                    alert("fail");
+                }
+        });
 
 
 }

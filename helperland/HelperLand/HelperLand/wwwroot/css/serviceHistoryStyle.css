@@ -5,12 +5,10 @@
 /* Navbar  */
 body{
   margin:0;
-  padding:0;
+  padding:0 !important;
 
 }
-#mytable_filter{
-  display:none !important;
-}
+
 
 #upcoming-menu-collapse{
   display:none;
@@ -200,17 +198,20 @@ nav {
 }
 
 #mytable1_length,
-#mytable2_length {
+#mytable2_length,
+#mytable5_length {
     color: #646464;
 }
 
     #mytable1_length label,
-    #mytable2_length label {
+    #mytable2_length label,
+    #mytable5_length label {
         margin-top: 15px;
     }
 
     #mytable1_length select,
-    #mytable2_length select {
+    #mytable2_length select,
+    #mytable5_length select {
         margin: 0px 10px;
         border: solid 1px #e1e1e1;
         color: #646464;
@@ -251,7 +252,8 @@ nav {
 }
 
 #mytable1_info,
-#mytable2_info {
+#mytable2_info,
+#mytable5_info {
     margin-top: 7px;
     margin-left: 7px;
     color: #646464;
@@ -418,7 +420,8 @@ table.dataTable thead td {
     }
 
     #mytable1,
-    #mytable2 {
+    #mytable2,
+    #mytable5{
         max-width: 900px !important;
     }
 
@@ -1114,4 +1117,110 @@ table.dataTable thead td {
     display: flex;
     align-content: center;
     gap: 5px;
+}
+
+
+.block-btn {
+    padding: 8px 16px;
+    margin: 0;
+    background-color: #ff6b6b;
+    color: #fff;
+    border-radius: 26px;
+    width: 100px;
+
+    border: none;
+}
+
+.favourite-btn {
+    color: #fff;
+    padding: 8px 16px;
+    background-color: #146371;
+    border-radius: 26px;
+    width: 100px;
+
+    border: none;
+}
+
+.cap-upgrade {
+    width: 100px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+}
+
+.block {
+    border: 1px solid #e1e1e1;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.block-icon {
+    margin: 20px 20px 0px 20px;
+}
+
+.block-icon p {
+    color: #646464;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+}
+.block p {
+    text-align: center;
+}
+
+#mytable5 {
+    border: none;
+    border-collapse: separate;
+}
+
+    #mytable5 tbody {
+        display: flex;
+    }
+
+    #mytable5 tr {
+        border: 1px solid #e1e1e1;
+        margin: 15px;
+    }
+
+    #mytable5 tbody td {
+        display: block;
+        padding: 0;
+    }
+
+    #mytable5 thead {
+        display: none !important;
+    }
+
+@media (max-width: 962px) {
+    #mytable5 tbody {
+        flex-direction: column;
+    }
+
+    #mytable5 tr {
+        border: 1px solid #e1e1e1;
+        margin: 15px;
+    }
+
+    #mytable5 tbody td {
+        display: block;
+        padding: 0;
+        border: none;
+    }
+}
+
+@media (max-width: 782px) {
+
+    #mytable5 tr {
+        border: 1px solid #e1e1e1;
+        margin: 15px;
+    }
+
+    #mytable5 tbody td {
+        display: block;
+        padding: 0;
+    }
 }
