@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace HelperLand.Controllers
@@ -136,19 +138,33 @@ namespace HelperLand.Controllers
                 {
                     ViewBag.Name = Id;
                 }
+                string serverFolder="";
                 if (contactU.AttechmentFile != null)
                 {
                     string folder = "ContactUsFile/";
                     folder += Guid.NewGuid().ToString() + "_" + contactU.AttechmentFile.FileName;
-                    string serverFolder = Path.Combine(_WebHostEnvironment.WebRootPath, folder);
-                    contactU.AttechmentFile.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+                   serverFolder = Path.Combine(_WebHostEnvironment.WebRootPath, folder);
+                    var file = new FileStream(serverFolder, FileMode.Create);
+                    contactU.AttechmentFile.CopyToAsync(file);
                     contactU.FileName = folder;
+                    file.Close();
+                  
                 }
 
 
                 contactU.CreatedOn = DateTime.Now;
-                _db.ContactUs.Add(contactU);
+               var contacUtId= _db.ContactUs.Add(contactU);
                 _db.SaveChanges();
+
+                string message = "<p> user name :- "+contactU.FirstName+" "+contactU.LastName+" </p>"+"<p>mobile number :- "+contactU.PhoneNumber+" </p>"+"<p>email :- "+contactU.Email+"</p>"+ "<p>query type :- "+contactU.Subject+"</p>"+"<p> message :- "+contactU.Message+"</p>"+"createdBy :- "+ contactU.CreatedBy +"</p><p> createOn :- "+contactU.CreatedOn+"</p>";
+                List<User> AdminList = _db.Users.Where(x => x.UserTypeId == 3).ToList();
+                if (AdminList.Count() > 0)
+                {
+                    ContactU contact = _db.ContactUs.FirstOrDefault(x => x.ContactUsId == contacUtId.Entity.ContactUsId);
+
+                    Task task = Task.Run(() => SendMain(AdminList, message, serverFolder, contact));
+                }
+
                 return RedirectToAction("Contact","Home",new {ContactModal = "true"});
 
 
@@ -159,9 +175,46 @@ namespace HelperLand.Controllers
             }
         }
 
-       
+        private static void SendMain(List<User> AdminList, string message,string path,ContactU contact)
+        {
+            
+            SmtpClient setup = new SmtpClient("smtp.gmail.com");
+            setup.Port = 587;
+            setup.UseDefaultCredentials = true;
+            setup.EnableSsl = true;
+            setup.Credentials = new System.Net.NetworkCredential("kripcsarvaiya@gmail.com", "9825106734");
 
-        
+            string subject = "New Service Request ";
+            string body = message;
+            MailMessage mm = new MailMessage();
+            mm.Subject = subject;
+            mm.Body = body;
+            if (path != "")
+            {
+                Attachment attachment;
+                attachment = new Attachment(path,new ContentType("image/png"));
+                mm.Attachments.Add(attachment);
+            }
+            mm.From = new MailAddress("kripcsarvaiya@gmail.com");
+            mm.IsBodyHtml = true;
+            foreach (var obj in AdminList)
+            {
+                string to = obj.Email;
+
+                mm.To.Add(to);
+
+
+
+
+            }
+            setup.Send(mm);
+        }
+
+
+
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

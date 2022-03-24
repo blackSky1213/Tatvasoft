@@ -359,10 +359,9 @@ nav {
     border-bottom: solid 1px #c8c8c8;
 }
 
-#continue {
+#continue, #continue2, #continue4 {
     background: #1d7a8c;
     color: #ffff;
-   
     border: none;
     border-radius: 23px;
     padding: 10px 31px 12px 29px;

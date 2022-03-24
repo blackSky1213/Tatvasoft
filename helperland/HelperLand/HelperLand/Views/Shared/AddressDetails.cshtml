@@ -1,11 +1,14 @@
 ﻿
 <div id="address-list">
     <form action="">
+        <div class="alert select-address-list-alert alert-danger d-none" role="alert">
+           
+        </div>
         <label for="Address">
             Enter your details, so we can serve you in better way!
         </label>
         <div id="AddressList">
-            <div  class="address-check-box">
+            <div class="address-check-box">
                 <div><input type="radio" name="address1" /></div>
                 <div>
                     <p>
@@ -33,7 +36,7 @@
         </button>
         <div class="add-address-box">
             <div class="addAddress-error d-none alert alert-danger" role="alert">
-               
+
             </div>
             <div class="address-taker-box">
                 <div>
@@ -42,7 +45,7 @@
                     <input type="text"
                            id="streetname"
                            placeholder="Street name" />
-                   
+
                 </div>
                 <div>
                     <label for="housename"> House number </label>
@@ -59,12 +62,12 @@
                     <br />
                     <input type="text"
                            id="postalcode"
-                           placeholder="Postal code"   disabled/>
+                           placeholder="Postal code" disabled />
                 </div>
                 <div>
                     <label for="city"> City </label>
                     <br />
-                    <input type="text" id="city" placeholder="City" disabled/>
+                    <input type="text" id="city" placeholder="City" disabled />
                 </div>
             </div>
             <div class="address-taker-box tel">
@@ -92,45 +95,13 @@
                 list
             </label>
             <div class="favourite-worker">
-                <div style="text-align: center; width: 20%">
-                    <img class="favourite-worker-img"
-                         src="/image/cap.png"
-                         alt="cap" />
-                    <p class="mb-2">Sandip Patel</p>
-                    <div>
-                        <button class="fav-btn btn btn-outline-secondary" data-value="1" type="button">
-                            Select
-                        </button>
-                    </div>
-                </div>
-                <div style="text-align: center; width: 20%">
-                    <img class="favourite-worker-img"
-                         src="/image/cap.png"
-                         alt="cap" />
-                    <p class="mb-2">Sandip Patel</p>
-                    <div>
-                        <button class="fav-btn btn btn-outline-secondary" data-value="2" type="button">
-                            Select
-                        </button>
-                    </div>
-                </div>
-                <div style="text-align: center; width: 20%">
-                    <img class="favourite-worker-img"
-                         src="/image/cap.png"
-                         alt="cap" />
-                    <p class="mb-2">Sandip Patel</p>
-                    <div>
-                        <button class="fav-btn btn btn-outline-secondary" data-value="3" type="button">
-                            Select
-                        </button>
-                    </div>
-                </div>
+
             </div>
         </div>
         <div style="text-align: right;margin-top:20px">
-            <input id="continue"
+            <input id="continue4"
                    type="button"
-                   onclick="form4()"
+                 
                    value="Continue" />
         </div>
     </form>

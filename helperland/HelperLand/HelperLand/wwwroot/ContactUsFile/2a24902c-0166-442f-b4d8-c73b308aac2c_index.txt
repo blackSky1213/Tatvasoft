@@ -1,0 +1,181 @@
+ <div id="modal-booknow-side">
+              <div id="modal-paymentSummary">
+                <div id="modal-payment-questiondiv">
+                  <!-- title starts -->
+                  <!-- <div id="payment-title" class="flex-column">
+                  Payment Summary
+                </div> -->
+                  <!-- title ends -->
+
+                  <!-- service time starts -->
+                  <div id="modal-service-time" class="flex-column">
+                    <div id="modal-timeandbed">
+                      <p>01/01/2022@4:00pm</p>
+                      <p>1 bed, 1 bath.</p>
+                    </div>
+
+                    <b>Duration</b>
+                    <div>
+                      <span>Basic</span>
+                      <span>3 hrs</span>
+                    </div>
+                    <div>
+                      <span>Inside cabinets (extra)</span>
+                      <span>30 mins</span>
+                    </div>
+
+                    <div id="modal-total-time">
+                      <span><b>Total Service Time</b></span>
+                      <span><b>3.5 hrs</b></span>
+                    </div>
+                  </div>
+                  <!-- service time ends -->
+
+                  <!-- cost strats -->
+                  <div id="modal-service-cost" class="flex-column">
+                    <div>
+                      <span>Per cleaning</span>
+                      <span><b>&dollar;87</b></span>
+                    </div>
+
+                    <div>
+                      <span>Discount</span>
+                      <span><b>- &dollar;27</b></span>
+                    </div>
+                  </div>
+                  <!-- cost ends -->
+
+                  <!-- payment starts-->
+                  <div id="modal-service-pay" class="flex-column">
+                    <div>
+                      <span id="total-pay">Total Payment</span>
+                      <span id="amount">&dollar;63</span>
+                    </div>
+                    <div>
+                      <span>Effective Price</span>
+                      <span id="last-amount"><b>&dollar;50.4</b></span>
+                    </div>
+                  </div>
+                  <!-- payment ends -->
+
+                  <p id="modal-saveP">
+                    <span>*</span>You will save 20% according to §35a EStG.
+                  </p>
+
+                  <!-- modal starts -->
+                  <div id="modal-call-modal">
+                    <a href=""
+                      ><i class="far fa-smile"></i> See what is always
+                      included</a
+                    >
+                  </div>
+                  <!-- modal ends -->
+                </div>
+
+                <div id="modal-book-questions">
+                  <div id="modal-question-title">
+                    <h3>Questions?</h3>
+                  </div>
+                  <!-- question main starts -->
+                  <div id="modal-question-main">
+                    <div class="faq-qa" style="display: flex">
+                      <a
+                        id="faq-q1"
+                        href="#faq-ans1"
+                        data-bs-toggle="collapse"
+                        style="font-size: 16px; color: #565656"
+                      >
+                        <div style="display: flex">
+                          <div>
+                            <img
+                              id="faq-ar-1"
+                              class="faq_arrow_img"
+                              src="image/left-arrow.png"
+                              alt=""
+                            />
+                          </div>
+
+                          <p>
+                            Which Helperland professional will come to my place?
+                          </p>
+                        </div>
+                      </a>
+                    </div>
+                    <div id="faq-ans1" class="collapse faq-ans">
+                      Helperland has a vast network of experienced, top-rated
+                      cleaners. Based on the time and date of your request, we
+                      work to assign the best professional available.Like
+                      working with a specific pro? Add them to your Pro Team
+                      from the mobile app and they'll be requested first for all
+                      future bookings.You will receive an email with details
+                      about your professional prior to your appointment.
+                    </div>
+
+                    <div class="faq-qa" style="display: flex">
+                      <a
+                        id="faq-q2"
+                        href="#faq-ans2"
+                        data-bs-toggle="collapse"
+                        style="font-size: 16px; color: #565656"
+                      >
+                        <div style="display: flex">
+                          <div>
+                            <img
+                              id="faq-ar-2"
+                              class="faq_arrow_img"
+                              src="image/left-arrow.png"
+                              alt=""
+                            />
+                          </div>
+                          <p>What's included in a cleaning?</p>
+                        </div>
+                      </a>
+                    </div>
+                    <div id="faq-ans2" class="collapse faq-ans">
+                      Bedroom, Living Room & Common
+                      Areas,Bathrooms,Kitchen,Extras
+                    </div>
+
+                    <div class="faq-qa" style="display: flex">
+                      <a
+                        id="faq-q3"
+                        href="#faq-ans3"
+                        data-bs-toggle="collapse"
+                        style="font-size: 16px; color: #565656"
+                      >
+                        <div style="display: flex">
+                          <div>
+                            <img
+                              id="faq-ar-3"
+                              class="faq_arrow_img"
+                              src="image/left-arrow.png"
+                              alt=""
+                            />
+                          </div>
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit?
+                          </p>
+                        </div>
+                      </a>
+                    </div>
+                    <div id="faq-ans3" class="collapse faq-ans">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Sed id diam tincidunt, fringilla ante vitae, dapibus
+                      velit. Vivamus id tortor rhoncus, efficitur quam at,
+                      suscipit tortor.
+                    </div>
+
+                    <div id="for-more-help">
+                      <a href="">For more help</a>
+                    </div>
+                  </div>
+                  <!-- question main ends -->
+                </div>
+              </div>
+            </div>
+          </div> 
+          <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div> -->

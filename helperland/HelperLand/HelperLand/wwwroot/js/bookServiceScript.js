@@ -5,6 +5,20 @@ var laundry = document.getElementById("laundryCheck");
 var interior = document.getElementById("interiorCheck");
 
 
+document.getElementById('continue4').addEventListener("click", () => {
+
+    if ($("input[name=address1]:checked").val() == undefined || $("input[name=address1]:checked").val() == null || $("input[name=address1]:checked").val() == "") {
+
+        $(".select-address-list-alert").removeClass("d-none").text("Please Select address").fadeIn().fadeOut(7000);
+
+}
+    else {
+    form4();
+}
+
+});
+
+
 $(window).on('load', function () {
 
     $("html").css("overflow", "auto");
@@ -271,6 +285,9 @@ function checkZipcode() {
                     $("html").css("overflow", "hidden");
                     $(".lds-roller").css("display", "inline-block");
                     $(".overlayer").css("display", "block");
+                    $(".spin-btn").addClass("btn").addClass("disabled");
+                    $(".loading-text").text("checking...");
+                    $(".spin-load").removeClass("d-none");
 
                 },
                 complete: function () {
@@ -279,22 +296,28 @@ function checkZipcode() {
 
                         $(".lds-roller").css("display", "none");
                         $(".overlayer").css("display", "none");
+
+                        $(".spin-btn").removeClass("btn").removeClass("disabled");
+                        $(".spin-load").addClass("d-none");
+                        $(".loading-text").text("check availability");
                     }, 500);
                 },
                 success:
                     function (response) {
                         console.log(response);
-                        $(".spin-btn").removeClass("btn").removeClass("disabled");
-                        $(".spin-load").addClass("d-none");
-                        $(".loading-text").text("check availability");
+                       
                         if (response.value == "true") {
                             $(".postalcode-error").addClass("d-none");
                             $("#postalcode").val($("#zip").val());
-                            
-                          
-                            getZipcodeCity($("#zip").val(),"city")
+
+
+                            getZipcodeCity($("#zip").val(), "city")
 
                             form2();
+                        } else if (response.value == "isBlockByU") {
+
+                            $(".postalcode-error").removeClass("d-none").text("Available service provider block by you!");
+
                         } else {
 
 
@@ -304,23 +327,6 @@ function checkZipcode() {
                         }
 
 
-                    }, xhr: function () {
-
-                        var xhr = $.ajaxSettings.xhr();
-
-                        xhr.upload.onprogress = function (e) {
-                            $(".spin-btn").addClass("btn").addClass("disabled");
-                            $(".loading-text").text("checking...");
-                            $(".spin-load").removeClass("d-none");
-                        };
-
-                        xhr.upload.onload = function () {
-                            $(".spin-btn").addClass("btn").addClass("disabled");
-                            $(".loading-text").text("checking...");
-                            $(".spin-load").removeClass("d-none");
-                        };
-
-                        return xhr;
                     },
                 error:
                     function (response) {
@@ -660,6 +666,7 @@ function payDone() {
     serviceRequestData.havePet = $("#havePet").is(":checked");
     serviceRequestData.AddressId = $("#AddressList div input[type=radio]:checked").val();
     serviceRequestData.postalcode = $("#zip").val();
+    serviceRequestData.serviceProviderId = favprovider;
 
     serviceRequestData.extraHours = 0;
 
@@ -722,10 +729,15 @@ function payDone() {
                 function (response) {
 
                     if (response.value == "false") {
-                        alert("fails");
+                        $(".paydone-alert").removeClass("d-none").text("something is go wrong try again");
 
+
+                    } else if (response.value == "conflict") {
+
+                        $(".paydone-alert").removeClass("d-none").text("Service Provider already have schedule on given time and date!");
 
                     } else {
+                        $(".paydone-alert").addClass("d-none")
                         $("#bookedId").text("service request id : " + response.value);
                         $("#completeBookModal").click();
 
@@ -775,9 +787,18 @@ function getFavProvider() {
                 function (response) {
                     if (response!= "false") {
                         console.table(response);
-                    } else {
-
-                        alert("fails");
+                        $(".favourite-worker").empty();
+                        for (var i = 0; i < response.length; i++) {
+                            $(".favourite-worker").append(`<div style="text-align: center; width: 20%">
+                    <img class="favourite-worker-img" src="/image/cap.png" alt="cap">
+                    <p class="mb-2">${response[i].serviceProviderName}</p>
+                    <div>
+                        <button class="fav-btn btn btn-outline-secondary" data-value="${response[i].userIdTo}" type="button">
+                            Select
+                        </button>
+                    </div>
+                </div>`);
+                        }
                     }
 
 
@@ -792,8 +813,10 @@ function getFavProvider() {
 
 var fav_btn = document.getElementsByClassName("fav-btn");
 
+
+var favprovider;
 document.querySelector(".favourite-worker").addEventListener("click", function (e) {
-    console.log(fav_btn);
+   
     if (e.target.classList.contains("fav-btn")) {
         for (var i = 0; i < fav_btn.length; i++) {
             if (fav_btn[i].getAttribute("data-value") != e.target.dataset.value) {
@@ -802,6 +825,10 @@ document.querySelector(".favourite-worker").addEventListener("click", function (
                 fav_btn[i].classList.toggle("active");
             }
         }
+    }
+    
+    if (e.target.classList.contains("fav-btn") && (e.target.classList.contains("active"))) {
+        favprovider=e.target.dataset.value;
     }
 
 });

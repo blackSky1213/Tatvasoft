@@ -33,9 +33,9 @@ namespace HelperLand.Controllers
                     var table = _db.ServiceRequests.Where(x => x.ServiceProviderId == null && x.ZipCode == user.ZipCode && x.Status == 2).ToList();
                     foreach(var data in table)
                     {
-                        FavoriteAndBlocked fab = _db.FavoriteAndBlockeds.FirstOrDefault(x => x.UserId == (int)Id && x.TargetUserId == data.UserId);
+                        FavoriteAndBlocked fab = _db.FavoriteAndBlockeds.FirstOrDefault(x =>( x.UserId == (int)Id && x.TargetUserId == data.UserId && x.IsBlocked==true)||(x.UserId==data.UserId && x.TargetUserId==(int)Id && x.IsBlocked == true));
 
-                        if (fab.IsBlocked == false)
+                        if (fab==null)
                         {
                             ServiceProviderService sps = new ServiceProviderService();
                             sps.ServiceRequestId = data.ServiceRequestId;

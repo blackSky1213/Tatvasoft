@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace HelperLand.Controllers
@@ -528,6 +529,12 @@ namespace HelperLand.Controllers
                     _db.ServiceRequests.Update(serviceRequestCancel);
                     _db.SaveChanges();
 
+                    var ServiceProviderList = _db.Users.Where(x => x.UserId == serviceRequestCancel.ServiceProviderId || x.UserId == serviceRequestCancel.UserId).ToList();
+                   
+                    string message = "<p>Service Request " + serviceRequestCancel.ServiceRequestId + " has been cancel by admin</p>";
+
+                    Task task = Task.Run(() => SendMain(ServiceProviderList, message, "cancel service"));
+
                     return Ok(Json("true"));
 
                 }
@@ -537,6 +544,32 @@ namespace HelperLand.Controllers
             return Ok(Json("false"));
         }
 
+        private static void SendMain(List<User> ServiceProviderList, string message, string subject)
+        {
+            SmtpClient setup = new SmtpClient("smtp.gmail.com");
+            setup.Port = 587;
+            setup.UseDefaultCredentials = true;
+            setup.EnableSsl = true;
+            setup.Credentials = new System.Net.NetworkCredential("kripcsarvaiya@gmail.com", "9825106734");
+
+            string body = message;
+            MailMessage mm = new MailMessage();
+            mm.Subject = subject;
+            mm.Body = body;
+            mm.From = new MailAddress("kripcsarvaiya@gmail.com");
+            mm.IsBodyHtml = true;
+            foreach (var obj in ServiceProviderList)
+            {
+                string to = obj.Email;
+
+                mm.To.Add(to);
+
+
+
+
+            }
+            setup.Send(mm);
+        }
 
 
         [HttpGet]
@@ -597,14 +630,18 @@ namespace HelperLand.Controllers
 
                 if (srRequest != null)
                 {
-                    var thistimeStart =  DateTime.Parse(request.ServiceStartDate.ToString("M/d/yyyy") + " " + request.StartTime.ToString("HH:mm"));
-                    var thistimeEnd = thistimeStart.AddHours((double)srRequest.SubTotal + 1);
-                    ServiceRequest conflictService = _db.ServiceRequests.FirstOrDefault(
-                        x => x.Status == 2 && (x.ServiceProviderId == srRequest.ServiceProviderId && x.ServiceStartDate <= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeStart) || (x.ServiceProviderId == srRequest.ServiceProviderId && x.ServiceStartDate <= thistimeEnd && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeEnd) || (x.ServiceProviderId == srRequest.ServiceProviderId && x.ServiceStartDate >= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) <= thistimeEnd)
-                        );
+                    if (srRequest.ServiceProviderId != null)
+                    {
+                        var thistimeStart = DateTime.Parse(request.ServiceStartDate.ToString("M/d/yyyy") + " " + request.StartTime.ToString("HH:mm"));
+                        var thistimeEnd = thistimeStart.AddHours((double)srRequest.SubTotal + 1);
+                        ServiceRequest conflictService = _db.ServiceRequests.FirstOrDefault(
+                            x => x.Status == 2 && (x.ServiceProviderId == srRequest.ServiceProviderId && x.ServiceStartDate <= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeStart) || (x.ServiceProviderId == srRequest.ServiceProviderId && x.ServiceStartDate <= thistimeEnd && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeEnd) || (x.ServiceProviderId == srRequest.ServiceProviderId && x.ServiceStartDate >= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) <= thistimeEnd)
+                            );
 
-                    if (conflictService != null) {
-                        return Ok(Json("conflict"));
+                        if (conflictService != null)
+                        {
+                            return Ok(Json("conflict"));
+                        }
                     }
                     srRequest.ServiceStartDate = DateTime.Parse(request.ServiceStartDate.ToString("M/d/yyyy") + " " + request.StartTime.ToString("HH:mm"));
                     srRequest.Comments = request.Comment;
@@ -625,6 +662,13 @@ namespace HelperLand.Controllers
 
                         _db.ServiceRequestAddresses.Update(srAddr);
                         _db.SaveChanges();
+
+                        var ServiceProviderList = _db.Users.Where(x => x.UserId == srRequest.ServiceProviderId || x.UserId == srRequest.UserId).ToList();
+
+                        string message = "<p>Service Request " + srRequest.ServiceRequestId + " has been update by addmin</p>";
+
+                        Task task = Task.Run(() => SendMain(ServiceProviderList, message, "Reschedule service"));
+
                         return Ok(Json("true"));
                     }
 

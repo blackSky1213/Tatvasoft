@@ -577,6 +577,7 @@ function getZipcodeCity(zipcode,tagidcity,tagidstate,tagiderror) {
             $("html").css("overflow", "hidden");
             $(".lds-roller").css("display", "inline-block");
             $(".overlayer").css("display", "block");
+            $(".user-address-update-btn ").addClass("btn disabled");
 
         },
         complete: function () {
@@ -585,6 +586,7 @@ function getZipcodeCity(zipcode,tagidcity,tagidstate,tagiderror) {
 
                 $(".lds-roller").css("display", "none");
                 $(".overlayer").css("display", "none");
+                $(".user-address-update-btn ").removeClass("btn disabled");
             }, 500);
         },
        
@@ -1007,7 +1009,7 @@ $("#updateUserPassword").click(() => {
     data.password = $("#currenPassword").val();
     var IsvalidPass = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(data.newPassword);
     console.log(data);
-    if ($("#currentPassword").val() == "" || $("#NewPassword").val() == "" || $("#confirmpass").val() == "") {
+    if ($("#currentPassword").val() == "" || $("#NewPassword").val() == "" || $("#confirmPassword").val() == "") {
         $(".user-update-password-alert").addClass("alert-danger").removeClass("d-none").text("please fill all field").fadeIn().fadeOut(2000);
     } else if (!IsvalidPass) {
 
@@ -1085,6 +1087,10 @@ $(".user-address-add-btn").click(() => {
     } else if (data.mobile == "" || !numbers) {
         $(".addAddress-error").removeClass("d-none").text("please enter valid value of mobile!").fadeIn().fadeOut(2000);
       
+        flag = 0;
+    } else if (data.postalCode.length < 6 || data.postalCode=="") {
+        $(".addAddress-error").removeClass("d-none").text("please enter valid postalCode!").fadeIn().fadeOut(2000);
+
         flag = 0;
     }
     else {
@@ -1165,6 +1171,10 @@ $(".user-address-update-btn").click(() => {
         $(".addAddress-error").removeClass("d-none").text("please enter valid value of mobile!").fadeIn().fadeOut(2000);
 
         flag = 0;
+    } else if (data.postalCode.length < 6 || data.postalCode == "") {
+        $(".addAddress-error").removeClass("d-none").text("please enter valid postalcodes!").fadeIn().fadeOut(2000);
+        flag = 0;
+
     }
     else {
       
@@ -1442,10 +1452,11 @@ function getFavBlockDetails() {
             },
             success:
                 function (response) {
+                   
                     if (response!= "false") {
                         console.table(response);
-
                         $("#mytable5 tbody").empty();
+                       
                         for (var i = 0; i < response.length; i++) {
                             var favbtn = `<button class="favourite-btn" data-value="${response[i].userIdTo}">favourite</button>`;
                             var blockbtn = ` <button class="block-btn" data-value="${response[i].userIdTo}">Block</button>`;
@@ -1500,9 +1511,7 @@ function getFavBlockDetails() {
                             columnDefs: [{ orderable: false, targets: 3 }],
                         });
                     }
-                    else {
-                        alert("not well");
-                    }
+                    
                 },
             error:
                 function (response) {

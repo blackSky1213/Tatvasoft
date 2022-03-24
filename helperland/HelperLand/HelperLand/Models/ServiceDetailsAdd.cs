@@ -22,6 +22,7 @@ namespace HelperLand.Models
             get; set;
         }
 
+        public int? ServiceProviderId { get; set; }
         public string postalCode { get; set; }
 
         public float extraHours { get; set; }

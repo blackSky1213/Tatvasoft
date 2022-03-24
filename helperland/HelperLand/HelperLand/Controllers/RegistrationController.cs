@@ -56,6 +56,7 @@ namespace HelperLand.Controllers
                     user.ModifiedDate = DateTime.Now;
                     user.IsRegisteredUser = true;
                     user.ModifiedBy = 123;
+                    user.IsActive = true;
                     user.ForgetPass = "false";
                     _db.Users.Add(user);
                     _db.SaveChanges();
@@ -104,6 +105,7 @@ namespace HelperLand.Controllers
                     user.ModifiedDate = DateTime.Now;
                     user.IsRegisteredUser = true;
                     user.ModifiedBy = 123;
+                    user.IsActive = false;
                     user.ForgetPass = "false";
                       
                     _db.Users.Add(user);
@@ -136,33 +138,42 @@ namespace HelperLand.Controllers
                     bool IsPassValid = BCrypt.Net.BCrypt.Verify(user.password, U.Password);
                     if (IsPassValid)
                     {
-                        if (user.remember == true)
+                        if (U.IsActive)
                         {
-                            CookieOptions MyCookie = new CookieOptions();
-                            MyCookie.Expires = DateTime.Now.AddMinutes(30);
-                            Response.Cookies.Append("userid", Convert.ToString(U.UserId),MyCookie);
-                            
+                            if (user.remember == true)
+                            {
+                                CookieOptions MyCookie = new CookieOptions();
+                                MyCookie.Expires = DateTime.Now.AddMinutes(30);
+                                Response.Cookies.Append("userid", Convert.ToString(U.UserId), MyCookie);
 
+
+                            }
+
+
+                            HttpContext.Session.SetInt32("id", U.UserId);
+
+
+                            if (U.UserTypeId == 1)
+                            {
+
+
+                                return RedirectToAction("CustomerServiceHistory", "Customer");
+                            }
+                            else if (U.UserTypeId == 2)
+                            {
+                                return RedirectToAction("ServiceProviderPage", "ServiceProvider");
+
+                            }
+                            else if (U.UserTypeId == 3)
+                            {
+                                return RedirectToAction("UserDetailsTable", "Admin");
+                            }
                         }
-
-
-                        HttpContext.Session.SetInt32("id", U.UserId);
-
-
-                        if (U.UserTypeId == 1)
+                        else
                         {
-                            
-                            
-                            return RedirectToAction("CustomerServiceHistory", "Customer");
-                        }
-                        else if (U.UserTypeId == 2)
-                        {
-                            return RedirectToAction("ServiceProviderPage", "ServiceProvider");
-
-                        }
-                        else if (U.UserTypeId == 3)
-                        {
-                            return RedirectToAction("UserDetailsTable", "Admin");
+                            TempData["add"] = "alert show";
+                            TempData["fail"] = "Your account is deactive please contact Admin!";
+                            return RedirectToAction("Index", "Home", new { loginModal = "true" });
                         }
                     }
                     else
@@ -219,14 +230,14 @@ namespace HelperLand.Controllers
                 setup.Credentials = new System.Net.NetworkCredential("kripcsarvaiya@gmail.com", "9825106734");
                 setup.Send(mm);
 
-                TempData["add"] = "alert show alert-success";
+                TempData["Adds"] = "alert show alert-success";
                 TempData["message"] = "mail successfully!";
                 return RedirectToAction("Index", "Home", new { ForgetModal = "true"});
 
             }
             else
             {
-                TempData["Add"] = "alert show alert-danger";
+                TempData["Adds"] = "alert show alert-danger";
                 TempData["message"] = "mail is not found!";
                 return RedirectToAction("Index", "Home", new { ForgetModal = "true" });
             }

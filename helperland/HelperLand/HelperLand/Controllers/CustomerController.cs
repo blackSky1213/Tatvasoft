@@ -183,15 +183,30 @@ namespace HelperLand.Controllers
             int? Id = HttpContext.Session.GetInt32("id");
             if (Id != null)
             {
-                var zipcode = _db.Users.Where(x => x.UserTypeId == 2 && x.ZipCode == setupservice.postalCode);
+                var zipcode = _db.Users.Where(x => x.UserTypeId == 2 && x.ZipCode == setupservice.postalCode).ToList();
                 if (zipcode.Count()>0)
                 {
+                    bool isnull = true;
+                   foreach(var obj in zipcode)
+                    {
+                        FavoriteAndBlocked fab = _db.FavoriteAndBlockeds.FirstOrDefault(x => x.UserId == Id && x.TargetUserId == obj.UserId && x.IsBlocked == true);
+                        if (fab == null)
+                        {
+                            isnull =false;
+                        }
+                    }
+                    if (!isnull)
+                    {
+                        CookieOptions cookie = new CookieOptions();
+                        Response.Cookies.Append("zipcode", setupservice.postalCode, cookie);
 
-
-                    CookieOptions cookie = new CookieOptions();
-                    Response.Cookies.Append("zipcode", setupservice.postalCode, cookie);
-
-                    return Ok(Json("true"));
+                        return Ok(Json("true"));
+                    }
+                    else
+                    {
+                        return Ok(Json("isBlockByU"));
+                    }
+                   
                 }
                
             }
@@ -295,7 +310,21 @@ namespace HelperLand.Controllers
                 addService.ModifiedDate = DateTime.Now;
                 addService.ModifiedBy = Id;
                 addService.Status = 2;
+                if(data.ServiceProviderId != null)
+                {
+                    var thistimeStart = DateTime.Parse(data.startDate.ToString("M/d/yyyy") + " " + data.startTime);
+                    var thistimeEnd = thistimeStart.AddHours((double)addService.SubTotal + 1);
+                    ServiceRequest conflictService = _db.ServiceRequests.FirstOrDefault(
+                        x => x.Status == 2 && (x.ServiceProviderId == data.ServiceProviderId && x.ServiceStartDate <= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeStart) || (x.ServiceProviderId == data.ServiceProviderId && x.ServiceStartDate <= thistimeEnd && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeEnd) || (x.ServiceProviderId == data.ServiceProviderId && x.ServiceStartDate >= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) <= thistimeEnd)
+                        );
 
+                    if (conflictService != null)
+                    {
+                        return Ok(Json("conflict"));
+                    }
+
+                    addService.ServiceProviderId = data.ServiceProviderId;
+                }
                 var ServiceRequest = _db.ServiceRequests.Add(addService);
                 _db.SaveChanges();
 
@@ -361,9 +390,29 @@ namespace HelperLand.Controllers
                     _db.SaveChanges();
                 }
 
-                List<User> ServiceProviderList = _db.Users.Where(x => x.UserTypeId == 2 && x.ZipCode==address.PostalCode).ToList();
+
+                List<User> ServiceProviderList = new List<User>();
                 string url = Url.ActionLink("ServiceProviderPage", "ServiceProvider");
-                Task task = Task.Run(()=>SendMain(ServiceProviderList,url));
+                string message = "<p>New service coming. get up fast and take it. service id :- "+ ServiceRequest.Entity.ServiceRequestId +
+                ". <a href='" + url + "'>Check it on New Service</a></p>";
+                if (data.ServiceProviderId == null)
+                {
+                    ServiceProviderList = (from x in _db.Users  join y in _db.FavoriteAndBlockeds on x.UserId equals y.TargetUserId into pp from y in pp.DefaultIfEmpty()  where (x.UserTypeId==2 && x.ZipCode== address.PostalCode && y.TargetUserId == x.UserId && y.IsBlocked == false) ||(x.UserTypeId==2 && x.ZipCode == address.PostalCode && y==null) select x).ToList();
+                   
+                   
+                }
+                else
+                {
+                   
+                    ServiceProviderList = _db.Users.Where(x => x.UserTypeId == 2 && x.UserId==data.ServiceProviderId).ToList();
+
+                    message = "<p>it's seem your hard work done well. you direct assign work by customer, go and check the dtails of service request id :- "+ ServiceRequest.Entity.ServiceRequestId +
+                ". <a href='" + url + "'>Check Details of service</a></p>";
+                }
+               
+                
+                Task task = Task.Run(() => SendMain(ServiceProviderList,message,"new service request"));
+            
 
                 return Ok(Json(ServiceRequest.Entity.ServiceRequestId));
             }
@@ -373,7 +422,7 @@ namespace HelperLand.Controllers
 
 
 
-        private static void SendMain(List<User> ServiceProviderList,string url)
+        private static void SendMain(List<User> ServiceProviderList,string message,string subject)
         {
             SmtpClient setup = new SmtpClient("smtp.gmail.com");
             setup.Port = 587;
@@ -381,9 +430,7 @@ namespace HelperLand.Controllers
             setup.EnableSsl = true;
             setup.Credentials = new System.Net.NetworkCredential("kripcsarvaiya@gmail.com", "9825106734");
           
-            string subject = "New Service Request ";
-            string body = "<p>New service coming. get up fast and take it " +
-                "<a href='" + url + "'>Check it on New Service</a></p>";
+            string body = message;
             MailMessage mm = new MailMessage();
             mm.Subject = subject;
             mm.Body = body;
@@ -419,6 +466,22 @@ namespace HelperLand.Controllers
                 request.Status = 1;
                 _db.ServiceRequests.Update(request);
                 _db.SaveChanges();
+                if (request.ServiceProviderId != null)
+                {
+                    string comments = "";
+                    if (data.Comments != null)
+                    {
+                        comments = data.Comments;
+                    }
+                  
+                    var ServiceProviderList = _db.Users.Where(x => x.UserId == request.ServiceProviderId).ToList();
+                    string url = Url.ActionLink("ServiceProviderPage", "ServiceProvider");
+                    string message = "<p>Service Request " + request.ServiceRequestId + " has been cancel by customer</p><p><a href='" + url + "'>check it now </a></p><p>reason for cancel :- "+comments+"</p>";
+
+                    Task task = Task.Run(() => SendMain(ServiceProviderList, message, "cancel service"));
+
+                }
+
 
                 return Ok(Json("true"));
 
@@ -453,6 +516,17 @@ namespace HelperLand.Controllers
                 request.ServiceStartDate = DateTime.Parse(data.ServiceStartDate + " " + data.startTime);
                 _db.ServiceRequests.Update(request);
                 _db.SaveChanges();
+
+                if (request.ServiceProviderId != null)
+                {
+                    var ServiceProviderList = _db.Users.Where(x => x.UserId == request.ServiceProviderId).ToList();
+                    string url = Url.ActionLink("ServiceProviderPage", "ServiceProvider");
+                    string message = "<p>Service Request " + request.ServiceRequestId + " has been rescheduled by customer. New date and time are " + request.ServiceStartDate + "</p><p><a href='" + url + "'>check it now </a></p>";
+
+                    Task task = Task.Run(() => SendMain(ServiceProviderList, message, "reschedule service"));
+
+
+                }
                 return Ok(Json("true"));
             }
 
@@ -972,15 +1046,15 @@ namespace HelperLand.Controllers
 
                                 bfu.Add(data);
 
-                                return new JsonResult(bfu);
+                                
                             }
 
                         }
 
                     }
-                    
-                
-                
+
+                    return new JsonResult(bfu);
+
                 }
 
                
