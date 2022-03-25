@@ -21,6 +21,11 @@ namespace HelperLand.Controllers
         public IActionResult UserDetailsTable()
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 User obj = _db.Users.FirstOrDefault(x => x.UserId == Id);
@@ -58,6 +63,11 @@ namespace HelperLand.Controllers
         public IActionResult GetUserList(AdminUserList Admindata)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 var draw = Request.Form["draw"].FirstOrDefault();
@@ -231,6 +241,11 @@ namespace HelperLand.Controllers
         public IActionResult GetSeviceList(CustomerNewServiceRequest Admindata)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 var draw = Request.Form["draw"].FirstOrDefault();
@@ -422,6 +437,11 @@ namespace HelperLand.Controllers
         public IActionResult ActiveDeactiveUser(User user)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 User u = _db.Users.FirstOrDefault(x => x.UserId == user.UserId);
@@ -450,6 +470,11 @@ namespace HelperLand.Controllers
         public JsonResult showServiceRequestSummery(ServiceRequest data)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 ServiceRequest request = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
@@ -519,6 +544,11 @@ namespace HelperLand.Controllers
         {
 
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 ServiceRequest serviceRequestCancel = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
@@ -577,7 +607,11 @@ namespace HelperLand.Controllers
         {
 
             int? Id = HttpContext.Session.GetInt32("id");
-
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 ServiceRequest showRequest = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == request.ServiceRequestId);
@@ -624,6 +658,11 @@ namespace HelperLand.Controllers
         {
 
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 ServiceRequest srRequest = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == request.ServiceRequestId);
@@ -688,6 +727,11 @@ namespace HelperLand.Controllers
         public JsonResult GetZipcodeCity(User user)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
 
             if (Id != null)
             {
@@ -714,6 +758,11 @@ namespace HelperLand.Controllers
         public JsonResult PayInfo(ServiceRequest sr)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 ServiceRequest payInfo = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == sr.ServiceRequestId);
@@ -732,6 +781,11 @@ namespace HelperLand.Controllers
         public IActionResult RefundMoney(ServiceRequest request)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 ServiceRequest IsRefund = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == request.ServiceRequestId );

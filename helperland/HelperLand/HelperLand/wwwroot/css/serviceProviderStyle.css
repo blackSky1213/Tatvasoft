@@ -1113,3 +1113,11 @@ average-rating{
 .fc-daygrid-day.fc-day {
     width: calc(100% / 7) !important;
 }
+
+@media (max-width:678px){
+    .label-box-timetable {
+        
+       top:-30px;
+       
+    }
+}

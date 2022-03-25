@@ -1224,3 +1224,9 @@ table.dataTable thead td {
         padding: 0;
     }
 }
+
+@media (max-width:678px) {
+    .label-box-timetable {
+        top: -30px;
+    }
+}

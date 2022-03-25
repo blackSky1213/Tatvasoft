@@ -107,6 +107,11 @@ namespace HelperLand.Controllers
         public JsonResult GetDataForCalendar()
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 
@@ -181,6 +186,11 @@ namespace HelperLand.Controllers
         {
             /*Thread.Sleep(1500);*/
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 var zipcode = _db.Users.Where(x => x.UserTypeId == 2 && x.ZipCode == setupservice.postalCode).ToList();
@@ -218,18 +228,21 @@ namespace HelperLand.Controllers
         [HttpPost]
         public ActionResult getScheduleServiceDetails(scheduleService data)
         {
-
-            if (ModelState.IsValid)
+            int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
             {
-                return Ok(Json("true"));
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
             }
-            else
+            if (Id != null)
             {
-
-
-                return Ok(Json("false"));
+                if (ModelState.IsValid)
+                {
+                    return Ok(Json("true"));
+                }
+              
             }
-
+            return Ok(Json("false"));
         }
 
 
@@ -237,27 +250,35 @@ namespace HelperLand.Controllers
         public JsonResult getAddressDetails()
         {
             int? Id = HttpContext.Session.GetInt32("id");
-            List<AddressDetails> addresses = new List<AddressDetails>();
-            var zipCode = Request.Cookies["zipcode"];
-            var userAddress = _db.UserAddresses.Where(x => x.PostalCode == zipCode && x.UserId == Id && x.IsDeleted== false).ToList();
-
-            foreach (var address in userAddress)
+            if (Id == null && Request.Cookies["userid"] != null)
             {
-                AddressDetails addr = new AddressDetails();
-                addr.Id = address.AddressId;
-                addr.AddressLine1 = address.AddressLine1;
-                addr.AddressLine2 = address.AddressLine2;
-                addr.City = address.City;
-                addr.State = address.State;
-                addr.Mobile = address.Mobile;
-                addr.PostalCode = address.PostalCode;
-                addr.IsDefault = address.IsDefault;
-
-                addresses.Add(addr);
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
             }
+            if (Id != null)
+            {
+                List<AddressDetails> addresses = new List<AddressDetails>();
+                var zipCode = Request.Cookies["zipcode"];
+                var userAddress = _db.UserAddresses.Where(x => x.PostalCode == zipCode && x.UserId == Id && x.IsDeleted == false).ToList();
 
-            return new JsonResult(addresses);
+                foreach (var address in userAddress)
+                {
+                    AddressDetails addr = new AddressDetails();
+                    addr.Id = address.AddressId;
+                    addr.AddressLine1 = address.AddressLine1;
+                    addr.AddressLine2 = address.AddressLine2;
+                    addr.City = address.City;
+                    addr.State = address.State;
+                    addr.Mobile = address.Mobile;
+                    addr.PostalCode = address.PostalCode;
+                    addr.IsDefault = address.IsDefault;
 
+                    addresses.Add(addr);
+                }
+
+                return new JsonResult(addresses);
+            }
+            return new JsonResult("false");
         }
 
 
@@ -265,6 +286,11 @@ namespace HelperLand.Controllers
         public IActionResult addAddress(UserAddress address)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 User user = _db.Users.FirstOrDefault(x => x.UserId == Id);
@@ -289,6 +315,11 @@ namespace HelperLand.Controllers
         {
 
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 ServiceRequest addService = new ServiceRequest();
@@ -453,6 +484,11 @@ namespace HelperLand.Controllers
         public IActionResult CancelServiceRequest(ServiceRequest data)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 ServiceRequest request = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
@@ -495,6 +531,11 @@ namespace HelperLand.Controllers
         public IActionResult UpdateServiceRequest(CustomerNewServiceRequest data)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 ServiceRequest request = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
@@ -542,6 +583,11 @@ namespace HelperLand.Controllers
         public JsonResult getUserDetails()
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 User data = _db.Users.FirstOrDefault(x => x.UserId == Id);
@@ -557,6 +603,11 @@ namespace HelperLand.Controllers
         public IActionResult updateUserDetails(User data)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 var u = _db.Users.FirstOrDefault(x => x.UserId==Id);
@@ -592,6 +643,11 @@ namespace HelperLand.Controllers
         public JsonResult getAllAddressDetails()
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 List<AddressDetails> addresses = new List<AddressDetails>();
@@ -623,6 +679,11 @@ namespace HelperLand.Controllers
         public IActionResult UpdateUserPassword(AuthLogin changePass)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 User u = _db.Users.FirstOrDefault(x => x.UserId == Id);
@@ -644,8 +705,13 @@ namespace HelperLand.Controllers
         public IActionResult UserAddAddress(UserAddress address)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
 
-            if(Id != null)
+            if (Id != null)
             {
                 User user = _db.Users.FirstOrDefault(x => x.UserId == Id);
                 address.Email = user.Email;
@@ -666,6 +732,11 @@ namespace HelperLand.Controllers
         public IActionResult UserUpdateAddress(UserAddress address)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
 
             if (Id != null)
             {
@@ -689,6 +760,11 @@ namespace HelperLand.Controllers
         public IActionResult deleteUserAddress(UserAddress addrId)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
 
             if (Id != null)
             {
@@ -707,6 +783,11 @@ namespace HelperLand.Controllers
         public JsonResult showServiceRequestSummery(ServiceRequest data)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 ServiceRequest request = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
@@ -780,6 +861,11 @@ namespace HelperLand.Controllers
         public JsonResult getAddressFieldData(UserAddress address)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 UserAddress addr = _db.UserAddresses.FirstOrDefault(x => x.AddressId == address.AddressId);
@@ -793,6 +879,11 @@ namespace HelperLand.Controllers
         public JsonResult getscheduleDataTime(ServiceRequest request)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 ServiceRequest service = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == request.ServiceRequestId);
@@ -806,6 +897,11 @@ namespace HelperLand.Controllers
         public JsonResult ServiceHistory()
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 List<CustomerNewServiceRequest> ServiceHistory = new List<CustomerNewServiceRequest>();
@@ -865,6 +961,11 @@ namespace HelperLand.Controllers
         public IActionResult addServiceProviderRating(Rating data)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null )
             {
                 if (_db.Ratings.Where(x => x.ServiceRequestId == data.ServiceRequestId).Count() < 0)
@@ -888,7 +989,11 @@ namespace HelperLand.Controllers
         public JsonResult GetCompleteServiceUserList()
         {
             int? Id = HttpContext.Session.GetInt32("id");
-
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 List<int?> request = _db.ServiceRequests.Where(x => x.UserId == Id && x.Status == 0).Select(x => x.ServiceProviderId).Distinct().ToList();
@@ -945,6 +1050,11 @@ namespace HelperLand.Controllers
         public IActionResult BlockProvider(BlockFavouriteUser data)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 FavoriteAndBlocked fab = _db.FavoriteAndBlockeds.FirstOrDefault(x => x.UserId == (int)Id && x.TargetUserId == data.UserIdTo);
@@ -984,6 +1094,11 @@ namespace HelperLand.Controllers
         public IActionResult FavouriteProvider(BlockFavouriteUser data)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 FavoriteAndBlocked fab = _db.FavoriteAndBlockeds.FirstOrDefault(x => x.UserId == (int)Id && x.TargetUserId == data.UserIdTo);
@@ -1022,6 +1137,11 @@ namespace HelperLand.Controllers
         public JsonResult GetFavProvider(User zip)
         {
             int? Id = HttpContext.Session.GetInt32("id");
+            if (Id == null && Request.Cookies["userid"] != null)
+            {
+                HttpContext.Session.SetInt32("id", Convert.ToInt32(Request.Cookies["userid"]));
+                Id = HttpContext.Session.GetInt32("id");
+            }
             if (Id != null)
             {
                 var FavPro = _db.FavoriteAndBlockeds.Where(x => x.UserId == Id && x.IsFavorite == true).ToList();

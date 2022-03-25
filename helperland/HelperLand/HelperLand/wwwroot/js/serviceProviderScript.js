@@ -333,7 +333,23 @@ if (urlSearchParams == "ProviderSetting=true") {
     opensetting();
 }
 
+if (urlSearchParams == "spUpcoming=true") {
+    form3();
+}
 
+if (urlSearchParams == "spSchedule=true") {
+    form4();
+}
+if (urlSearchParams == "spHistory=true") {
+    form5();
+}
+
+if (urlSearchParams == "spRating=true") {
+    form6();
+}
+if (urlSearchParams == "spBlockCustomer=true") {
+    form7();
+}
 
 function getUserdata() {
         $.ajax(
@@ -1280,7 +1296,7 @@ function getServiceProviderRating() {
                         </div>
                     </td>
                     <td>
-                        <p>`+response[i].comments+`</p>
+                        <p>`+(response[i].comments?response[i].comments:"")+`</p>
                     </td>
                 </tr>`);
                             showRating(response[i].spRatings, "#spratingId" + response[i].serviceRequestId);

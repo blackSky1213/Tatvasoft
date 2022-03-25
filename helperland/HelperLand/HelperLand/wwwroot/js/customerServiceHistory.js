@@ -458,6 +458,16 @@ if (urlSearchParams == "customerDashboard=true") {
     form1();
 }
 
+if (urlSearchParams == "SSchedule=true") {
+    form3();
+}
+if (urlSearchParams == "Shistory=true") {
+    form2();
+}
+if (urlSearchParams == "favPro=true") {
+    form4();
+}
+
 
 if (urlSearchParams == "customerSetting=true") {
     my_user_setting();

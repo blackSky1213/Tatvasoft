@@ -25,48 +25,52 @@
                         <a class="nav-link nav-padding" href="#">Dashbord</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-padding" href="#">New Service Requests</a>
+                        <a class="nav-link nav-padding" asp-controller="ServiceProvider" asp-action="ServiceProviderPage">New Service Requests</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-padding" href="#">Upcoming Service</a>
+                        <a class="nav-link nav-padding" asp-controller="ServiceProvider" asp-action="ServiceProviderPage" asp-route-spUpcoming="true">Upcoming Service</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-padding" href="#">Service Schedule</a>
+                        <a class="nav-link nav-padding" asp-controller="ServiceProvider" asp-action="ServiceProviderPage" asp-route-spSchedule="true">Service Schedule</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-padding" href="#">Service History</a>
+                        <a class="nav-link nav-padding" asp-controller="ServiceProvider" asp-action="ServiceProviderPage" asp-route-spHistory="true">Service History</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-padding" href="#">My Ratings</a>
+                        <a class="nav-link nav-padding" asp-controller="ServiceProvider" asp-action="ServiceProviderPage" asp-route-spRating="true">My Ratings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-padding" href="#">Block Customer</a>
+                        <a class="nav-link nav-padding" asp-route-spBlockCustomer="true">Block Customer</a>
                     </li>
             </div>
         }
         else if (ViewBag.Name.UserTypeId == 1)
         {
-            <div id="upcoming-menu-collapse">
-                <li class="nav-item">
-                    <a class="nav-link nav-padding" href="#">Dashbord</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-padding" href="#">Service Schedule</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-padding" href="#">Service History</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-padding" href="#">Favourite Pros</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-padding" href="#">Invoices</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-padding" href="#">Notifications</a>
-                </li>
+<div id="upcoming-menu-collapse">
+    <li class="nav-item">
+        <a class="nav-link nav-padding" asp-controller="Customer" asp-action="CustomerServiceHistory">Dashbord</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link nav-padding" asp-controller="Customer" asp-action="CustomerServiceHistory" asp-route-SSchedule="true">Service Schedule</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link nav-padding" asp-controller="Customer" asp-action="CustomerServiceHistory" asp-route-Shistory="true">Service History</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link nav-padding" asp-controller="Customer" asp-action="CustomerServiceHistory asp-route-favPro="true"">Favourite Pros</a>
+    </li>
+    
+    
+    
 
-            </div>
+    <li class="nav-item">
+        <a class="nav-link nav-padding" href="#">Invoices</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link nav-padding" href="#">Notifications</a>
+    </li>
+
+</div>
 
         }
 
