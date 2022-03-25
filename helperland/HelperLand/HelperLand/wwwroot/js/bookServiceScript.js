@@ -667,7 +667,7 @@ function payDone() {
     serviceRequestData.AddressId = $("#AddressList div input[type=radio]:checked").val();
     serviceRequestData.postalcode = $("#zip").val();
     serviceRequestData.serviceProviderId = favprovider;
-
+    favprovider = "";
     serviceRequestData.extraHours = 0;
 
     var insideCabinetCheck = $("#insideCabinetCheck");

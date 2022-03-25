@@ -683,6 +683,7 @@ $("#mytable1").click((e) => {
     if (service_request_id != null && (e.target.className != "cancel-btn" && e.target.className != "reschedule-btn")) {
         $(".btn-box").removeClass("d-none");
         document.getElementById("CustomerServiceSummery-btn").click();
+        $("#rescheduleID").val(service_request_id);
         console.log(service_request_id);
         getServiceRequestAllDetails(service_request_id);
        
@@ -893,6 +894,7 @@ document.getElementById("rescheduleServiceRequestID").addEventListener("click", 
     data.serviceRequestId = document.getElementById("rescheduleID").value;
     data.serviceStartDate = document.getElementById("rescheduledate").value;
     data.startTime = document.getElementById("rescheduletime").value;
+    console.log(data);
 
     if (data.serviceStartDate == "") {
         $(".Reschedule-alert").addClass("alert-danger").removeClass("alert-success d-none").text("please enter date!");

@@ -539,21 +539,22 @@ namespace HelperLand.Controllers
             if (Id != null)
             {
                 ServiceRequest request = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == data.ServiceRequestId);
-
-                if (request.ServiceProviderId != null)
+                if (request != null)
                 {
-                    var thistimeStart = DateTime.Parse(data.ServiceStartDate + " " + data.startTime);
-                    var thistimeEnd = thistimeStart.AddHours((double)request.SubTotal + 1);
-                    ServiceRequest conflictService = _db.ServiceRequests.FirstOrDefault(
-                        x => x.Status == 2 && (x.ServiceProviderId == request.ServiceProviderId && x.ServiceStartDate <= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeStart) || (x.ServiceProviderId == request.ServiceProviderId && x.ServiceStartDate <= thistimeEnd && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeEnd) || (x.ServiceProviderId == request.ServiceProviderId && x.ServiceStartDate >= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) <= thistimeEnd)
-                        );
-
-                    if (conflictService != null)
+                    if (request.ServiceProviderId != null)
                     {
-                        return Ok(Json("conflict"));
+                        var thistimeStart = DateTime.Parse(data.ServiceStartDate + " " + data.startTime);
+                        var thistimeEnd = thistimeStart.AddHours((double)request.SubTotal + 1);
+                        ServiceRequest conflictService = _db.ServiceRequests.FirstOrDefault(
+                            x => x.Status == 2 && (x.ServiceProviderId == request.ServiceProviderId && x.ServiceStartDate <= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeStart) || (x.ServiceProviderId == request.ServiceProviderId && x.ServiceStartDate <= thistimeEnd && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) >= thistimeEnd) || (x.ServiceProviderId == request.ServiceProviderId && x.ServiceStartDate >= thistimeStart && x.ServiceStartDate.AddHours((double)x.SubTotal + 1) <= thistimeEnd)
+                            );
+
+                        if (conflictService != null)
+                        {
+                            return Ok(Json("conflict"));
+                        }
                     }
                 }
-               
                 request.ServiceStartDate = DateTime.Parse(data.ServiceStartDate + " " + data.startTime);
                 _db.ServiceRequests.Update(request);
                 _db.SaveChanges();
@@ -887,8 +888,10 @@ namespace HelperLand.Controllers
             if (Id != null)
             {
                 ServiceRequest service = _db.ServiceRequests.FirstOrDefault(x => x.ServiceRequestId == request.ServiceRequestId);
-
-                return new JsonResult(service.ServiceStartDate);
+                if (service != null)
+                {
+                    return new JsonResult(service.ServiceStartDate);
+                }
             }
             return new JsonResult("false");
         }
